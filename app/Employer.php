@@ -4,15 +4,25 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Job extends Model
+class Employer extends Model
 {
-    protected $table = 'jobs';
+    /**
+     * @var string
+     */
+    protected $table = 'employers';
     /**
      * @var array
      */
     protected $fillable = [
-        'sex', 'title', 'subTitle', 'vacancies', 'required', 'companyId'
+        'userId', 'companyId', 'approved'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(){
+        return $this->belongsTo(User::class,'userId');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

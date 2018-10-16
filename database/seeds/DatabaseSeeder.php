@@ -12,36 +12,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-        $admin = \App\Role::create([
-            'name' => 'admin',
-            'description' => 'Administrator'
+        \App\Company::create([
+            'name' => 'Empresa demo',
+            'rotation' => 'demo',
+            'phone' => '123456789',
+            'email' => 'demo@madero.gob.mx',
+            'address' => 'Dirección demo'
         ]);
-        $employee = \App\Role::create([
-            'name' => 'employee',
-            'description' => 'Employee'
+
+        $this->call([
+            RolesSeeder::class,
+            UsersSeeder::class,
+            JobsSeeder::class
         ]);
-        $employer = \App\Role::create([
-            'name' => 'employer',
-            'description' => 'Employer'
-        ]);
-        $user = \App\User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@madero.gob.mx',
-            'password' => bcrypt('Password00')
-        ]);
-        $user->roles()->attach($admin);
-        $user = \App\User::create([
-            'name' => 'Employer',
-            'email' => 'employer@madero.gob.mx',
-            'password' => bcrypt('Password00')
-        ]);
-        $user->roles()->attach($employee);
-        $user = \App\User::create([
-            'name' => 'Employee',
-            'email' => 'employee@madero.gob.mx',
-            'password' => bcrypt('Password00')
-        ]);
-        $user->roles()->attach($employer);
+
+
     }
 }

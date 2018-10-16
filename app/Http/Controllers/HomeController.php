@@ -16,20 +16,19 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function userDashboard(Request $request)
+    public function adminDashboard()
     {
-        return $request->user()->role;
-        switch ($request->user()->role){
-            case 'admin':
-                return 'You are admin';
-                break;
-            case 'employee':
-                return 'You are employee';
-                break;
-            case 'employer':
-                return 'You are employer';
-                break;
-        }
+        $userCounts = \App\User::count();
+        $jobCounts = \App\Job::count();
+        $employeesCounts = \App\Employee::count();
+        $employersCounts = \App\Employer::count();
+
+        return view('admin.home', [
+            'userCounts' => $userCounts,
+            'jobCounts' => $jobCounts,
+            'employeesCounts' => $employeesCounts,
+            'employersCounts' => $employersCounts,
+        ]);
     }
 
     /**
