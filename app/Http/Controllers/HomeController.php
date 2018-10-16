@@ -16,6 +16,22 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function userDashboard(Request $request)
+    {
+        return $request->user()->role;
+        switch ($request->user()->role){
+            case 'admin':
+                return 'You are admin';
+                break;
+            case 'employee':
+                return 'You are employee';
+                break;
+            case 'employer':
+                return 'You are employer';
+                break;
+        }
+    }
+
     /**
      * Show the application dashboard.
      *

@@ -27,4 +27,56 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    /**
+     * @param $roles
+     * @return bool
+     */
+    public function authorizeRoles($roles)
+    {
+        if ($this->hasAnyRole($roles)) {
+            return true;
+        }
+        abort(401, 'Esta acción no está autorizada.');
+    }
+
+    /**
+     * @param $roles
+     * @return bool
+     */
+    public function hasAnyRole($roles)
+    {
+        if (is_array($roles)) {
+            foreach ($roles as $role) {
+                if ($this->hasRole($role)) {
+                    return true;
+                }
+            }
+        } else {
+            if ($this->hasRole($roles)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+        return false;
+    }
 }
