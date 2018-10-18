@@ -9,12 +9,11 @@ class CheckType
     /**
      * @param $request
      * @param Closure $next
-     * @param $role
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next)
     {
-        if (! $request->user()->hasRole($role)) {
+        if (!$request->user()->roles()->first()->name) {
             redirect('home');
         }
         return $next($request);
