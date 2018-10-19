@@ -22,6 +22,7 @@ class CreateCompaniesTable extends Migration
             $table->string('address');
             $table->text('observations')->nullable();
             $table->boolean('noPenalties')->nullable();
+            $table->boolean('approved')->default(false);
             $table->string('contact')->nullable();
             $table->timestamps();
         });

@@ -40,5 +40,20 @@ class UsersSeeder extends Seeder
             'userId' => $employeeUser->id,
             'roleId' => 3
         ]);
+
+        \App\UserInfo::create([
+            'userId' => $employeeUser->id,
+            'fName' => 'Empleado',
+            'lName' => 'Prueba',
+            'doB' => \Carbon\Carbon::now()->subYears(10),
+            'civilStatus' => 'soltero',
+            'address' => 'Dirección Prueba',
+            'pictureUrl' => 'https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png',
+            'professional' => true,
+            'handyCap' => false,
+            'uniqueKey' => 'XXXXXXXXXX',
+            'socialKey' => '1234567890',
+            'salary' => 9999
+        ]);
     }
 }

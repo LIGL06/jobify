@@ -1,110 +1,79 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>Bolsa de Trabajo Municipio de Ciudad Madero</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-    </style>
-</head>
-<body>
-<div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Ingresar</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Registrarse</a>
-                @endif
-            @endauth
-        </div>
-    @endif
-
-    <div class="content">
-        <img src="https://res.cloudinary.com/hammock-software/image/upload/v1539445395/logo.png" class="col-12 col-md-12 col-lg-12">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h3 class="text-center" style="text-transform:uppercase"><b>bolsa de trabajo ciudad madero</b></h3>
+@section('content')
+    <div class="flex-center position-ref full-height">
+        <div class="content">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="first-slide"
+                             src="https://images.pexels.com/photos/1161465/pexels-photo-1161465.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                             alt="First slide">
+                        <div class="container">
+                            <div class="carousel-caption text-left">
+                                <h1>Example headline.</h1>
+                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                    porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
+                                    elit.</p>
+                                <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="second-slide"
+                             src="https://images.pexels.com/photos/567633/pexels-photo-567633.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                             alt="Second slide">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h1>Another example headline.</h1>
+                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                    porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
+                                    elit.</p>
+                                <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="third-slide"
+                             src="https://images.pexels.com/photos/580613/pexels-photo-580613.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                             alt="Third slide">
+                        <div class="container">
+                            <div class="carousel-caption text-right">
+                                <h1>One more for good measure.</h1>
+                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                    porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
+                                    elit.</p>
+                                <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <div class="row" style="padding-bottom: 20px">
-                <div class="col-8 col-sm-3 offset-2 pb-2 offset-sm-3 col-md-4 offset-md-2 col-lg-4">
-                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
-                            data-target="#authModal">Busco
-                        empleo
-                    </button>
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <h1 class="jumbotron-heading">Bolsa de Trabajo</h1>
+                    <p class="lead text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus fuga
+                        minima quisquam reprehenderit. Aliquam architecto atque commodi deleniti eveniet id libero
+                        necessitatibus officiis optio provident quo repellendus sequi totam, veritatis!</p>
+                    <p>
+                        <a href="{{ url('/employees') }}" class="btn btn-primary my-2">Busco empleo</a>
+                        <a href="{{ url('/employers') }}" class="btn btn-secondary my-2">Busco empleados</a>
+                    </p>
                 </div>
-                <div class="col-8 col-sm-3 offset-2 pb-2 offset-sm-0 col-md-4 col-lg-4">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal"
-                            data-target="#authModal">Busco
-                        empleados
-                    </button>
-                </div>
-            </div>
+            </section>
         </div>
     </div>
-</div>
-</body>
-</html>
+@endsection

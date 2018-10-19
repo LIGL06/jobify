@@ -43,4 +43,12 @@ class User extends Authenticatable
     {
         return $this->roles()->first()->name != 'admin' ? false : true;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function info()
+    {
+        return $this->belongsTo(UserInfo::class,'userId');
+    }
 }
