@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -35,7 +36,7 @@
                         <a class="nav-item nav-link" href="{{ url('/admin') }}">Admnistrador</a>
                     @endif
                     <a class="nav-item nav-link" href="{{ url('/employees') }}">Empleados</a>
-                    <a class="nav-item nav-link" href="{{ url('/employers') }}">Empeladores</a>
+                    <a class="nav-item nav-link" href="{{ url('/employers') }}">Empleadores</a>
                 </div>
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">

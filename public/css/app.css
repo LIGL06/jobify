@@ -97,7 +97,7 @@ body {
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
-  color: #212529;
+  color: #680e1b;
   text-align: left;
   background-color: #f8fafc;
 }
@@ -2339,7 +2339,7 @@ select.form-control:focus::-ms-value {
   padding-bottom: 0.375rem;
   margin-bottom: 0;
   line-height: 1.6;
-  color: #212529;
+  color: #680e1b;
   background-color: transparent;
   border: solid transparent;
   border-width: 1px 0;
@@ -3607,7 +3607,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 0.9rem;
-  color: #212529;
+  color: #680e1b;
   text-align: left;
   list-style: none;
   background-color: #fff;
@@ -5925,7 +5925,7 @@ input[type="button"].btn-block {
 }
 
 .list-group-item-action:active {
-  color: #212529;
+  color: #680e1b;
   background-color: #e9ecef;
 }
 
@@ -6656,7 +6656,7 @@ button.close {
 
 .popover-body {
   padding: 0.5rem 0.75rem;
-  color: #212529;
+  color: #680e1b;
 }
 
 .carousel {
@@ -10358,7 +10358,7 @@ a.text-dark:focus {
 }
 
 .text-body {
-  color: #212529 !important;
+  color: #680e1b !important;
 }
 
 .text-muted {
