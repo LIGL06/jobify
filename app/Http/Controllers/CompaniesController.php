@@ -69,7 +69,10 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $company = \App\Company::find($company->id);
+        $company->approved = $request->approved;
+        $company->save();
+        return redirect('/admin');
     }
 
     /**

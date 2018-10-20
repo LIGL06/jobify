@@ -19,6 +19,7 @@
                                 </div>
                                 <h5 class="text-uppercase pt-0">Empresas</h5>
                                 <h3>{{$companiesCount}}</h3>
+                                <a href="{{url('/companies/create')}}" class="btn btn-sm btn-secondary">Nueva</a>
                             </div>
                         </div>
                     </div>
@@ -30,6 +31,7 @@
                                 </div>
                                 <h5 class="text-uppercase">Aplicantes</h5>
                                 <h3>{{$employeesCounts}}</h3>
+                                <a href="{{url('/employees/create')}}" class="btn btn-sm btn-secondary">Nueva</a>
                             </div>
                         </div>
                     </div>
@@ -39,8 +41,9 @@
                                 <div class="pb-2">
                                     <i class="fa fa-handshake-o fa-5x"></i>
                                 </div>
-                                <h5 class="text-uppercase">Trabajos</h5>
+                                <h5 class="text-uppercase">Empleos</h5>
                                 <h3>{{$jobCounts}}</h3>
+                                <a href="{{url('/jobs/create')}}" class="btn btn-sm btn-secondary">Nueva</a>
                             </div>
                         </div>
                     </div>
@@ -52,6 +55,7 @@
                                 </div>
                                 <h5 class="text-uppercase">Empleadores</h5>
                                 <h3>{{$employersCounts}}</h3>
+                                <a href="{{url('/employers/create')}}" class="btn btn-sm btn-secondary">Nueva</a>
                             </div>
                         </div>
                     </div>
@@ -89,6 +93,7 @@
                                             <th scope="col">Emprea interesada</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Aprobado</th>
+                                            <th scope="col">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -101,6 +106,12 @@
                                                 @if(!$employee->approved)
                                                     <td>
                                                         <span class="badge badge-warning">No aprobado</span>
+                                                    </td>
+                                                    <td>
+                                                        {!! Form::model($employee,['route' => ['employees.update', $employee->id], 'method'=>'put']) !!}
+                                                        {!! Form::hidden('approved',true)!!}
+                                                        {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
+                                                        {!! Form::close() !!}
                                                     </td>
                                                 @else
                                                     <td>
@@ -121,6 +132,7 @@
                                             <th scope="col">Teléfono</th>
                                             <th scope="col">Dirección</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -133,6 +145,12 @@
                                                 @if(!$company->approved)
                                                     <td>
                                                         <span class="badge badge-warning">No aprobado</span>
+                                                    </td>
+                                                    <td>
+                                                        {!! Form::model($company,['route' => ['companies.update', $company->id], 'method'=>'put']) !!}
+                                                        {!! Form::hidden('approved',true)!!}
+                                                        {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
+                                                        {!! Form::close() !!}
                                                     </td>
                                                 @else
                                                     <td>
@@ -149,22 +167,25 @@
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
-                                            <th scope="col">Puesto interesado</th>
-                                            <th scope="col">Emprea interesada</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Empresa</th>
                                             <th scope="col">Aprobado</th>
+                                            <th>Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($employers as $employer)
                                             <tr>
                                                 <td scope="row">{{$employer->user->name}}</td>
-                                                <td>{{$employer->job->title}}</td>
                                                 <td>{{$employer->company->name}}</td>
-                                                <td>{{$employer->status}}</td>
                                                 @if(!$employer->approved)
                                                     <td>
                                                         <span class="badge badge-warning">No aprobado</span>
+                                                    </td>
+                                                    <td>
+                                                        {!! Form::model($employer,['route' => ['employers.update', $employer->id], 'method'=>'put']) !!}
+                                                        {!! Form::hidden('approved',true)!!}
+                                                        {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
+                                                        {!! Form::close() !!}
                                                     </td>
                                                 @else
                                                     <td>
@@ -186,7 +207,7 @@
                 <!--/row-->
 
                 <hr>
-                <p class="lead hidden-xs-down">Aquí puedes ver las ultimas vacantes creadas</p>
+                <p class="lead hidden-xs-down">Aquí puedes ver los ultimos empleos creados</p>
                 <div class="row placeholders mb-3" style="padding-bottom:100px;">
                     @foreach($jobs as $job)
                         <div class="col-6 col-sm-3 placeholder text-center">

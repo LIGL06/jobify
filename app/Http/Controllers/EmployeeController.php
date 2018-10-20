@@ -69,7 +69,10 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $employee = \App\Employee::find($employee->id);
+        $employee->approved = $request->approved;
+        $employee->save();
+        return redirect('/admin');
     }
 
     /**
