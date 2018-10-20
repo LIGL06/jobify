@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Notifications\newEmployeeNotification;
 
 class HomeController extends Controller
 {

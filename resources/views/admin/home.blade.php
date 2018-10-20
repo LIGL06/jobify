@@ -5,7 +5,6 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9 col-lg-10 main">
-
                 <h1 class="hidden-xs-down">
                     Administración
                 </h1>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Notifications\newNotification;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class CompaniesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,7 +41,8 @@ class CompaniesController extends Controller
             'name' => 'required|unique:companies|max:255',
             'rotation' => 'required',
             'phone' => 'required',
-            'email' => 'required'
+            'email' => 'required',
+            'address' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -48,14 +50,15 @@ class CompaniesController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        \App\Company::create($request->all());
+        $company = \App\Company::create($request->all());
+        \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empresa '$company->name' pendiente validar."));
         return redirect('admin');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Company $company
      * @return \Illuminate\Http\Response
      */
     public function show(Company $company)
@@ -66,7 +69,7 @@ class CompaniesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Company $company
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
@@ -77,8 +80,8 @@ class CompaniesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Company $company
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Company $company)
@@ -92,7 +95,7 @@ class CompaniesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Company $company
      * @return \Illuminate\Http\Response
      */
     public function destroy(Company $company)

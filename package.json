@@ -15,9 +15,11 @@
         "cross-env": "^5.1",
         "font-awesome": "^4.7.0",
         "jquery": "^3.2",
+        "laravel-echo": "^1.4.0",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
+        "pusher-js": "^4.3.1",
         "vue": "^2.5.7"
     }
 }

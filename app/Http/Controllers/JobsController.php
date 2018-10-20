@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Job;
+use App\Notifications\newNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -59,7 +60,12 @@ class JobsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        \App\Job::create($request->all());
+
+        $job = \App\Job::create($request->all());
+
+        if (\Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleo '$job->title' pendiente validar."))) {
+            return back();
+        }
         return redirect('admin');
     }
 

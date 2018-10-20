@@ -15,7 +15,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -54,6 +55,31 @@
                             @endif
                         </li>
                     @else
+                        @if(Auth()->check())
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
+                                   data-toggle="dropdown"
+                                   aria-expanded="false"><i class="fa fa-globe"></i> Notifications <span
+                                            class="badge badge-danger"
+                                            id="count-notification">
+                                 {{Auth()->user()->unreadNotifications->count()}}<span
+                                                class="caret"></span></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    @if(Auth()->user()->unreadNotifications->count())
+                                        @foreach(Auth()->user()->unreadNotifications as $notification)
+                                            <a href="#" class="dropdown-item">
+                                                {{$notification->data['message']}}
+                                            </a>
+                                        @endforeach
+                                    @else
+                                        <a href="#" class="dropdown-item">
+                                            No notification
+                                        </a>
+                                    @endif
+                                </div>
+                            </li>
+                        @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown"
@@ -90,7 +116,8 @@
                 Administración 2018 - 2021
                 <br style="margin-bottom:-10px;">
                 </p>
-                <p style="margin-top:-20px;margin-bottom:-10px;"><a href="#">Aviso de Privacidad</a> &nbsp; | &nbsp; <a href="#">Contacto</a></p>
+                <p style="margin-top:-20px;margin-bottom:-10px;"><a href="#">Aviso de Privacidad</a> &nbsp; | &nbsp; <a
+                            href="#">Contacto</a></p>
             </div>
         </div>
     </footer>

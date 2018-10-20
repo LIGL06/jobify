@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Notifications\newEmployeeNotification;
 use Illuminate\Http\Request;
+use Validator;
 
 class EmployeeController extends Controller
 {
@@ -18,19 +20,35 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'userId' => 'required|integer',
+            'companyId' => 'required|integer',
+            'jobId' => 'required|integer'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('employees/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        \App\Employee::create($request->all());
+
+
+        if(\Notification::send(\App\User::where('id', 1)->get(), new newEmployeeNotification(Employee::latest('id')->first())))
+        {
+            return back();
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +59,7 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Employee  $employee
+     * @param  \App\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function show(Employee $employee)
@@ -52,7 +70,7 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Employee  $employee
+     * @param  \App\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function edit(Employee $employee)
@@ -63,8 +81,8 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employee  $employee
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Employee $employee)
@@ -78,7 +96,7 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Employee  $employee
+     * @param  \App\Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function destroy(Employee $employee)
