@@ -207,9 +207,10 @@
                 <!--/row-->
 
                 <hr>
-                <p class="lead hidden-xs-down">Aquí puedes ver los ultimos empleos creados</p>
+                <p class="lead hidden-xs-down">Aquí puedes ver los ultimos empleos creados de empresas validas</p>
                 <div class="row placeholders mb-3" style="padding-bottom:100px;">
                     @foreach($jobs as $job)
+                        @if($job->company->approved)
                         <div class="col-6 col-sm-3 placeholder text-center">
                             <div class="pb-2">
                                 <i class="fa fa-briefcase fa-5x"></i>
@@ -217,6 +218,7 @@
                             <h4>{{$job->title}}</h4>
                             <span class="text-muted">{{$job->company->name}}</span>
                         </div>
+                        @endif
                     @endforeach
                 </div>
             </div>

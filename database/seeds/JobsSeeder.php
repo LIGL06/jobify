@@ -12,7 +12,7 @@ class JobsSeeder extends Seeder
     public function run()
     {
         $employer = \App\Employer::create([
-            'userId' => 3,
+            'userId' => 2,
             'companyId' => 1,
             'approved' => true
         ]);

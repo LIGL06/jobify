@@ -5,29 +5,10 @@ namespace App\Http\Controllers;
 use App\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Response;
+use Validator;
 
 class JobsController extends Controller
 {
-    /**
-     * @param Request $request
-     */
-    public function autoComplete(Request $request)
-    {
-        if ($request->get('query')) {
-            $query = $request->get('query');
-            $data = DB::table('job_subdescription')
-                ->where('name', 'LIKE', "%{$query}%")
-                ->get();
-            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
-            foreach ($data as $row) {
-                $output .= '<li><a href="#">' . $row->country_name . '</a></li>';
-            }
-            $output .= '</ul>';
-            echo $output;
-        }
-    }
 
     /**
      * Display a listing of the resource.
@@ -46,10 +27,13 @@ class JobsController extends Controller
      */
     public function create()
     {
+        $subTitles = DB::table('job_subdescription')->limit(5)->get();
         $companies = \App\Company::all();
-        $companies = $companies->pluck('name');
+        $employers = \App\Employer::all();
         return view('jobs.create', [
-            'companies' => $companies
+            'companies' => $companies,
+            'employers' => $employers,
+            'subTitles' => $subTitles
         ]);
     }
 
@@ -61,7 +45,22 @@ class JobsController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:100',
+            'subTitle' => 'required|max:50',
+            'companyId' => 'required|integer',
+            'vacancies' => 'required|integer',
+            'required' => 'required|boolean',
+            'employerId' => 'required|integer'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('jobs/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        \App\Job::create($request->all());
+        return redirect('admin');
     }
 
     /**

@@ -40,7 +40,7 @@ class CompaniesController extends Controller
             'name' => 'required|unique:companies|max:255',
             'rotation' => 'required',
             'phone' => 'required',
-            'email' => 'required',
+            'email' => 'required'
         ]);
 
         if ($validator->fails()) {
