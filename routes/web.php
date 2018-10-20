@@ -20,6 +20,7 @@ Auth::routes();
 Route::group(['middleware'=>'admin'], function() {
     Route::get('admin', 'HomeController@adminDashboard')->name('admin');
     Route::resource('jobs','JobsController');
+    Route::get('jobs/autocomplete', 'JobsController@autocomplete')->name('jobs.autoComplete');
     Route::resource('companies','CompaniesController');
     Route::resource('employers', 'EmployerController');
     Route::resource('employees', 'EmployeeController');

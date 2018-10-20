@@ -63,7 +63,7 @@
                 <!--/row-->
 
                 <hr>
-                <h2 class="sub-header">Listado de toda la información</h2>
+                <h2 class="sub-header">Listado de no aprobaciones</h2>
                 <div class="row mb-3 pb-lg-1">
                     <div class="col-lg-12">
                         <div class="card card-default card-block">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use Validator;
 use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
@@ -24,7 +25,7 @@ class CompaniesController extends Controller
      */
     public function create()
     {
-        //
+        return view('companies.create');
     }
 
     /**
@@ -35,7 +36,20 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:companies|max:255',
+            'rotation' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('companies/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        \App\Company::create($request->all());
+        return redirect('admin');
     }
 
     /**
