@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /*
+
         \App\Company::create([
             'name' => 'Empresa demo',
             'rotation' => 'demo',
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'demo@madero.gob.mx',
             'address' => 'Dirección demo'
         ]);
-        */
+
         $jobs = array(['name' => 'Psicólogo'],
             ['name' => 'Recursos humanos'],
             ['name' => 'Recepcionista'],
@@ -56,13 +56,13 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Programador']);
         DB::table('job_subdescription')->insert($jobs);
 
-        /*
+
         $this->call([
             RolesSeeder::class,
             UsersSeeder::class,
             JobsSeeder::class
         ]);
-        */
+        
 
 
     }
