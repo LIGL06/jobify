@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Auditor'],
             ['name' => 'Programador']);
         DB::table('job_subdescription')->insert($jobs);
-        
+
         $this->call([
             RolesSeeder::class,
             UsersSeeder::class,
