@@ -10,11 +10,6 @@
     <title>{{ config('app.name', 'Ciudad Madero') }}</title>
     <link rel="icon" type="image/png" sizes="196x196"
           href="https://res.cloudinary.com/hammock-software/image/upload/v1539446336/icon.png">
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -60,29 +55,7 @@
                     </li>
                 @else
                     @if(Auth()->check())
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
-                               data-toggle="dropdown"
-                               aria-expanded="false"><i class="fa fa-globe"></i> Notifications <span
-                                        class="badge badge-danger"
-                                        id="count-notification">
-                                 {{Auth()->user()->unreadNotifications->count()}}<span
-                                            class="caret"></span></span>
-                            </a>
-                            <div class="dropdown-menu">
-                                @if(Auth()->user()->unreadNotifications->count())
-                                    @foreach(Auth()->user()->unreadNotifications as $notification)
-                                        <a href="#" class="dropdown-item">
-                                            {{$notification->data['message']}}
-                                        </a>
-                                    @endforeach
-                                @else
-                                    <a href="#" class="dropdown-item">
-                                        No notification
-                                    </a>
-                                @endif
-                            </div>
-                        </li>
+                        <notification v-bind:notifications="notifications"></notification>
                     @endif
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -126,6 +99,15 @@
         </div>
     </footer>
 </div>
+<!-- Scripts -->
+<script>
+    window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'user' => Auth::user()
+        ]) !!};
+</script>
+<script src="{{asset('js/app.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 </body>
 
 </html>

@@ -17,6 +17,22 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * @return mixed
+     */
+    public function getNotifications()
+    {
+        return auth()->user()->unreadNotifications;
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function markNotification(Request $request){
+        return auth()->user()->unreadNotifications->find($request->not_id)->markAsRead();
+    }
+
     public function adminDashboard()
     {
         $companiesCount = \App\Company::count();
@@ -24,10 +40,10 @@ class HomeController extends Controller
         $employeesCounts = \App\Employee::count();
         $employersCounts = \App\Employer::count();
 
-        $jobs = \App\Job::where('vacancies','>', 0)->orderBy('created_at','desc')->get();
-        $employees = \App\Employee::where('approved',0)->orderBy('created_at','desc')->get();
-        $companies = \App\Company::where('approved',0)->orderBy('created_at','desc')->get();
-        $employers = \App\Employer::where('approved',0)->orderBy('created_at','desc')->get();
+        $jobs = \App\Job::where('vacancies', '>', 0)->orderBy('created_at', 'desc')->get();
+        $employees = \App\Employee::where('approved', 0)->orderBy('created_at', 'desc')->get();
+        $companies = \App\Company::where('approved', 0)->orderBy('created_at', 'desc')->get();
+        $employers = \App\Employer::where('approved', 0)->orderBy('created_at', 'desc')->get();
 
         return view('admin.home', [
             'companiesCount' => $companiesCount,

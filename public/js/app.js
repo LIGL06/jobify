@@ -13886,27 +13886,30 @@ module.exports = __webpack_require__(45);
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 __webpack_require__(13);
-
 window.Vue = __webpack_require__(38);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', __webpack_require__(41));
+Vue.component('notification', __webpack_require__(41));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app',
+    data: {
+        notifications: ''
+    },
+    created: function created() {
+        var _this = this;
+
+        console.log(window.Laravel.user.id);
+        if (window.Laravel.user.id) {
+            axios.post('notifications').then(function (response) {
+                _this.notifications = response.data;
+            });
+            Echo.private('App.user.' + window.Laravel.user.id).notification(function (response) {
+                data = { "data": response };
+                _this.notifications.push(data);
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -56993,7 +56996,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/ExampleComponent.vue"
+Component.options.__file = "resources/js/components/notification.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -57002,9 +57005,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-299e239e", Component.options)
+    hotAPI.createRecord("data-v-05d56994", Component.options)
   } else {
-    hotAPI.reload("data-v-299e239e", Component.options)
+    hotAPI.reload("data-v-05d56994", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -57145,10 +57148,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    props: ['notifications'],
+    methods: {
+        MarkAsRead: function MarkAsRead(notification) {
+            var data = {
+                not_id: notification.id,
+                notification_id: notification.data.notification.id
+            };
+            alert(data.not_id);
+        }
     }
 });
 
@@ -57160,38 +57175,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+  return _c("li", { staticClass: "nav-item dropdown" }, [
+    _c(
+      "a",
+      {
+        staticClass: "nav-link dropdown-toggle",
+        attrs: {
+          id: "navbarDropdown",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c("i", { staticClass: "fa fa-globe" }),
+        _vm._v(" Notifications "),
+        _c(
+          "span",
+          {
+            staticClass: "badge badge-danger",
+            attrs: { id: "count-notification" }
+          },
+          [
+            _vm._v(
+              "\n                             " +
+                _vm._s(_vm.notifications.length)
+            ),
+            _c("span", { staticClass: "caret" })
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "dropdown-menu" },
+      [
+        _vm._l(_vm.notifications, function(notification) {
+          return _c(
+            "a",
+            {
+              staticClass: "dropdown-item",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  _vm.MarkAsRead(notification)
+                }
+              }
+            },
+            [
               _vm._v(
-                "\n                    I'm an example component.\n                "
+                "\n            " +
+                  _vm._s(notification.data["message"]) +
+                  "\n        "
               )
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _vm.notifications.length == 0
+          ? _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+              _vm._v("\n            No notification\n        ")
             ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+          : _vm._e()
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-299e239e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-05d56994", module.exports)
   }
 }
 

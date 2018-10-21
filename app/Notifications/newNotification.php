@@ -25,16 +25,30 @@ class newNotification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
-
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
+    {
+        return [
+            'message' => $this->message
+        ];
+    }
+
+    /**
+     * @param $notifiable
+     * @return array
+     */
+    public function toBroadcast($notifiable)
     {
         return [
             'message' => $this->message

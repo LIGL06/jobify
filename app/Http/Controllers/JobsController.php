@@ -15,7 +15,7 @@ class JobsController extends Controller
      */
     public function autoComplete(Request $request)
     {
-        $subTitles = DB::table('job_subdescription')->where("name","LIKE","%{$request->input('query')}%")->get();
+        $subTitles = DB::table('job_subdescription')->where("name", "LIKE", "%{$request->input('query')}%")->get();
         return response()->json($subTitles);
     }
 
@@ -70,9 +70,7 @@ class JobsController extends Controller
 
         $job = \App\Job::create($request->all());
 
-        if (\Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleo '$job->title' pendiente validar."))) {
-            return back();
-        }
+        \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleo '$job->title' pendiente validar."));
         return redirect('admin');
     }
 
