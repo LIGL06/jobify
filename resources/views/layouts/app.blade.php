@@ -35,8 +35,8 @@
                 @if(Auth::user() && Auth::user()->isAdmin())
                     <a class="nav-item nav-link" href="{{ url('/admin') }}">Admnistrador</a>
                 @endif
-                <a class="nav-item nav-link" href="{{ url('/employees') }}">Empleados</a>
-                <a class="nav-item nav-link" href="{{ url('/employers') }}">Empleadores</a>
+                <a class="nav-item nav-link" href="{{ url('/employees') }}">Aspirantes</a>
+                <a class="nav-item nav-link" href="{{ url('/employers') }}">Empresas</a>
             </div>
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
