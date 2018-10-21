@@ -10,6 +10,14 @@ use Validator;
 
 class JobsController extends Controller
 {
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function autoComplete(Request $request)
+    {
+        $subTitles = DB::table('job_subdescription')->where("name","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($subTitles);
+    }
 
     /**
      * Display a listing of the resource.
@@ -28,13 +36,12 @@ class JobsController extends Controller
      */
     public function create()
     {
-        $subTitles = DB::table('job_subdescription')->limit(5)->get();
+
         $companies = \App\Company::all();
         $employers = \App\Employer::all();
         return view('jobs.create', [
             'companies' => $companies,
-            'employers' => $employers,
-            'subTitles' => $subTitles
+            'employers' => $employers
         ]);
     }
 

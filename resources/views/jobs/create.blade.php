@@ -14,17 +14,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Especialización</label>
+                        <label class="col-sm-2 col-form-label">Profesión</label>
                         <div class="col-sm-10">
-                            <select name="subTitle" class="form-control">
-                                <option selected disabled>Elegir especialización</option>
-                                @foreach($subTitles as $subTitle)
-                                    <option value="{{$subTitle->name}}">{{$subTitle->name}}</option>
-                                @endforeach
-                                <option value="Contable">Contable</option>
-                                <option value="Administrativo">Administrativo</option>
-                                <option value="Otro">Otro</option>
-                            </select>
+                            <input class="typeahead form-control" type="text" placeholder="Profesión a buscar" name="subTitle" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -52,7 +44,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">N° vacantes</label>
                         <div class="col-sm-10">
-                            {!! Form::selectRange('vacancies', 1, 6, ['class'=> 'form-control']) !!}
+                            {!! Form::selectRange('vacancies', 1, 6, null, ['class'=> 'form-control']) !!}
                         </div>
                     </div>
                     <fieldset class="form-group">
@@ -103,4 +95,14 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var path = "{{ route('jobAutoComplete') }}";
+        $('input.typeahead').typeahead({
+            source: function (query, process) {
+                return $.get(path, {query: query}, function (data) {
+                    return process(data);
+                });
+            }
+        });
+    </script>
 @endsection

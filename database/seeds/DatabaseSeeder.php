@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $jobs = array(['name' => 'Psicólogo'],
             ['name' => 'Recursos humanos'],
             ['name' => 'Recepcionista'],
+            ['name' => 'Albañil'],
             ['name' => 'Auxiliar admnistrativo'],
             ['name' => 'Fisioterapeuta'],
             ['name' => 'Gerente planta'],
