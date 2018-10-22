@@ -78,6 +78,10 @@
                                     aprobados</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="" data-target="#tab4" data-toggle="tab">Empleos no
+                                    aprobados</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="" data-target="#tab1" data-toggle="tab">Aspirantes
                                     no aprobadas</a>
                             </li>
@@ -86,7 +90,7 @@
                         <br>
                         <div id="tabsJustifiedContent" class="tab-content">
                             <div class="tab-pane" id="tab1">
-                                <table class="table col-lg-12">
+                                <table class="table text-center">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
@@ -128,7 +132,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane active" id="tab2">
-                                <table class="table">
+                                <table class="table text-center">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
@@ -170,7 +174,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane" id="tab3">
-                                <table class="table">
+                                <table class="table text-center">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
@@ -192,6 +196,54 @@
                                             <td>
                                                 {!! Form::model($employer,['route' => ['employers.update',
                                                 $employer->id], 'method'=>'put']) !!}
+                                                {!! Form::hidden('approved',1)!!}
+                                                {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
+                                                {!! Form::close() !!}
+                                            </td>
+                                            @else
+                                            <td>
+                                                <span class="badge badge-succes">Aprobado</span>
+                                            </td>
+                                            @endif
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab4">
+                                <table class="table text-center">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Titulo</th>
+                                            <th scope="col">Profesión</th>
+                                            <th scope="col">Empresa</th>
+                                            <th scope="col">Vacantes</th>
+                                            <th scope="col">Status</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($jobs as $job)
+                                        @if(!$job->approved)
+                                        <tr>
+                                            <td scope="row">{{$job->title}}</td>
+                                            <td>{{$job->subTitle}}</td>
+                                            <td>{{$job->company->name}}</td>
+                                            <td>
+                                                @if($job->vacancies <= 2)
+                                                    <span class="badge badge-warning">{{$job->vacancies}}</span>
+                                                @else
+                                                    <span class="badge badge-success">{{$job->vacancies}}</span>
+                                                @endif
+                                            </td>
+                                            @if(!$job->approved)
+                                            <td>
+                                                <span class="badge badge-warning">No aprobado</span>
+                                            </td>
+                                            <td>
+                                                {!! Form::model($job,['route' => ['jobs.update',
+                                                $job->id], 'method'=>'put']) !!}
                                                 {!! Form::hidden('approved',1)!!}
                                                 {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
                                                 {!! Form::close() !!}

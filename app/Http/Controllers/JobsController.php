@@ -105,7 +105,10 @@ class JobsController extends Controller
      */
     public function update(Request $request, Job $job)
     {
-        //
+        $job = \App\Job::find($job->id);
+        $job->approved = $request->approved;
+        $job->save();
+        return redirect('/admin');
     }
 
     /**
