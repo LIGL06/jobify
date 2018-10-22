@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Notifications\newEmployeeNotification;
 
 class HomeController extends Controller
 {
@@ -65,5 +64,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function autoComplete(Request $request){
+        $subTitles = \DB::table('users')->where("email", "LIKE", "%{$request->input('query')}%")->pluck('email');
+        return response()->json($subTitles);
     }
 }

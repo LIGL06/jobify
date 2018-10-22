@@ -53,5 +53,5 @@ window.Echo = new Echo({
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     encrypted: true,
-    authEndpoint: "../broadcasting/auth"
+    authEndpoint: "/bolsaDeTrabajo/public/broadcasting/auth"
 });

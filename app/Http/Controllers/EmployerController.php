@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Employer;
+use App\Notifications\newNotification;
 use Illuminate\Http\Request;
+use Validator;
 
 class EmployerController extends Controller
 {
@@ -24,7 +26,7 @@ class EmployerController extends Controller
      */
     public function create()
     {
-        //
+        return view('employers.create'); 
     }
 
     /**
@@ -35,7 +37,21 @@ class EmployerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $userId = \App\User::where('email', $request->email)->pluck('id');
+        $companyId = \App\Company::where("name", "LIKE", "%{$request->company}%")->pluck('id');
+
+        $employer = \App\Employer::create([
+            'userId' => $userId[0],
+            'companyId' => $companyId[0]
+        ]);
+        $employerName = $employer->user->name;
+
+        if($employer->id){
+            \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleador '$employerName' pendiente validar."));
+            return redirect('admin');
+        }
+        return 'Error de escritura';
     }
 
     /**

@@ -12,8 +12,8 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="first-slide"
-                             src="https://images.pexels.com/photos/1161465/pexels-photo-1161465.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                             alt="First slide">
+                             src="https://res.cloudinary.com/hammock-software/image/upload/v1540232384/pexels-photo-1161465_fq0cbd.jpg"
+                             alt="First slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption text-left">
                                 <h1>Example headline.</h1>
@@ -26,8 +26,8 @@
                     </div>
                     <div class="carousel-item">
                         <img class="second-slide"
-                             src="https://images.pexels.com/photos/567633/pexels-photo-567633.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                             alt="Second slide">
+                             src="https://res.cloudinary.com/hammock-software/image/upload/v1540232381/pexels-photo-567633_rinjwi.jpg"
+                             alt="Second slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>Another example headline.</h1>
@@ -40,8 +40,8 @@
                     </div>
                     <div class="carousel-item">
                         <img class="third-slide"
-                             src="https://images.pexels.com/photos/580613/pexels-photo-580613.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                             alt="Third slide">
+                             src="http://res.cloudinary.com/hammock-software/image/upload/v1540232381/pexels-photo-580613_ds8t8x.jpg"
+                             alt="Third slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption text-right">
                                 <h1>One more for good measure.</h1>

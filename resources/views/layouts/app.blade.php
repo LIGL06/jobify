@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="https://res.cloudinary.com/hammock-software/image/upload/v1539445395/logo.png" class="d-inline-block align-top img-fluid"
-                    alt="">
+                    alt="" style="max-height:50px">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@
                     </li>
                     @else
                     @if(Auth()->check())
-                        <notification v-bind:notifications="notifications"></notification>
+                    <notification v-bind:notifications="notifications"></notification>
                     @endif
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -79,7 +79,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
 
@@ -110,14 +110,37 @@
                 'user' => 'none'
             ]) !!};
         @endif
+
     </script>
     <script src="{{asset('js/app.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
     <script>
-    var path = "{{ route('jobAutoComplete') }}";
-        $('input.typeahead').typeahead({
+        var jobsPath = "{{ route('jobAutoComplete') }}";
+        $('#jobsAutocomplete').typeahead({
             source: function (query, process) {
-                return $.get(path, {query: query}, function (data) {
+                return $.get(jobsPath, {
+                    query: query
+                }, function (data) {
+                    return process(data);
+                });
+            }
+        });
+        var userPath = "{{ route('userAutoComplete') }}";
+        $('#usersAutocomplete').typeahead({
+            source: function (query, process) {
+                return $.get(userPath, {
+                    query: query
+                }, function (data) {
+                    return process(data);
+                });
+            }
+        });
+        var companiesPath = "{{ route('companiesAutoComplete') }}";
+        $('#companiesAutocomplete').typeahead({
+            source: function (query, process) {
+                return $.get(companiesPath, {
+                    query: query
+                }, function (data) {
                     return process(data);
                 });
             }

@@ -44,7 +44,7 @@
                             <div class="pb-2">
                                 <i class="fa fa-handshake-o fa-5x"></i>
                             </div>
-                            <h5 class="text-uppercase">Empleos: {{$jobCounts}}</h5>
+                            <h5 class="text-uppercase">Empleos: <b>{{$jobCounts}}</b></h5>
                             <a href="{{url('/jobs/create')}}" class="btn btn-sm btn-secondary">Nueva</a>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             <div class="pb-2">
                                 <i class="fa fa-paperclip fa-5x"></i>
                             </div>
-                            <h5 class="text-uppercase">Aspirantes: {{$employeesCounts}}</h5>
+                            <h5 class="text-uppercase">Aspirantes: <b>{{$employeesCounts}}</b></h5>
                             <a href="{{url('/employees/create')}}" class="btn btn-sm btn-secondary">Nueva</a>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                         <br>
                         <div id="tabsJustifiedContent" class="tab-content">
                             <div class="tab-pane" id="tab1">
-                                <table class="table table-responsive">
+                                <table class="table col-lg-12">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
@@ -128,7 +128,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane active" id="tab2">
-                                <table class="table table-responsive">
+                                <table class="table">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
@@ -170,7 +170,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane" id="tab3">
-                                <table class="table table-responsive">
+                                <table class="table">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
@@ -239,7 +239,7 @@
                         <br>
                         <div id="tabsJustifiedContent" class="tab-content">
                             <div class="tab-pane" id="approvedTab1">
-                                <table class="table table-responsive">
+                                <table class="table">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
@@ -277,7 +277,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane active" id="approvedTab2">
-                                <table class="table table-responsive">
+                                <table class="table">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>
@@ -315,7 +315,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane" id="approvedTab3">
-                                <table class="table table-responsive">
+                                <table class="table">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">Nombre</th>

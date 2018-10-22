@@ -31,11 +31,13 @@ Route::middleware(['auth'])->group(function (){
 
 Route::middleware(['admin'])->group(function () {
     Route::get('jobs/autocomplete', 'JobsController@autoComplete')->name('jobAutoComplete');
+    Route::get('users/autocomplete', 'HomeController@autoComplete')->name('userAutoComplete');
+    Route::get('companies/autocomplete', 'CompaniesController@autoComplete')->name('companiesAutoComplete');
     Route::get('admin', 'HomeController@adminDashboard')->name('admin');
-    Route::post('jobs', 'JobsController@store');
-    Route::post('companies', 'CompaniesController@store');
-    Route::post('employers', 'EmployerController@store');
-    Route::post('employees', 'EmployeeController@store');
+    Route::resource('jobs', 'JobsController')->except('index');
+    Route::resource('companies', 'CompaniesController')->except('index');
+    Route::resource('employees', 'EmployeeController')->except('index');
+    Route::resource('employers', 'EmployerController')->except('index');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

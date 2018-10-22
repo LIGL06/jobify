@@ -16,7 +16,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Profesión</label>
                         <div class="col-sm-10">
-                            <input class="typeahead form-control" type="text" placeholder="Profesión a buscar" name="subTitle" autocomplete="off">
+                            <input class="typeahead form-control" type="text" placeholder="Profesión a buscar" name="subTitle" autocomplete="off" id="jobsAutocomplete">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -36,7 +36,7 @@
                             <select name="employerId" class="form-control">
                                 <option selected disabled>Elegir Empleador</option>
                                 @foreach($employers as $employer)
-                                    <option value="{{$employer->id}}">{{$employer->user->name}}</option>
+                                    <option value="{{$employer->id}}">{{$employer->user->name}} - {{$employer->company->name}}</option>
                                 @endforeach
                             </select>
                         </div>

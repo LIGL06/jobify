@@ -13973,7 +13973,7 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     key: "18ad2b37d1b65814f941",
     cluster: "mt1",
     encrypted: true,
-    authEndpoint: "../broadcasting/auth"
+    authEndpoint: "/bolsaDeTrabajo/public/broadcasting/auth"
 });
 
 /***/ }),
@@ -57150,8 +57150,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['notifications'],
@@ -57174,21 +57172,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", { staticClass: "nav-item dropdown" }, [
+  return _c("li", { staticClass: "nav-item dropleft" }, [
     _c(
-      "a",
+      "button",
       {
-        staticClass: "nav-link dropdown-toggle",
+        staticClass: "btn dropdown-toggle",
         attrs: {
-          id: "navbarDropdown",
-          role: "button",
+          type: "button",
           "data-toggle": "dropdown",
+          "aria-haspopup": "true",
           "aria-expanded": "false"
         }
       },
       [
         _c("i", { staticClass: "fa fa-globe" }),
-        _vm._v(" Notifications "),
+        _vm._v(" "),
         _c(
           "span",
           {
@@ -57196,10 +57194,7 @@ var render = function() {
             attrs: { id: "count-notification" }
           },
           [
-            _vm._v(
-              "\n                             " +
-                _vm._s(_vm.notifications.length)
-            ),
+            _vm._v(_vm._s(_vm.notifications.length)),
             _c("span", { staticClass: "caret" })
           ]
         )

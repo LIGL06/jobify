@@ -25,6 +25,17 @@ class EmployeeController extends Controller
      */
     public function create(Request $request)
     {
+        return view('employees.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'userId' => 'required|integer',
             'companyId' => 'required|integer',
@@ -43,17 +54,6 @@ class EmployeeController extends Controller
         {
             return back();
         }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

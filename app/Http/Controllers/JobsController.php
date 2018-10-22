@@ -15,7 +15,7 @@ class JobsController extends Controller
      */
     public function autoComplete(Request $request)
     {
-        $subTitles = DB::table('job_subdescription')->where("name", "LIKE", "%{$request->input('query')}%")->get();
+        $subTitles = DB::table('job_subdescription')->where("name", "LIKE", "%{$request->input('query')}%")->pluck('name');
         return response()->json($subTitles);
     }
 

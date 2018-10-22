@@ -102,4 +102,9 @@ class CompaniesController extends Controller
     {
         //
     }
+
+    public function autoComplete(Request $request){
+        $subTitles = \DB::table('companies')->where("name", "LIKE", "%{$request->input('query')}%")->pluck('name');
+        return response()->json($subTitles);
+    }
 }

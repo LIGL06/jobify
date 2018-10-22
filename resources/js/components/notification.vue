@@ -1,13 +1,11 @@
 <template>
-    <li class="nav-item dropdown">
-        <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
-           data-toggle="dropdown"
-           aria-expanded="false"><i class="fa fa-globe"></i> Notifications <span
-                class="badge badge-danger"
-                id="count-notification">
-                                 {{notifications.length}}<span
-                class="caret"></span></span>
-        </a>
+    <li class="nav-item dropleft">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i
+                class="fa fa-globe"></i> <span class="badge badge-danger" id="count-notification">{{notifications.length}}<span
+                    class="caret"></span></span>
+        </button>
         <div class="dropdown-menu">
             <a href="#" class="dropdown-item" v-for="notification in notifications" v-on:click="MarkAsRead(notification)">
                 {{notification.data['message']}}
@@ -31,4 +29,5 @@
             },
         }
     }
+
 </script>
