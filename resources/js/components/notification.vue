@@ -9,8 +9,7 @@
                 class="caret"></span></span>
         </a>
         <div class="dropdown-menu">
-            <a href="#" class="dropdown-item" v-for="notification in notifications"
-               v-on:click="MarkAsRead(notification)">
+            <a href="#" class="dropdown-item" v-for="notification in notifications" v-on:click="MarkAsRead(notification)">
                 {{notification.data['message']}}
             </a>
             <a href="#" class="dropdown-item" v-if="notifications.length == 0">

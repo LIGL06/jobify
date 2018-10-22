@@ -95,14 +95,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var path = "{{ route('jobAutoComplete') }}";
-        $('input.typeahead').typeahead({
-            source: function (query, process) {
-                return $.get(path, {query: query}, function (data) {
-                    return process(data);
-                });
-            }
-        });
-    </script>
 @endsection

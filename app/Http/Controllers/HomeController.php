@@ -41,9 +41,9 @@ class HomeController extends Controller
         $employersCounts = \App\Employer::count();
 
         $jobs = \App\Job::where('vacancies', '>', 0)->orderBy('created_at', 'desc')->get();
-        $employees = \App\Employee::where('approved', 0)->orderBy('created_at', 'desc')->get();
-        $companies = \App\Company::where('approved', 0)->orderBy('created_at', 'desc')->get();
-        $employers = \App\Employer::where('approved', 0)->orderBy('created_at', 'desc')->get();
+        $employees = \App\Employee::orderBy('created_at', 'desc')->get();
+        $companies = \App\Company::orderBy('created_at', 'desc')->get();
+        $employers = \App\Employer::orderBy('created_at', 'desc')->get();
 
         return view('admin.home', [
             'companiesCount' => $companiesCount,

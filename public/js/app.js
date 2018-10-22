@@ -13899,9 +13899,8 @@ var app = new Vue({
     created: function created() {
         var _this = this;
 
-        console.log(window.Laravel.user.id);
-        if (window.Laravel.user.id) {
-            axios.post('notifications').then(function (response) {
+        if (window.Laravel.user.id != null) {
+            axios.post('/bolsaDeTrabajo/public/notifications').then(function (response) {
                 _this.notifications = response.data;
             });
             Echo.private('App.user.' + window.Laravel.user.id).notification(function (response) {
@@ -13973,7 +13972,8 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     broadcaster: 'pusher',
     key: "18ad2b37d1b65814f941",
     cluster: "mt1",
-    encrypted: true
+    encrypted: true,
+    authEndpoint: "../broadcasting/auth"
 });
 
 /***/ }),
@@ -57132,7 +57132,6 @@ module.exports = function normalizeComponent (
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //

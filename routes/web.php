@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Broadcast::routes(['middleware' => 'auth','admin']);
+
+Route::middleware(['auth'])->group(function (){
     Route::get('jobs', 'JobsController@index');
     Route::get('companies', 'CompaniesController@index');
     Route::get('employers', 'EmployerController@index');
@@ -27,13 +29,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('markRead','HomeController@markNotification')->name('markNotification');
 });
 
-Route::group(['middleware' => 'admin'], function () {
+Route::middleware(['admin'])->group(function () {
     Route::get('jobs/autocomplete', 'JobsController@autoComplete')->name('jobAutoComplete');
     Route::get('admin', 'HomeController@adminDashboard')->name('admin');
-    Route::resource('jobs', 'JobsController');
-    Route::resource('companies', 'CompaniesController');
-    Route::resource('employers', 'EmployerController');
-    Route::resource('employees', 'EmployeeController');
+    Route::post('jobs', 'JobsController@store');
+    Route::post('companies', 'CompaniesController@store');
+    Route::post('employers', 'EmployerController@store');
+    Route::post('employees', 'EmployeeController@store');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

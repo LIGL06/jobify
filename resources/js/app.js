@@ -9,9 +9,8 @@ const app = new Vue({
         notifications: '',
     },
     created() {
-        console.log(window.Laravel.user.id);
-        if (window.Laravel.user.id) {
-            axios.post('notifications').then(response => {
+        if (window.Laravel.user.id != null ) {
+            axios.post('/bolsaDeTrabajo/public/notifications').then(response => {
                 this.notifications = response.data;
             });
             Echo.private('App.user.' + window.Laravel.user.id).notification((response) => {
