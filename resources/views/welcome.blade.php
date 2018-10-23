@@ -16,10 +16,8 @@
                              alt="First slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption text-left">
-                                <h1>Example headline.</h1>
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                    porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
-                                    elit.</p>
+                                <h1>Entrevistas.</h1>
+                                <p>Las entrevistas de trabajo son un método indispensable en cualquier proceso de reclutamiento. Es por eso que debemos prepararnos con anticipación y aprender a vendernos de la mejor manera posible.</p>
                                 <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
                             </div>
                         </div>
@@ -30,10 +28,8 @@
                              alt="Second slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>Another example headline.</h1>
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                    porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
-                                    elit.</p>
+                                <h1>Crea oportunidades.</h1>
+                                <p>Dale a todos la oportunidad de realizar un trabajo, ya sea como plomero, albañil o programador.</p>
                                 <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
                             </div>
                         </div>
@@ -44,10 +40,8 @@
                              alt="Third slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption text-right">
-                                <h1>One more for good measure.</h1>
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                    porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
-                                    elit.</p>
+                                <h1>Comparte tu experiencia de trabajo.</h1>
+                                <p>Genera un historial de una empresa y ayudanos a crecer contigo.</p>
                                 <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
                             </div>
                         </div>
@@ -65,9 +59,7 @@
             <section class="jumbotron text-center">
                 <div class="container">
                     <h1 class="jumbotron-heading">Bolsa de Trabajo</h1>
-                    <p class="lead text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus fuga
-                        minima quisquam reprehenderit. Aliquam architecto atque commodi deleniti eveniet id libero
-                        necessitatibus officiis optio provident quo repellendus sequi totam, veritatis!</p>
+                    <p class="lead text-muted">¡Genera, Aplica o ve Empleos!</p>
                     <p>
                         <a href="{{ url('/employees') }}" class="btn btn-primary my-2">Busco empleo</a>
                         <a href="{{ url('/employers') }}" class="btn btn-secondary my-2">Busco empleados</a>

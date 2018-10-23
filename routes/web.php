@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('employers', 'EmployerController@index');
     Route::get('employees', 'EmployeeController@index');
     Route::get('jobs/autocomplete', 'JobsController@autoComplete');
-    Route::post('notifications','Homecontroller@getNotifications')->name('notifications');
+    Route::post('notifications','HomeController@getNotifications')->name('notifications');
     Route::post('markRead','HomeController@markNotification')->name('markNotification');
 });
 
