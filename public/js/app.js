@@ -13900,7 +13900,7 @@ var app = new Vue({
         var _this = this;
 
         if (window.Laravel.user.id != null) {
-            axios.post('/bolsaDeTrabajo/public/notifications').then(function (response) {
+            axios.post('notifications').then(function (response) {
                 _this.notifications = response.data;
             });
             Echo.private('App.user.' + window.Laravel.user.id).notification(function (response) {
@@ -13973,7 +13973,7 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     key: "18ad2b37d1b65814f941",
     cluster: "mt1",
     encrypted: true,
-    authEndpoint: "/bolsaDeTrabajo/public/broadcasting/auth"
+    authEndpoint: "broadcasting/auth"
 });
 
 /***/ }),

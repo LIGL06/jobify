@@ -10,7 +10,7 @@ const app = new Vue({
     },
     created() {
         if (window.Laravel.user.id != null ) {
-            axios.post('/bolsaDeTrabajo/public/notifications').then(response => {
+            axios.post('notifications').then(response => {
                 this.notifications = response.data;
             });
             Echo.private('App.user.' + window.Laravel.user.id).notification((response) => {
