@@ -37,6 +37,22 @@ class User extends Authenticatable
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class,'userId');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class, 'id', 'userId');
+    }
+
+    /**
      * @return bool
      */
     public function isAdmin()

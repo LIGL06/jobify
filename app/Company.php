@@ -23,7 +23,7 @@ class Company extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function jobs(){
-        return $this->hasMany(Jobs::class,'companyId');
+        return $this->hasMany(Job::class,'companyId');
     }
 
 }

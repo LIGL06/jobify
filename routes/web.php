@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('jobs/autocomplete', 'JobsController@autoComplete');
     Route::post('notifications','HomeController@getNotifications')->name('notifications');
     Route::post('markRead','HomeController@markNotification')->name('markNotification');
+    Route::resource('jobs', 'JobsController')->middleware('employer','admin');
+    Route::resource('employees', 'EmployeeController')->middleware('employee','admin');
 });
 
 Route::middleware(['admin'])->group(function () {
@@ -34,9 +36,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('users/autocomplete', 'HomeController@autoComplete')->name('userAutoComplete');
     Route::get('companies/autocomplete', 'CompaniesController@autoComplete')->name('companiesAutoComplete');
     Route::get('admin', 'HomeController@adminDashboard')->name('admin');
-    Route::resource('jobs', 'JobsController')->except('index');
     Route::resource('companies', 'CompaniesController')->except('index');
-    Route::resource('employees', 'EmployeeController')->except('index');
     Route::resource('employers', 'EmployerController')->except('index');
 });
 

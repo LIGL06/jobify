@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Employee;
 use App\Notifications\newEmployeeNotification;
+use App\Notifications\newNotification;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -48,13 +49,12 @@ class EmployeeController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        \App\Employee::create($request->all());
+        $employee = \App\Employee::create($request->all());
+        $name = $employee->user->name;
 
+        \Notification::send(\App\User::where('id', 1)->get(), new newNotification("'$name' aplicó un empleo."));
+        return redirec('employees');
 
-        if(\Notification::send(\App\User::where('id', 1)->get(), new newEmployeeNotification(Employee::latest('id')->first())))
-        {
-            return back();
-        }
     }
 
     /**

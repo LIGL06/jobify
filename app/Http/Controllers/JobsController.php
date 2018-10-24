@@ -20,16 +20,6 @@ class JobsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -53,6 +43,7 @@ class JobsController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:100',
             'subTitle' => 'required|max:50',
@@ -71,7 +62,7 @@ class JobsController extends Controller
         $job = \App\Job::create($request->all());
 
         \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleo '$job->title' pendiente validar."));
-        return redirect('admin');
+        return redirect('home');
     }
 
     /**
