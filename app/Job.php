@@ -27,6 +27,14 @@ class Job extends Model
      */
     public function employees()
     {
-        return $this->hasMany(Employee::class, 'jobId','id');
+        return $this->hasMany(Employee::class, 'jobId', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class, 'employerId');
     }
 }

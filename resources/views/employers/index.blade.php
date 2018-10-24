@@ -10,10 +10,10 @@
     </div>
     <div class="container">
         <div class="row" style="padding-bottom:100px">
-            <div class="col-6">
+            <div class="col-4 pb-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h1>Tus empleos</h1>
+                        <h5>Tus empleos</h5>
                         <div>
                             <ul class="list-group">
                                 @foreach(Auth::user()->employer->company->jobs as $job)
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h1>Crear empleo</h1>

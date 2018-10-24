@@ -18,7 +18,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $jobs = \App\Job::where('approved', true)->get();
-        return view('employees.index', ['jobs'=>$jobs]);
+        return view('employees.index', ['jobs' => $jobs]);
     }
 
     /**
@@ -50,10 +50,15 @@ class EmployeeController extends Controller
                 ->withInput();
         }
         $employee = \App\Employee::create($request->all());
+        $employer = \DB::table('employers')->
+        join('jobs', 'employers.id', '=', 'jobs.employerId')->
+        join('users','employers.userId', '=', 'users.id')->
+        select('users.email')->groupBy('email')->pluck('email');
         $name = $employee->user->name;
 
         \Notification::send(\App\User::where('id', 1)->get(), new newNotification("'$name' aplicó un empleo."));
-        return redirec('employees');
+        \Notification::send(\App\User::where('email','LIKE', "%{$employer[0]}%")->get(), new newNotification("'$name' aplicó un empleo."));
+        return redirect('employees');
 
     }
 

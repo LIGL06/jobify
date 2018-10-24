@@ -20,8 +20,9 @@ class Employer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(){
-        return $this->belongsTo(User::class,'userId');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId');
     }
 
     /**
@@ -30,5 +31,10 @@ class Employer extends Model
     public function company()
     {
         return $this->belongsTo(Company::class, 'companyId');
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'jobId', 'id');
     }
 }
