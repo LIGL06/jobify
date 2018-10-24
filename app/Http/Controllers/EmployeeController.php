@@ -16,7 +16,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $jobs = \App\Job::where('approved', true)->get();
+        return view('employees.index', ['jobs'=>$jobs]);
     }
 
     /**

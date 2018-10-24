@@ -28,7 +28,7 @@ class UsersSeeder extends Seeder
         ]);
         $employerUser->roles()->attach([
             'userId' => $employerUser->id,
-            'roleId' => 2
+            'roleId' => 3
         ]);
 
         $employeeUser = \App\User::create([
@@ -38,7 +38,7 @@ class UsersSeeder extends Seeder
         ]);
         $employeeUser->roles()->attach([
             'userId' => $employeeUser->id,
-            'roleId' => 3
+            'roleId' => 2
         ]);
 
         \App\UserInfo::create([

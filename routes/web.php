@@ -22,8 +22,8 @@ Broadcast::routes(['middleware' => 'auth','admin']);
 Route::middleware(['auth'])->group(function (){
     Route::get('jobs', 'JobsController@index');
     Route::get('companies', 'CompaniesController@index');
-    Route::get('employers', 'EmployerController@index');
-    Route::get('employees', 'EmployeeController@index');
+    Route::get('employers', 'EmployerController@index')->middleware('employer');
+    Route::get('employees', 'EmployeeController@index')->middleware('employee');
     Route::get('jobs/autocomplete', 'JobsController@autoComplete');
     Route::post('notifications','Homecontroller@getNotifications')->name('notifications');
     Route::post('markRead','HomeController@markNotification')->name('markNotification');

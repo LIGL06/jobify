@@ -56,7 +56,6 @@
                                 <i class="fa fa-paperclip fa-5x"></i>
                             </div>
                             <h5 class="text-uppercase">Aspirantes: <b>{{$employeesCounts}}</b></h5>
-                            <a href="{{url('/employees/create')}}" class="btn btn-sm btn-secondary">Nueva</a>
                         </div>
                     </div>
                 </div>
@@ -231,11 +230,10 @@
                                             <td>{{$job->subTitle}}</td>
                                             <td>{{$job->company->name}}</td>
                                             <td>
-                                                @if($job->vacancies <= 2)
-                                                    <span class="badge badge-warning">{{$job->vacancies}}</span>
-                                                @else
+                                                @if($job->vacancies <= 2) <span class="badge badge-warning">{{$job->vacancies}}</span>
+                                                    @else
                                                     <span class="badge badge-success">{{$job->vacancies}}</span>
-                                                @endif
+                                                    @endif
                                             </td>
                                             @if(!$job->approved)
                                             <td>
@@ -315,7 +313,7 @@
                                                 <span class="badge badge-warning">No aprobado</span>
                                             </td>
                                             <td>
-                                                
+
                                             </td>
                                             @else
                                             <td>
@@ -353,7 +351,7 @@
                                                 <span class="badge badge-warning">No aprobado</span>
                                             </td>
                                             <td>
-                                                
+
                                             </td>
                                             @else
                                             <td>
@@ -387,7 +385,7 @@
                                                 <span class="badge badge-warning">No aprobado</span>
                                             </td>
                                             <td>
-                                                
+
                                             </td>
                                             @else
                                             <td>
@@ -412,13 +410,15 @@
             <p class="lead hidden-xs-down">Aquí puedes ver los ultimos empleos creados de empresas validas</p>
             <div class="row placeholders mb-3" style="padding-bottom:100px;">
                 @foreach($jobs as $job)
-                @if($job->company->approved)
-                <div class="col-6 col-sm-3 placeholder text-center">
-                    <div class="pb-2">
-                        <i class="fa fa-briefcase fa-5x"></i>
+                @if($job->company->approved && $job->vacancies>0)
+                <div class="card col-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$job->title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{$job->company->name}}</h6>
+                        <p class="card-text">Quedan <b>{{$job->vacancies}}</b> vacantes</p>
+                        <a href={{url("/jobs/{$job->id}")}} class="card-link">Ver</a>
+                        <a href={{url("/jobs/{$job->id}/edit")}} class="card-link">Editar</a>
                     </div>
-                    <h4>{{$job->title}}</h4>
-                    <span class="text-muted">{{$job->company->name}}</span>
                 </div>
                 @endif
                 @endforeach

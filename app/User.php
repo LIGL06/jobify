@@ -45,6 +45,22 @@ class User extends Authenticatable
     }
 
     /**
+     * @return bool
+     */
+    public function isEmployee()
+    {
+        return $this->roles()->first()->name != 'employee' ? false : true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmployer()
+    {
+        return $this->roles()->first()->name != 'employer' ? false : true;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function info()
