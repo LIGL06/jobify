@@ -89,7 +89,7 @@ class CompaniesController extends Controller
         $company = \App\Company::find($company->id);
         $company->approved = $request->approved;
         $company->save();
-        return redirect('/admin');
+        return redirect('admin')->with('status', "¡Actualizaste a $company->name!");
     }
 
     /**

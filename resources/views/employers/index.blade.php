@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(Auth::user()->isEmployer())
     <div class="position-relative overflow-hidden text-center bg-light">
         <div class="col-md-5 mx-auto">
             <h1 class="font-weight-normal">Emlpeador</h1>
@@ -16,6 +17,7 @@
                         <h5>Tus empleos</h5>
                         <div>
                             <ul class="list-group">
+
                                 @foreach(Auth::user()->employer->company->jobs as $job)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         {{$job->subTitle}}
@@ -116,4 +118,12 @@
             </div>
         </div>
     </div>
+    @else
+        <div class="position-relative overflow-hidden text-center bg-light">
+            <div class="col-md-5 mx-auto">
+                <h1 class="font-weight-normal">Permisos</h1>
+                <p class="lead font-weight-normal">No tienes permitido acceder a esta área.</p>
+            </div>
+        </div>
+    @endif
 @endsection

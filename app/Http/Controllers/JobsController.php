@@ -62,14 +62,12 @@ class JobsController extends Controller
         $job = \App\Job::create($request->all());
 
         \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleo '$job->title' pendiente validar."));
-        return redirect('home')->with('status', "¡Creaste una empleo!");
+        return redirect('admin')->with('status', "¡Creaste una empleo!");
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Job $job
-     * @return \Illuminate\Http\Response
+     * @param Job $job
+     * @return Job
      */
     public function show(Job $job)
     {
@@ -77,10 +75,7 @@ class JobsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Job $job
-     * @return \Illuminate\Http\Response
+     * @param Job $job
      */
     public function edit(Job $job)
     {
@@ -103,10 +98,7 @@ class JobsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Job $job
-     * @return \Illuminate\Http\Response
+     * @param Job $job
      */
     public function destroy(Job $job)
     {

@@ -13970,10 +13970,15 @@ window.Pusher = __webpack_require__(37);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     broadcaster: 'pusher',
-    key: "18ad2b37d1b65814f941",
+    key: "dfd695390f5fd4f99881",
     cluster: "mt1",
     encrypted: true,
-    authEndpoint: "broadcasting/auth"
+    authEndpoint: "broadcasting/auth",
+    auth: {
+        headers: {
+            Authorization: 'Bearer ' + window.Laravel.csrfToken
+        }
+    }
 });
 
 /***/ }),

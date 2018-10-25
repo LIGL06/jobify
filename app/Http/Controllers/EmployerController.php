@@ -85,7 +85,8 @@ class EmployerController extends Controller
         $employer = \App\Employer::find($employer->id);
         $employer->approved = $request->approved;
         $employer->save();
-        return redirect('/admin');
+        $name = $employer->user->name;
+        return redirect('admin')->with('status', "¡Actualizaste a {$name}!");
     }
 
     /**

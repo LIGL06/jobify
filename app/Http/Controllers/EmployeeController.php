@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
-use App\Notifications\newEmployeeNotification;
 use App\Notifications\newNotification;
 use Illuminate\Http\Request;
 use Validator;
@@ -11,14 +10,17 @@ use Validator;
 class EmployeeController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $jobs = \App\Job::where('approved', true)->get();
-        return view('employees.index', ['jobs' => $jobs]);
+        $myJobs = \App\Employee::where('userId', $request->user()->id)->get();
+        return view('employees.index', [
+            'jobs' => $jobs,
+            'myJobs' => $myJobs
+        ]);
     }
 
     /**
@@ -49,16 +51,21 @@ class EmployeeController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $employee = \App\Employee::create($request->all());
-        $employer = \DB::table('employers')->
-        join('jobs', 'employers.id', '=', 'jobs.employerId')->
-        join('users','employers.userId', '=', 'users.id')->
-        select('users.email')->groupBy('email')->pluck('email');
-        $name = $employee->user->name;
+        $employee = \App\Employee::where('jobId', $request->jobId)->get();
+        if ($employee->count() == 0) {
+            $employee = \App\Employee::create($request->all());
+            $employer = \DB::table('employers')->
+            join('jobs', 'employers.id', '=', 'jobs.employerId')->
+            join('users', 'employers.userId', '=', 'users.id')->
+            select('users.email')->groupBy('email')->pluck('email');
+            $name = $employee->user->name;
 
-        \Notification::send(\App\User::where('id', 1)->get(), new newNotification("'$name' aplicó un empleo."));
-        \Notification::send(\App\User::where('email','LIKE', "%{$employer[0]}%")->get(), new newNotification("'$name' aplicó un empleo."));
-        return redirect('employees')->with('status', "¡Aplicaste a un empleo!");
+            \Notification::send(\App\User::where('id', 1)->get(), new newNotification("'$name' aplicó un empleo."));
+            \Notification::send(\App\User::where('email', 'LIKE', "%{$employer[0]}%")->get(), new newNotification("'$name' aplicó un empleo."));
+            \Notification::send(\App\User::where('id', $request->userId)->get(), new newNotification("Aplicaste a un empleo."));
+            return redirect('employees')->with('status', "¡Aplicaste a un empleo!");
+        }
+        return redirect('employees')->with('alert', "¡Ya habías aplicado a ese empleo!");
 
     }
 
@@ -96,7 +103,7 @@ class EmployeeController extends Controller
         $employee = \App\Employee::find($employee->id);
         $employee->approved = $request->approved;
         $employee->save();
-        return redirect('/admin');
+        return redirect('home')->with('status', "¡Aplicaste a un empleo!");
     }
 
     /**
