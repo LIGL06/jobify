@@ -58,7 +58,7 @@ class EmployeeController extends Controller
 
         \Notification::send(\App\User::where('id', 1)->get(), new newNotification("'$name' aplicó un empleo."));
         \Notification::send(\App\User::where('email','LIKE', "%{$employer[0]}%")->get(), new newNotification("'$name' aplicó un empleo."));
-        return redirect('employees');
+        return redirect('employees')->with('status', "¡Aplicaste a un empleo!");
 
     }
 

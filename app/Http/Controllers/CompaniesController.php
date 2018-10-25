@@ -52,7 +52,7 @@ class CompaniesController extends Controller
         }
         $company = \App\Company::create($request->all());
         \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empresa '$company->name' pendiente validar."));
-        return redirect('admin');
+        return redirect('admin')->with('status', "¡Creaste una empresa!");
     }
 
     /**

@@ -47,11 +47,8 @@ class EmployerController extends Controller
         ]);
         $employerName = $employer->user->name;
 
-        if($employer->id){
-            \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleador '$employerName' pendiente validar."));
-            return redirect('admin');
-        }
-        return 'Error de escritura';
+        \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleador '$employerName' pendiente validar."));
+        return redirect('admin')->with('status', "¡Creaste una empleador!");
     }
 
     /**

@@ -8,6 +8,11 @@
             <h1 class="hidden-xs-down">
                 Administración
             </h1>
+            @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
             <p class="lead hidden-xs-down">Para crear una vacante:
                 <ol>
                     <li>Crea o ten creada una empresa.</li>

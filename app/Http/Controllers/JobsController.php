@@ -62,7 +62,7 @@ class JobsController extends Controller
         $job = \App\Job::create($request->all());
 
         \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleo '$job->title' pendiente validar."));
-        return redirect('home');
+        return redirect('home')->with('status', "¡Creaste una empleo!");
     }
 
     /**
