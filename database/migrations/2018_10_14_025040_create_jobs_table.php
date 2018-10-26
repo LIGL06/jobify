@@ -22,7 +22,7 @@ class CreateJobsTable extends Migration
             $table->integer('vacancies');
             $table->integer('companyId')->index()->unsigned();
             $table->foreign('companyId')->references('id')->on('companies');
-            $table->boolean('approved')->default(false);
+            $table->boolean('approved')->default(true);
             $table->timestamps();
         });
     }
