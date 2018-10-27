@@ -14,8 +14,20 @@ class EmployerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (isset($request->user()->employer->id)) {
+            $employerId = $request->user()->employer->id;
+            $myEmployees = \DB::table('employees')->
+            join('jobs', 'jobs.id', '=', 'employees.jobId')->
+            join('users', 'users.id', '=', 'employees.userId')->
+            where('jobs.EmployerId', $employerId)->
+            select('name', 'email', 'status', 'title')->get();
+            return view('employers.index', ['myEmployees' => $myEmployees]);
+        }
+        if(!$request->user()->isEmployer()){
+            return redirect('home');
+        }
         return view('employers.index');
     }
 
@@ -26,18 +38,18 @@ class EmployerController extends Controller
      */
     public function create()
     {
-        return view('employers.create'); 
+        return view('employers.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-       
+
         $userId = \App\User::where('email', $request->email)->pluck('id');
         $companyId = \App\Company::where("name", "LIKE", "%{$request->company}%")->pluck('id');
 
@@ -54,7 +66,7 @@ class EmployerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Employer  $employer
+     * @param  \App\Employer $employer
      * @return \Illuminate\Http\Response
      */
     public function show(Employer $employer)
@@ -65,7 +77,7 @@ class EmployerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Employer  $employer
+     * @param  \App\Employer $employer
      * @return \Illuminate\Http\Response
      */
     public function edit(Employer $employer)
@@ -76,8 +88,8 @@ class EmployerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employer  $employer
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Employer $employer
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Employer $employer)
@@ -92,7 +104,7 @@ class EmployerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Employer  $employer
+     * @param  \App\Employer $employer
      * @return \Illuminate\Http\Response
      */
     public function destroy(Employer $employer)

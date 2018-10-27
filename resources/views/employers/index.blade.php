@@ -2,9 +2,14 @@
 
 @section('content')
     @if(Auth::user()->isEmployer() && Auth::user()->employer)
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="position-relative overflow-hidden text-center bg-light">
             <div class="col-md-5 mx-auto">
-                <h1 class="font-weight-normal">Emlpeador</h1>
+                <h1 class="font-weight-normal">Empresas</h1>
                 <p class="lead font-weight-normal">Tu panel de empleos {{ config('app.name', 'Ciudad Madero') }}
                     .</p>
             </div>
@@ -17,11 +22,28 @@
                             <h5>Tus empleos</h5>
                             <div>
                                 <ul class="list-group">
-
                                     @foreach(Auth::user()->employer->company->jobs as $job)
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            {{$job->subTitle}}
+                                            {{ucfirst(strtolower($job->subTitle))}}
                                             <span class="badge badge-primary badge-pill">{{Count($job->employees)}}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 pb-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Tus aplicantes</h5>
+                            <div>
+                                <ul class="list-group">
+                                    @foreach($myEmployees as $employee)
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                            style="text-transform:initial">
+                                            {{$employee->name}} , {{$employee->email}}
+                                            , {{ucfirst(strtolower($employee->title))}}
                                         </li>
                                     @endforeach
                                 </ul>
@@ -45,7 +67,7 @@
                                     <label class="col-sm-2 col-form-label">Profesión</label>
                                     <div class="col-sm-10">
                                         <input class="typeahead form-control" type="text"
-                                               placeholder="Profesión a buscar"
+                                               placeholder="Profesión a buscar (sin acentos)"
                                                name="subTitle" autocomplete="off" id="jobsAutocomplete">
                                     </div>
                                 </div>
@@ -121,9 +143,17 @@
         </div>
     @elseif(!Auth::user()->employer)
         <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-5 mx-auto">
-                <h1 class="font-weight-normal">Permisos</h1>
-                <p class="lead font-weight-normal">Perece ser que aún no has registrado una empresa.</p>
+            <div class="col-md-5 mx-auto my-4">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_400/v1540658645/04_l6q5l3.jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Permisos</h5>
+                        <p class="card-text">Perece ser que aún no te has registrado a una empresa.</p>
+                        <a href={{route('companies.create')}} class="btn btn-primary">Registrar Empresa</a>
+                    </div>
+                </div>
             </div>
         </div>
     @else
