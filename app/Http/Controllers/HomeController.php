@@ -28,10 +28,22 @@ class HomeController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function markNotification(Request $request){
+    public function markNotification(Request $request)
+    {
         return auth()->user()->unreadNotifications->find($request->not_id)->markAsRead();
     }
 
+    /**
+     * @return mixed
+     */
+    public function markAllNotifications()
+    {
+        return auth()->user()->unreadNotifications->markAsRead();
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function adminDashboard()
     {
         $companiesCount = \App\Company::count();
@@ -57,16 +69,24 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        if($request->user()->isEmployer()){
+            return redirect('employers');
+        }
+        if($request->user()->isEmployee()){
+            return redirect('employees');
+        }
+        if($request->user()->isAdmin()){
+            return redirect('admin');
+        }
     }
 
-    public function autoComplete(Request $request){
+    public function autoComplete(Request $request)
+    {
         $subTitles = \DB::table('users')->where("email", "LIKE", "%{$request->input('query')}%")->pluck('email');
         return response()->json($subTitles);
     }

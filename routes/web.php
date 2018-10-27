@@ -24,7 +24,8 @@ Broadcast::routes(['middleware' => ['auth']]);
 Route::middleware(['auth'])->group(function () {
     //Notifications
     Route::post('notifications', 'HomeController@getNotifications')->name('notifications');
-    Route::post('markRead', 'HomeController@markNotification')->name('markNotification');
+    Route::post('markAsRead', 'HomeController@markNotification')->name('markNotification');
+    Route::post('markAllNotifications', 'HomeController@markAllNotifications')->name('markAllNotifications');
     //Autocompletes
     Route::get('jobs/autocomplete', 'JobsController@autoComplete')->name('jobAutoComplete');
     Route::get('users/autocomplete', 'HomeController@autoComplete')->name('userAutoComplete');

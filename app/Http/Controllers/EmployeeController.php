@@ -15,6 +15,9 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
+        if(!$request->user()->isEmployee()){
+            return redirect('home');
+        }
         $jobs = \App\Job::where('approved', true)->get();
         $myJobs = \App\Employee::where('userId', $request->user()->id)->get();
         return view('employees.index', [

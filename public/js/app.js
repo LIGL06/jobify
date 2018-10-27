@@ -57155,6 +57155,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['notifications'],
@@ -57162,9 +57167,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         MarkAsRead: function MarkAsRead(notification) {
             var data = {
                 not_id: notification.id,
-                notification_id: notification.data.notification.id
+                notification_id: notification.data.id
             };
-            alert(data.not_id);
+            axios.post('markAsRead', data).then(function (response) {
+                window.location.href = 'home';
+            });
+        },
+        MarkAllNotifications: function MarkAllNotifications() {
+            axios.post('markAllNotifications').then(function (response) {
+                window.location.href = 'home';
+            });
         }
     }
 });
@@ -57232,9 +57244,29 @@ var render = function() {
           )
         }),
         _vm._v(" "),
+        _vm.notifications.length != 0
+          ? _c("div", { staticClass: "dropdown-divider" })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.notifications.length != 0
+          ? _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.MarkAllNotifications()
+                  }
+                }
+              },
+              [_c("small", [_vm._v("Marcar todas como leídas")])]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _vm.notifications.length == 0
           ? _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("\n            No notification\n        ")
+              _vm._v("\n            No hay notificaciones\n        ")
             ])
           : _vm._e()
       ],

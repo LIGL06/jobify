@@ -419,7 +419,7 @@
                         @if($job->company->approved && $job->vacancies>0)
                             <div class="card col-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$job->title}}</h5>
+                                    <h5 class="card-title">{{ucfirst(strtolower($job->title))}}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">{{$job->company->name}}</h6>
                                     <p class="card-text">Quedan <b>{{$job->vacancies}}</b> vacantes</p>
                                     <a href={{url("/jobs/{$job->id}")}} class="card-link">Ver</a>

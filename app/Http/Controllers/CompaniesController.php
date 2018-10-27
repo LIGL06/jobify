@@ -51,8 +51,18 @@ class CompaniesController extends Controller
                 ->withInput();
         }
         $company = \App\Company::create($request->all());
-        \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empresa '$company->name' pendiente validar."));
-        return redirect('admin')->with('status', "¡Creaste una empresa!");
+        if ($request->user()->isAdmin()) {
+            \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empresa '$company->name' pendiente validar."));
+            return redirect('admin')->with('status', "¡Creaste una empresa!");
+        }
+        if ($request->user()->isEmployer()) {
+            \Notification::send(\App\User::where('id', $request->user()->id)->get(), new newNotification("Tu empresa '$company->name' está pendiente de validar."));
+            \App\Employer::create([
+                'userId' => $request->user()->id,
+                'companyId' => $company->id
+            ]);
+            return redirect('employers')->with('status', "¡Creaste una empresa!");
+        }
     }
 
     /**
@@ -103,7 +113,8 @@ class CompaniesController extends Controller
         //
     }
 
-    public function autoComplete(Request $request){
+    public function autoComplete(Request $request)
+    {
         $subTitles = \DB::table('companies')->where("name", "LIKE", "%{$request->input('query')}%")->pluck('name');
         return response()->json($subTitles);
     }
