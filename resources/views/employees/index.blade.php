@@ -4,8 +4,8 @@
     @if(Auth::user()->isEmployee())
         <div class="position-relative overflow-hidden text-center bg-light">
             <div class="col-md-5 mx-auto">
-                <h1 class="font-weight-normal">Encuentra trabajo</h1>
-                <p class="lead font-weight-normal">El trabajo que buscas está
+                <h1 class="font-weight-normal mb-0">Encuentra trabajo</h1>
+                <p class="lead font-weight-normal mb-0">El trabajo que buscas está
                     en {{ config('app.name', 'Ciudad Madero') }}
                     .</p>
                 @if (session('status'))
@@ -20,17 +20,20 @@
             </div>
         </div>
         <div class="container">
-            <div class="row mb-2 pb-lg-5">
+            <div class="row mb-2 pb-lg-2">
                 @foreach($jobs as $job)
-                    <div class="col-md-4">
+                    <div class="col-md-4 pb-lg-3 pb-2">
                         <div class="card flex-md-row mb-4 shadow-sm h-md-250 h-100">
                             <div class="card-body d-flex flex-column align-items-start">
-                                <strong class="d-inline-block mb-2 text-primary">{{ucwords(strtolower($job->company->name))}}</strong>
-                                <p class="mb-0">
-                                    <a class="text-dark" href="#">{{ucfirst(strtolower($job->subTitle))}}</a>
+                                <h4 class="mb-0">
+                                    <strong class="d-inline-block mb-2 text-primary">{{ucwords(strtolower($job->company->name))}}</strong>
+                                </h4>
+                                <p class="mb-0 h6 text-muted">
+                                    <small>Prof: </small>{{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}
                                 </p>
                                 <div class="mb-1 text-muted">{{ \Carbon\Carbon::parse($job->created_at)->format('M d')}}</div>
-                                <small class="card-text mb-auto">{{ucwords(strtolower($job->title))}}</small>
+                                <b class="card-text mb-auto">
+                                    <small>Puesto: </small>{{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}</b>
                                 {!! Form::open(['route' => 'employees.store']) !!}
                                 {!! Form::hidden('companyId',$job->companyId)!!}
                                 {!! Form::hidden('jobId',$job->id)!!}
@@ -51,11 +54,14 @@
                     <div class="col-md-3">
                         <div class="card flex-md-row mb-4 shadow-sm h-md-250">
                             <div class="card-body d-flex flex-column align-items-start">
-                                <strong class="d-inline-block mb-2 text-primary">{{ucwords(strtolower($myJob->company->name))}}</strong>
-                                <p class="mb-0">
-                                    <a class="text-dark" href="#">{{ucwords(strtolower($myJob->job->title))}}</a>
+                                <strong class="d-inline-block text-primary mb-0">{{ucwords(strtolower($myJob->company->name))}}</strong>
+                                <p class="mb-0 text-muted">
+                                    {{mb_convert_case($myJob->job->title,MB_CASE_TITLE, "UTF-8")}}
                                 </p>
-                                <div class="mb-1 text-muted">{{ \Carbon\Carbon::parse($myJob->created_at)->format('M d')}}</div>
+                                <div class="text-muted col-12">
+                                    <span class="float-left">{{ \Carbon\Carbon::parse($myJob->created_at)->format('M d')}}</span>
+                                    <span class="badge badge-primary badge-pill float-right">{{ucwords(strtolower($myJob->status))}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>

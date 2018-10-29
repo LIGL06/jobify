@@ -15,13 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
+Auth::routes(['verify' => true]);
 Broadcast::routes(['middleware' => ['auth']]);
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
     //Notifications
     Route::post('notifications', 'HomeController@getNotifications')->name('notifications');
     Route::post('markAsRead', 'HomeController@markNotification')->name('markNotification');

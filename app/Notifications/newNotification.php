@@ -30,7 +30,7 @@ class newNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['database', 'broadcast', 'mail'];
     }
 
     /**
@@ -54,4 +54,14 @@ class newNotification extends Notification
             'message' => $this->message
         ];
     }
+
+    public function toMail($notifiable)
+    {
+        $url = url('/admin');
+        return (new MailMessage)
+            ->greeting("¡Hola!")
+            ->line($this->message)
+            ->action('Acción', $url);
+    }
+
 }

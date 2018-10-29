@@ -22,7 +22,7 @@ class EmployerController extends Controller
             join('jobs', 'jobs.id', '=', 'employees.jobId')->
             join('users', 'users.id', '=', 'employees.userId')->
             where('jobs.EmployerId', $employerId)->
-            select('name', 'email', 'status', 'title')->get();
+            select('name', 'email', 'status', 'title','subTitle', 'employees.id')->get();
             return view('employers.index', ['myEmployees' => $myEmployees]);
         }
         if(!$request->user()->isEmployer()){

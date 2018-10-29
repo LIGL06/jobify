@@ -72,19 +72,21 @@
                                 </div>
                             </div>
 
-                            <fieldset class="form-group row my-auto mx-auto">
-                                <label class="col-md-4 col-form-label text-md-right" for="gridRadios1">
-                                    Perfil
-                                </label>
-                                <div class="col-md-2 offset-md-1">
-                                    <input type="radio"
-                                           class="form-check-input{{ $errors->has('role') ? ' is-invalid' : '' }}"
-                                           name="role" value="employee" required> Aspirante
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="radio"
-                                           class="form-check-input{{ $errors->has('role') ? ' is-invalid' : '' }}"
-                                           name="role" value="employer" required> Empresa
+                            <fieldset class="form-group">
+                                <div class="row">
+                                    <label class="col-md-4 col-form-label text-md-right" for="gridRadios1">
+                                        Perfil
+                                    </label>
+                                    <div class="col-12 offset-2 col-md-3 offset-md-1 my-1">
+                                        <input type="radio"
+                                               class="form-check-input{{ $errors->has('role') ? ' is-invalid' : '' }}"
+                                               name="role" value="employee" required> Aspirante
+                                    </div>
+                                    <div class="col-12 offset-2 col-md-3 offset-md-0 my-1">
+                                        <input type="radio"
+                                               class="form-check-input{{ $errors->has('role') ? ' is-invalid' : '' }}"
+                                               name="role" value="employer" required> Empresa
+                                    </div>
                                 </div>
                             </fieldset>
                             <div class="form-group row mb-0">

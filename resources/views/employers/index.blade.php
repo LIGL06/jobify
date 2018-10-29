@@ -2,30 +2,31 @@
 
 @section('content')
     @if(Auth::user()->isEmployer() && Auth::user()->employer)
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
         <div class="position-relative overflow-hidden text-center bg-light">
             <div class="col-md-5 mx-auto">
                 <h1 class="font-weight-normal">Empresas</h1>
                 <p class="lead font-weight-normal">Tu panel de empleos {{ config('app.name', 'Ciudad Madero') }}
                     .</p>
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
             </div>
         </div>
         <div class="container">
             <div class="row" style="padding-bottom:100px">
-                <div class="col-4 pb-lg-3">
-                    <div class="card">
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5>Tus empleos</h5>
                             <div>
                                 <ul class="list-group">
                                     @foreach(Auth::user()->employer->company->jobs as $job)
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            {{ucfirst(strtolower($job->subTitle))}}
-                                            <span class="badge badge-primary badge-pill">{{Count($job->employees)}}</span>
+                                            {{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}
+                                            <span class="badge badge-primary badge-pill">{{Count($job->employees)}}
+                                                aplicantes</span>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -33,25 +34,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8 pb-lg-3">
-                    <div class="card">
+                <div class="col-md-8 mb-3">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5>Tus aplicantes</h5>
                             <div>
                                 <ul class="list-group">
                                     @foreach($myEmployees as $employee)
-                                        <li class="list-group-item d-flex justify-content-between align-items-center"
-                                            style="text-transform:initial">
-                                            {{$employee->name}} , {{$employee->email}}
-                                            , {{ucfirst(strtolower($employee->title))}}
-                                        </li>
+                                        <a href={{route('employees.show', $employee->id)}} class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-0">{{$employee->name}}</h5>
+                                            </div>
+                                            <p class="mb-0">Empleo: {{mb_convert_case($employee->title,MB_CASE_TITLE, "UTF-8")}}</p>
+                                            <small class="text-muted">Profesión deseada: {{mb_convert_case($employee->subTitle,MB_CASE_TITLE, "UTF-8")}}</small>
+                                        </a>
                                     @endforeach
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <h1>Crear empleo</h1>

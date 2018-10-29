@@ -41,7 +41,7 @@ class User extends Authenticatable
      */
     public function employee()
     {
-        return $this->belongsTo(Employee::class,'userId');
+        return $this->belongsTo(Employee::class, 'userId');
     }
 
     /**
@@ -81,6 +81,6 @@ class User extends Authenticatable
      */
     public function info()
     {
-        return $this->belongsTo(UserInfo::class,'userId');
+        return $this->belongsTo(UserInfo::class, 'id', 'userId');
     }
 }
