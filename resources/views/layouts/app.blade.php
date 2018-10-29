@@ -86,7 +86,7 @@
         @yield('content')
     </main>
 
-    <footer>
+    <footer class="footer position-sticky">
         <div class="container">
             <div class="row">
                 <div class="col-5 col-md-2 col-lg-2 my-auto">
