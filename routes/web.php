@@ -20,6 +20,9 @@ Broadcast::routes(['middleware' => ['auth']]);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/users/me', 'HomeController@getMe')->name('profile');
+    Route::get('/user/{id}', 'HomeController@getUser');
+    Route::put('/user/{id}', 'HomeController@updateUser')->name('updateProfile');
     //Notifications
     Route::post('notifications', 'HomeController@getNotifications')->name('notifications');
     Route::post('markAsRead', 'HomeController@markNotification')->name('markNotification');

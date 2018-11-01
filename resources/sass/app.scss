@@ -1,5 +1,5 @@
 html {
-  min-height: 100%;
+  position: relative;
 }
 
 .navbar-laravel {
@@ -7,8 +7,9 @@ html {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 main{
-  margin-bottom:150px;
+  margin: 0 auto;
   min-height: 100%;
+  padding-bottom: 6rem;
 }
 footer {
   color: #fff;

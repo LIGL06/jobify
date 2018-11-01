@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);html {
-  min-height: 100%;
+  position: relative;
 }
 
 .navbar-laravel {
@@ -9,8 +9,9 @@
 }
 
 main {
-  margin-bottom: 150px;
+  margin: 0 auto;
   min-height: 100%;
+  padding-bottom: 6rem;
 }
 
 footer {

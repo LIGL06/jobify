@@ -74,20 +74,43 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->user()->isEmployer()){
+        if ($request->user()->isEmployer()) {
             return redirect('employers');
         }
-        if($request->user()->isEmployee()){
+        if ($request->user()->isEmployee()) {
             return redirect('employees');
         }
-        if($request->user()->isAdmin()){
+        if ($request->user()->isAdmin()) {
             return redirect('admin');
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function autoComplete(Request $request)
     {
         $subTitles = \DB::table('users')->where("email", "LIKE", "%{$request->input('query')}%")->pluck('email');
         return response()->json($subTitles);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getUser($id)
+    {
+        return \App\User::where('id', $id)->with('info', 'employee', 'employer')->get();
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function getMe(Request $request)
+    {
+        $user = \App\User::where('id', $request->user()->id)->with('info', 'employee', 'employer')->get();
+        return view('user', ['user' => $user]);
     }
 }

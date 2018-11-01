@@ -9,14 +9,14 @@
         <div class="dropdown-menu">
             <a href="#" class="dropdown-item" v-for="notification in notifications"
                v-on:click="MarkAsRead(notification)">
-                {{notification.data['message']}}
+                <small>{{notification.data['message']}}</small>
             </a>
             <div class="dropdown-divider" v-if="notifications.length!=0"></div>
             <a href="#" class="dropdown-item"v-on:click="MarkAllNotifications()" v-if="notifications.length != 0">
                 <small>Marcar todas como leídas</small>
             </a>
             <a href="#" class="dropdown-item" v-if="notifications.length == 0">
-                No hay notificaciones
+                <small>No hay notificaciones</small>
             </a>
         </div>
     </li>

@@ -13903,7 +13903,7 @@ var app = new Vue({
             axios.post('notifications').then(function (response) {
                 _this.notifications = response.data;
             });
-            Echo.private('App.user.' + window.Laravel.user.id).notification(function (response) {
+            Echo.private('App.User.' + window.Laravel.user.id).notification(function (response) {
                 data = { "data": response };
                 _this.notifications.push(data);
             });
@@ -57234,13 +57234,7 @@ var render = function() {
                 }
               }
             },
-            [
-              _vm._v(
-                "\n            " +
-                  _vm._s(notification.data["message"]) +
-                  "\n        "
-              )
-            ]
+            [_c("small", [_vm._v(_vm._s(notification.data["message"]))])]
           )
         }),
         _vm._v(" "),
@@ -57266,7 +57260,7 @@ var render = function() {
         _vm._v(" "),
         _vm.notifications.length == 0
           ? _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("\n            No hay notificaciones\n        ")
+              _c("small", [_vm._v("No hay notificaciones")])
             ])
           : _vm._e()
       ],
