@@ -15,7 +15,7 @@ class UserInfo extends Model
      */
     protected $fillable = [
         'userId', 'fName', 'lName', 'doB',
-        'civilStatus', 'address', 'pictureUrl',
+        'civilStatus', 'phone', 'address', 'pictureUrl',
         'professional', 'handyCap', 'uniqueKey',
         'socialKey', 'salary'
     ];
@@ -25,6 +25,6 @@ class UserInfo extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class,'userId');
+        return $this->belongsTo(User::class, 'userId');
     }
 }

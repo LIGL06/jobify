@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/users/me', 'HomeController@getMe')->name('profile');
     Route::get('/user/{id}', 'HomeController@getUser');
+    Route::post('/users/me', 'HomeController@createProfile')->name('createProfile');
     Route::put('/user/{id}', 'HomeController@updateUser')->name('updateProfile');
     //Notifications
     Route::post('notifications', 'HomeController@getNotifications')->name('notifications');
