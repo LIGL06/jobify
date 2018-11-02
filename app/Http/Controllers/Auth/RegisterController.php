@@ -72,6 +72,22 @@ class RegisterController extends Controller
         ]);
         if ($data['role'] == 'employee') {
             $user->roles()->attach(Role::where('name', 'employee')->first());
+            \App\UserInfo::create([
+                'userId' => $user->id,
+                'fName' => $user->name,
+                'lName' => '',
+                'doB' => \Carbon\Carbon::now()->subYears(18),
+                'civilStatus' => 'soltero',
+                'address' => '',
+                'phone' => '',
+                'profession' => '',
+                'pictureUrl' => 'https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png',
+                'professional' => true,
+                'handyCap' => false,
+                'uniqueKey' => '',
+                'socialKey' => '',
+                'salary' => 0
+            ]);
         }else{
             $user->roles()->attach(Role::where('name', 'employer')->first());
         }

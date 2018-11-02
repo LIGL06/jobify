@@ -12,7 +12,7 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="first-slide"
-                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/v1540232384/pexels-photo-1161465_fq0cbd.jpg"
+                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232384/pexels1.jpg"
                              alt="First slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption text-left">
@@ -24,7 +24,7 @@
                     </div>
                     <div class="carousel-item">
                         <img class="second-slide"
-                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/v1540232381/pexels-photo-567633_rinjwi.jpg"
+                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232381/pexels2.jpg"
                              alt="Second slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="carousel-item">
                         <img class="third-slide"
-                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/v1540232381/pexels-photo-580613_ds8t8x.jpg"
+                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232381/pexels3.jpg"
                              alt="Third slide" width="100%">
                         <div class="container">
                             <div class="carousel-caption text-right">

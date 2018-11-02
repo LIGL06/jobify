@@ -16,29 +16,17 @@ class UsersSeeder extends Seeder
             'email' => 'admin@madero.gob.mx',
             'password' => bcrypt('Password00')
         ]);
-        $adminUser->roles()->attach([
-            'userId' => $adminUser->id,
-            'roleId' => 1
-        ]);
-
-        $employerUser = \App\User::create([
-            'name' => 'Employer',
-            'email' => 'employer@madero.gob.mx',
-            'password' => bcrypt('Password00')
-        ]);
-        $employerUser->roles()->attach([
-            'userId' => $employerUser->id,
-            'roleId' => 3
-        ]);
 
         $employeeUser = \App\User::create([
             'name' => 'Employee',
             'email' => 'employee@madero.gob.mx',
             'password' => bcrypt('Password00')
         ]);
-        $employeeUser->roles()->attach([
-            'userId' => $employeeUser->id,
-            'roleId' => 2
+
+        $employerUser = \App\User::create([
+            'name' => 'Employer',
+            'email' => 'employer@madero.gob.mx',
+            'password' => bcrypt('Password00')
         ]);
 
         \App\UserInfo::create([
@@ -48,6 +36,8 @@ class UsersSeeder extends Seeder
             'doB' => \Carbon\Carbon::now()->subYears(10),
             'civilStatus' => 'soltero',
             'address' => 'Dirección Prueba',
+            'phone' => '123456789',
+            'profession' => 'Ing. Tecnologías',
             'pictureUrl' => 'https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png',
             'professional' => true,
             'handyCap' => false,

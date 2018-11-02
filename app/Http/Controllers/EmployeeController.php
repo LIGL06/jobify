@@ -15,11 +15,11 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        if(!$request->user()->isEmployee()){
+        if (!$request->user()->isEmployee()) {
             return redirect('home');
         }
-        $jobs = \App\Job::where('approved', true)->get();
-        $myJobs = \App\Employee::where('userId', $request->user()->id)->get();
+        $jobs = \App\Job::all();
+        $myJobs = Employee::where('userId', $request->user()->id)->get();
         return view('employees.index', [
             'jobs' => $jobs,
             'myJobs' => $myJobs
@@ -54,7 +54,7 @@ class EmployeeController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $employee = \App\Employee::where('jobId', $request->jobId)->get();
+        $employee = Employee::where('userId', $request->user()->id)->where('jobId', $request->jobId)->get();
         if ($employee->count() == 0) {
             $employee = \App\Employee::create($request->all());
             $employer = \DB::table('employers')->
@@ -73,14 +73,16 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Employee $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Employee
      */
     public function show(Employee $employee)
     {
-        //
+        $user = \App\User::where('id', $employee->userId)->with('info')->get();
+        return view('employees.show', [
+            'user' => $user,
+            'employee' => $employee
+        ]);
     }
 
     /**
@@ -104,9 +106,13 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee)
     {
         $employee = \App\Employee::find($employee->id);
-        $employee->approved = $request->approved;
+        $employee->fill($request->all());
         $employee->save();
-        return redirect('home')->with('status', "¡Aplicaste a un empleo!");
+        if ($request->user()->isEmployee()) {
+            return redirect('home')->with('status', "¡Aplicaste a un empleo!");
+        }
+        \Notification::send(\App\User::where('id', $employee->userId)->get(), new newNotification("Actualizaron tu estado en '{$employee->job->title}'."));
+        return redirect('employers')->with('status', "¡Validaste a {$employee->user->name}!");
     }
 
     /**

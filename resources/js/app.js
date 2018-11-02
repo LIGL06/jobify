@@ -13,7 +13,7 @@ const app = new Vue({
             axios.post('notifications').then(response => {
                 this.notifications = response.data;
             });
-            Echo.private('App.user.' + window.Laravel.user.id).notification((response) => {
+            Echo.private('App.User.' + window.Laravel.user.id).notification((response) => {
                 data = {"data": response};
                 this.notifications.push(data);
             });

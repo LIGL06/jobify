@@ -20,6 +20,7 @@ class CreateCompaniesTable extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('address');
+            $table->string('bgPictureUrl')->nullable();
             $table->text('observations')->nullable();
             $table->boolean('noPenalties')->nullable();
             $table->boolean('approved')->default(false);
