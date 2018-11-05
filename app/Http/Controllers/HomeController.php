@@ -123,6 +123,7 @@ class HomeController extends Controller
         $user = new User();
         $userInfo = new UserInfo();
         $user->name = $request->fName;
+        $user->email = $request->email;
         $userInfo->userId = $request->user()->id;
         $userInfo->professional = true;
         $userInfo->handyCap = false;
