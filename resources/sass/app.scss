@@ -1,23 +1,30 @@
 html {
+  min-height: 100%;
   position: relative;
+}
+
+html body {
+  margin-bottom: 60px;
 }
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
-main{
-  margin: 0 auto;
-  min-height: 100%;
-  padding-bottom: 6rem;
-}
+
 footer {
   color: #fff;
-  background: darken(#680e1b, 5);
+  background: #680e1b;
+  filter: alpha(opacity=60);
+  bottom: 0;
+  width: 100%;
+  position: absolute;
 }
-footer hr{
+
+footer hr {
   background: #fff;
 }
+
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 

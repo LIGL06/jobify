@@ -3,7 +3,7 @@
 @section('content')
     @if(Auth::user()->isEmployer() && Auth::user()->employer)
         <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-5 mx-auto">
+            <div class="col-md-4 mx-auto">
                 <h1 class="font-weight-normal">Empresas</h1>
                 <p class="lead font-weight-normal">Tu panel de empleos {{ config('app.name', 'Ciudad Madero') }}
                     .</p>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-22">
                     <div class="card">
                         <div class="card-body">
                             <h1>Crear empleo</h1>
@@ -146,7 +146,7 @@
         </div>
     @elseif(!Auth::user()->employer)
         <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-5 mx-auto my-4">
+            <div class="col-md-4 mx-auto my-4">
                 <div class="card">
                     <img class="card-img-top"
                          src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_400/v1540658645/04_l6q5l3.jpg"
@@ -161,7 +161,7 @@
         </div>
     @else
         <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-5 mx-auto">
+            <div class="col-md-4 mx-auto">
                 <h1 class="font-weight-normal">Permisos</h1>
                 <p class="lead font-weight-normal">No tienes permitido acceder a esta área.</p>
             </div>

@@ -15,11 +15,11 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('sex', ['masculino','femenino','indistinto']);
             $table->string('title');
             $table->string('subTitle');
             $table->boolean('required');
             $table->integer('vacancies');
+            $table->enum('sex', ['masculino','femenino','indistinto']);
             $table->integer('companyId')->index()->unsigned();
             $table->foreign('companyId')->references('id')->on('companies');
             $table->boolean('approved')->default(true);

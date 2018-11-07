@@ -56,7 +56,7 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-            <section class="jumbotron text-center">
+            <section class="jumbotron text-center pb-lg-5">
                 <div class="container">
                     <h1 class="jumbotron-heading">Bolsa de Trabajo</h1>
                     <p class="lead text-muted">¡Genera, Aplica o ve Empleos!</p>

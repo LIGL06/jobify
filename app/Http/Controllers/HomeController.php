@@ -7,6 +7,7 @@ use App\User;
 use App\UserInfo;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -143,9 +144,27 @@ class HomeController extends Controller
     {
         $user = User::where('id', $id)->first();
         $userInfo = \App\UserInfo::where('id', $request->userInfoId)->first();
-        $userInfo->fill($request->all())->save();
+        if(isset($userInfo->pictureUrl) && isset($userInfo->cvUrl)){
+            $picParts = explode("/", $userInfo->pictureUrl);
+            $cvParts = explode("/", $userInfo->cvUrl);
+            $pictureLink = end($picParts);
+            $cvLink = end($cvParts);
+            Storage::disk('s3') ->delete('profilePictures/'.$pictureLink);
+            Storage::disk('s3') ->delete('cvs/'.$cvLink);
+        }
+        $cv = $request->file('cv')->store('cvs', 's3');
+        $cvUrl = Storage::cloud()->url($cv);
+        $image = $request->file('image')->store('profilePictures', 's3');
+        $imageUrl = Storage::cloud()->url($image);
+
+        $userInfo->fill($request->all());
+        $userInfo->cvUrl = $cvUrl;
+        $userInfo->pictureUrl = $imageUrl;
         $user->name = $request->fName;
+
         $user->save();
+        $userInfo->save();
+
         \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("$user->name, actualizaste tus datos."));
         return redirect('home')->with('status', "¡Actualizaste tu perfil!");
     }

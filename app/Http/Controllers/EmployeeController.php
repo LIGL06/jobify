@@ -78,7 +78,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        $user = \App\User::where('id', $employee->userId)->with('info')->get();
+        $user = \App\User::where('id', $employee->userId)->with('info')->first();
         return view('employees.show', [
             'user' => $user,
             'employee' => $employee
