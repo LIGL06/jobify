@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header p-5 bg-dark">
-                        <h5 class="display-4 text-white text-center mb-0">{{$employee->job->title}}</h5>
+                        <h1 class="text-white text-center mb-0">{{$employee->job->title}}</h1>
                         <h5 class="text-white text-center mb-0">{{$employee->job->subTitle}}</h5>
                     </div>
                     @if($user->info)
@@ -39,7 +39,7 @@
                                     @else
                                         {!! Form::model($employee,['route' => ['employees.update', $employee->id], 'method'=>'put']) !!}
                                         {!! Form::hidden('status', 'interview')!!}
-                                        {!! Form::submit('Quiero entrevistar',['class' => 'btn btn-sm btn-success']) !!}
+                                        {!! Form::submit('Quiero entrevistar',['class' => 'btn btn-lg btn-danger float-right']) !!}
                                         {!! Form::close() !!}
                                     @endif
                                 </div>
