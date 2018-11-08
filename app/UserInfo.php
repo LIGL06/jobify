@@ -16,7 +16,7 @@ class UserInfo extends Model
     protected $fillable = [
         'userId', 'fName', 'lName', 'doB',
         'civilStatus', 'phone', 'address', 'pictureUrl',
-        'professional', 'handyCap', 'uniqueKey',
+        'profession', 'professional', 'handyCap', 'uniqueKey',
         'socialKey', 'salary'
     ];
 

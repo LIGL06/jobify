@@ -438,7 +438,7 @@
         </div>
     @else
         <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-5 mx-auto">
+            <div class="col-md-4 mx-auto">
                 <h1 class="font-weight-normal">Permisos</h1>
                 <p class="lead font-weight-normal">No tienes permitido acceder a esta área.</p>
             </div>

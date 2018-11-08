@@ -3,26 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Employer;
+use App\User;
 use App\Notifications\newNotification;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -30,10 +27,8 @@ class CompaniesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -50,14 +45,14 @@ class CompaniesController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $company = \App\Company::create($request->all());
+        $company = Company::create($request->all());
         if ($request->user()->isAdmin()) {
-            \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empresa '$company->name' pendiente validar."));
+            \Notification::send(User::where('id', 1)->get(), new newNotification("Empresa '$company->name' pendiente validar."));
             return redirect('admin')->with('status', "¡Creaste una empresa!");
         }
         if ($request->user()->isEmployer()) {
-            \Notification::send(\App\User::where('id', $request->user()->id)->get(), new newNotification("Tu empresa '$company->name' está pendiente de validar."));
-            \App\Employer::create([
+            \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("Tu empresa '$company->name' está pendiente de validar."));
+            Employer::create([
                 'userId' => $request->user()->id,
                 'companyId' => $company->id
             ]);
@@ -65,54 +60,47 @@ class CompaniesController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Company $company
-     * @return \Illuminate\Http\Response
-     */
     public function show(Company $company)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Company $company
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Company $company)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Company $company
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Company $company
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Company $company)
     {
-        $company = \App\Company::find($company->id);
-        $company->approved = $request->approved;
+        $company = Company::find($company->id);
+        $company->approved = $request->approved ? $request->approved : false;
+        if (isset($company->bgPictureUrl)) {
+            $picParts = explode("/", $company->bgPictureUrl);
+            $pictureLink = end($picParts);
+            Storage::disk('s3')->delete('profilePictures/' . $pictureLink);
+        }
+        $image = $request->file('image')->store('profilePictures', 's3');
+        $imageUrl = Storage::cloud()->url($image);
+        $company->fill($request->all());
+        $company->bgPictureUrl = $imageUrl;
         $company->save();
-        return redirect('admin')->with('status', "¡Actualizaste a $company->name!");
+        return $request->user()->isAdmin() ? redirect('admin')->with('status', "¡Actualizaste a $company->name!") : redirect('company/me')->with('status', "¡Actualizaste a $company->name!");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Company $company
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Company $company)
     {
         //
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function autoComplete(Request $request)
     {
         $subTitles = \DB::table('companies')->where("name", "LIKE", "%{$request->input('query')}%")->pluck('name');

@@ -20,16 +20,17 @@ class CreateUserInfosTable extends Migration
             $table->string('fName');
             $table->string('lName');
             $table->date('doB');
-            $table->enum('civilStatus',['casado','soltero','otro']);
+            $table->enum('civilStatus', ['casado', 'soltero', 'otro']);
             $table->string('phone');
             $table->string('address');
-            $table->string('pictureUrl')->nullable();
             $table->boolean('professional');
             $table->string('profession')->nullable();
             $table->boolean('handyCap');
             $table->string('uniqueKey')->unique();
             $table->string('socialKey')->unique();
-            $table->decimal('salary',6,2);
+            $table->decimal('salary', 6, 2);
+            $table->string('pictureUrl')->nullable();
+            $table->string('cvUrl')->nullable();
             $table->timestamps();
         });
     }

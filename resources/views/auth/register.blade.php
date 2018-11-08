@@ -5,16 +5,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8" style="padding-bottom:120px">
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registro') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
 
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                <label for="name" class="col-md-3 col-form-label ">{{ __('Nombre(s)') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <input id="name" type="text"
                                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                            name="name" value="{{ old('name') }}" required autofocus>
@@ -29,9 +29,9 @@
 
                             <div class="form-group row">
                                 <label for="email"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                       class="col-md-3 col-form-label ">{{ __('Correo electrónico') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <input id="email" type="email"
                                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                            name="email" value="{{ old('email') }}" required>
@@ -46,9 +46,9 @@
 
                             <div class="form-group row">
                                 <label for="password"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                       class="col-md-3 col-form-label ">{{ __('Contraseña') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <input id="password" type="password"
                                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                            name="password" required>
@@ -62,10 +62,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm
-                                Password') }}</label>
+                                <label for="password-confirm" class="col-md-3 col-form-label ">{{ __('Confirmar
+                                contraseña') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <input id="password-confirm" type="password" class="form-control"
                                            name="password_confirmation"
                                            required>
@@ -74,7 +74,7 @@
 
                             <fieldset class="form-group">
                                 <div class="row">
-                                    <label class="col-md-4 col-form-label text-md-right" for="gridRadios1">
+                                    <label class="col-md-3 col-form-label " for="gridRadios1">
                                         Perfil
                                     </label>
                                     <div class="col-12 offset-2 col-md-3 offset-md-1 my-1">
@@ -92,7 +92,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
+                                        {{ __('Registrar') }}
                                     </button>
                                 </div>
                             </div>

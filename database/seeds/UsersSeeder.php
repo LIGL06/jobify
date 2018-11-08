@@ -45,5 +45,17 @@ class UsersSeeder extends Seeder
             'socialKey' => '1234567890',
             'salary' => 9999
         ]);
+        $adminUser->roles()->attach([
+            'roleId' => 1,
+            'userId' => $adminUser->id
+        ]);
+        $employeeUser->roles()->attach([
+            'roleId' => 2,
+            'userId' => $employeeUser->id
+        ]);
+        $employerUser->roles()->attach([
+            'roleId' => 3,
+            'userId' => $employerUser->id
+        ]);
     }
 }

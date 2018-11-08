@@ -48,11 +48,11 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar sesión') }}</a>
                     </li>
                     <li class="nav-item">
                         @if (Route::has('register'))
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Registro') }}</a>
                         @endif
                     </li>
                 @else
@@ -67,12 +67,22 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('profile') }}">
-                                <i class="fa fa-user-circle"></i> {{ __('Profile') }}
-                            </a>
+                            @if(Auth::user()->isEmployee())
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <i class="fa fa-user-circle"></i> {{ __('Perfil') }}
+                                </a>
+                            @endif
+                            @if(Auth::user()->isEmployer())
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <i class="fa fa-user-circle"></i> {{ __('Perfil') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('companyProfile') }}">
+                                    <i class="fa fa-suitcase"></i> {{ __('Empresa') }}
+                                </a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                <i class="fa fa-unlock"></i> {{ __('Logout') }}
+                                <i class="fa fa-unlock"></i> {{ __('Salir') }}
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -92,13 +102,13 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-3 col-md-1 col-lg-1 my-auto">
-                    <img src="https://res.cloudinary.com/hammock-software/image/upload/v1540740818/LOGO_DIRECCION_DE_DESARROLLO_ECONOMIGO_3183_d60tju.png" class="img-fluid img-thumbnail">
+                <div class="col-3 col-md-2 col-lg-1 my-auto">
+                    <img src="https://res.cloudinary.com/hammock-software/image/upload/v1540740818/LOGO_DIRECCION_DE_DESARROLLO_ECONOMIGO_3183_d60tju.png"
+                         class="img-fluid img-thumbnail">
                 </div>
-                <div class="col-9 col-md-10">
-                    <h5 class="mt-2">H. Ayuntamiento de Cuidad Madero</h5>
-                    <b class="mb-0">Dirección de Desarrollo Económico</b>
-                    <hr>
+                <div class="col-9 col-md-20">
+                    <h5 class="mt-2 mb-0">H. Ayuntamiento de Cuidad Madero</h5>
+                    <b class="mb-0">Dirección de Desarrollo Económico</b><br>
                     <small>Av. Álvaro Obregón 201 Sur, Zona Centro, 89400 Cd Madero, Tamps.</small>
                     <small><b>(833) 305 2300</b></small>
                 </div>
@@ -153,6 +163,18 @@
                 return process(data);
             });
         }
+    });
+    var readURL = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.avatar').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(".file-upload").on('change', function () {
+        readURL(this);
     });
 </script>
 </body>
