@@ -111,26 +111,46 @@ class HomeController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getMe(Request $request)
     {
-        $user = User::where('id', $request->user()->id)->with('info', 'employee', 'employer')->first();
+
+        $user = User::where('id', $request->user()->id)->with('info', 'employee')->first();
         return view('user', ['user' => $user]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getCompany(Request $request)
+    {
+        $user = User::where('id', $request->user()->id)->with('info', 'employer')->first();
+        return view('companies.edit', ['user' => $user]);
     }
 
     public function createProfile(Request $request)
     {
-        $user = new User();
+        $user = User::where('id', $request->user()->id)->first();
         $userInfo = new UserInfo();
         $user->name = $request->fName;
-        $user->email = $request->email;
         $userInfo->userId = $request->user()->id;
         $userInfo->professional = true;
         $userInfo->handyCap = false;
         $userInfo->salary = 0;
-        $userInfo->fill($request->all())->save();
+
+        $cv = $request->file('cv')->store('cvs', 's3');
+        $cvUrl = Storage::cloud()->url($cv);
+        $image = $request->file('image')->store('profilePictures', 's3');
+        $imageUrl = Storage::cloud()->url($image);
+
+        $userInfo->fill($request->all());
+        $userInfo->cvUrl = $cvUrl;
+        $userInfo->pictureUrl = $imageUrl;
         $user->save();
+        $userInfo->save();
+
         \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("$user->name, creaste tus datos."));
         return redirect('home')->with('status', "¡Actualizaste tu perfil!");
     }
@@ -144,13 +164,13 @@ class HomeController extends Controller
     {
         $user = User::where('id', $id)->first();
         $userInfo = \App\UserInfo::where('id', $request->userInfoId)->first();
-        if(isset($userInfo->pictureUrl) && isset($userInfo->cvUrl)){
+        if (isset($userInfo->pictureUrl) && isset($userInfo->cvUrl)) {
             $picParts = explode("/", $userInfo->pictureUrl);
             $cvParts = explode("/", $userInfo->cvUrl);
             $pictureLink = end($picParts);
             $cvLink = end($cvParts);
-            Storage::disk('s3') ->delete('profilePictures/'.$pictureLink);
-            Storage::disk('s3') ->delete('cvs/'.$cvLink);
+            Storage::disk('s3')->delete('profilePictures/' . $pictureLink);
+            Storage::disk('s3')->delete('cvs/' . $cvLink);
         }
         $cv = $request->file('cv')->store('cvs', 's3');
         $cvUrl = Storage::cloud()->url($cv);

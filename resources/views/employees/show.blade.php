@@ -4,8 +4,8 @@
     <div class="container my-auto mx-auto">
         <div class="row pb-5">
             <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header p-5 bg-dark">
+                <div class="card mt-5">
+                    <div class="card-header m-0" style="background:#680e1b;">
                         <h1 class="text-white text-center mb-0">{{$employee->job->title}}</h1>
                         <h5 class="text-white text-center mb-0">{{$employee->job->subTitle}}</h5>
                     </div>
@@ -13,17 +13,16 @@
                         <div class="card-body text-center">
                             <div class="row">
                                 @if($user->info->pictureUrl)
-                                    <img class="img-fluid img-thumbnail col-5 mt-0 mb-0 mx-auto" alt="profile-img"
+                                    <img class="img-fluid img-thumbnail col-4 mt-0 mb-0 mx-auto" alt="profile-img"
                                          src={{$user->info->pictureUrl}}>
                                 @endif
                                 <div class="col-6">
-                                    <h3 class="card-title mt-4 mb-0">
-                                        {{$user->name}} <br>
-                                    </h3>
+                                    <h2 class="card-title mt-4 mb-0">
+                                        {{$user->name}}<br>
+                                    </h2>
                                     <div class="card-text">
-                                        <small><i class="fa fa-phone"></i> {{$user->info->phone}}</small>
-                                        |
-                                        <a href="mailto:{{$user->email}}">{{$user->email}}</a>
+                                        <p class="mb-0"><i class="fa fa-phone"></i> {{$user->info->phone}}</p>
+                                        <i class="fa fa-envelope"></i> <a href="mailto:{{$user->email}}">{{$user->email}}</a>
                                         <p class="mb-0"><i class="fa fa-map"></i> {{$user->info->address}}</p>
                                         <b>{{$user->info->profession}}</b> |
                                         <small>{{$user->info->civilStatus}}</small>
@@ -34,12 +33,12 @@
                                     @if(!$employee->status)
                                         {!! Form::model($employee,['route' => ['employees.update', $employee->id], 'method'=>'put']) !!}
                                         {!! Form::hidden('status', 'preConfirmation')!!}
-                                        {!! Form::submit('Me gusta su perfil',['class' => 'btn btn-lg btn-success float-right']) !!}
+                                        {!! Form::submit('Me gusta su perfil',['class' => 'btn btn-lg btn-primary float-right']) !!}
                                         {!! Form::close() !!}
                                     @else
                                         {!! Form::model($employee,['route' => ['employees.update', $employee->id], 'method'=>'put']) !!}
                                         {!! Form::hidden('status', 'interview')!!}
-                                        {!! Form::submit('Quiero entrevistar',['class' => 'btn btn-lg btn-danger float-right']) !!}
+                                        {!! Form::submit('Quiero entrevistar',['class' => 'btn btn-lg btn-primary float-right']) !!}
                                         {!! Form::close() !!}
                                     @endif
                                 </div>

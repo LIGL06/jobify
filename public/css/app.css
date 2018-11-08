@@ -16,7 +16,6 @@ html body {
 footer {
   color: #fff;
   background: #680e1b;
-  filter: alpha(opacity=60);
   bottom: 0;
   width: 100%;
   position: absolute;
@@ -699,18 +698,18 @@ pre code {
 .col-sm-12,
 .col-sm,
 .col-sm-auto,
-.col-md-2,
+.col-md-1,
 .col-md-2,
 .col-md-3,
 .col-md-4,
-.col-md-4,
+.col-md-5,
 .col-md-6,
 .col-md-7,
 .col-md-8,
 .col-md-9,
-.col-md-20,
-.col-md-21,
-.col-md-22,
+.col-md-10,
+.col-md-11,
+.col-md-12,
 .col-md,
 .col-md-auto,
 .col-lg-1,
@@ -1242,7 +1241,7 @@ pre code {
     max-width: none;
   }
 
-  .col-md-2 {
+  .col-md-1 {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 8.33333333%;
             flex: 0 0 8.33333333%;
@@ -1270,7 +1269,7 @@ pre code {
     max-width: 33.33333333%;
   }
 
-  .col-md-4 {
+  .col-md-5 {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 41.66666667%;
             flex: 0 0 41.66666667%;
@@ -1305,21 +1304,21 @@ pre code {
     max-width: 75%;
   }
 
-  .col-md-20 {
+  .col-md-10 {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 83.33333333%;
             flex: 0 0 83.33333333%;
     max-width: 83.33333333%;
   }
 
-  .col-md-21 {
+  .col-md-11 {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 91.66666667%;
             flex: 0 0 91.66666667%;
     max-width: 91.66666667%;
   }
 
-  .col-md-22 {
+  .col-md-12 {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 100%;
             flex: 0 0 100%;
@@ -10222,7 +10221,7 @@ button.bg-dark:focus {
     text-align: left !important;
   }
 
-  . {
+  .text-md-right {
     text-align: right !important;
   }
 

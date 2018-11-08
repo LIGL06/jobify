@@ -67,9 +67,19 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('profile') }}">
-                                <i class="fa fa-user-circle"></i> {{ __('Perfil') }}
-                            </a>
+                            @if(Auth::user()->isEmployee())
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <i class="fa fa-user-circle"></i> {{ __('Perfil') }}
+                                </a>
+                            @endif
+                            @if(Auth::user()->isEmployer())
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <i class="fa fa-user-circle"></i> {{ __('Perfil') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('companyProfile') }}">
+                                    <i class="fa fa-suitcase"></i> {{ __('Empresa') }}
+                                </a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 <i class="fa fa-unlock"></i> {{ __('Salir') }}
@@ -93,7 +103,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-3 col-md-2 col-lg-1 my-auto">
-                    <img src="https://res.cloudinary.com/hammock-software/image/upload/v1540740818/LOGO_DIRECCION_DE_DESARROLLO_ECONOMIGO_3183_d60tju.png" class="img-fluid img-thumbnail">
+                    <img src="https://res.cloudinary.com/hammock-software/image/upload/v1540740818/LOGO_DIRECCION_DE_DESARROLLO_ECONOMIGO_3183_d60tju.png"
+                         class="img-fluid img-thumbnail">
                 </div>
                 <div class="col-9 col-md-20">
                     <h5 class="mt-2 mb-0">H. Ayuntamiento de Cuidad Madero</h5>

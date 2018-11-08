@@ -22,6 +22,11 @@
         <div class="container">
             <div class="row mb-2 pb-lg-2">
                 @foreach($jobs as $job)
+                    @if(!Auth::user()->info)
+                        <div class="col-12 text-center">
+                            <b>{{__('Parece ser que no has creado tu perfil, debes hacerlo para poder aplicar a oportunidades.')}}</b>
+                        </div>
+                    @endif
                     <div class="col-md-4 pb-lg-3 pb-2">
                         <div class="card flex-md-row mb-4 shadow-sm h-md-250 h-100">
                             <div class="card-body d-flex flex-column align-items-start">
@@ -29,17 +34,21 @@
                                     <strong class="d-inline-block mb-2 text-primary">{{ucwords(strtolower($job->company->name))}}</strong>
                                 </h4>
                                 <p class="mb-0 h6 text-muted">
-                                    <small>Prof: </small>{{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}
+                                    {{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}
                                 </p>
                                 <div class="mb-1 text-muted">{{ \Carbon\Carbon::parse($job->created_at)->format('M d')}}</div>
                                 <b class="card-text mb-auto">
-                                    <small>Puesto: </small>{{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}</b>
-                                {!! Form::open(['route' => 'employees.store']) !!}
-                                {!! Form::hidden('companyId',$job->companyId)!!}
-                                {!! Form::hidden('jobId',$job->id)!!}
-                                {!! Form::hidden('userId', Auth::user()->id)!!}
-                                {!! Form::submit('Aplicar',['class' => 'btn btn-sm btn-success']) !!}
-                                {!! Form::close() !!}
+                                    {{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}</b>
+                                @if(Auth::user()->info)
+                                    {!! Form::open(['route' => 'employees.store']) !!}
+                                    {!! Form::hidden('companyId',$job->companyId)!!}
+                                    {!! Form::hidden('jobId',$job->id)!!}
+                                    {!! Form::hidden('userId', Auth::user()->id)!!}
+                                    {!! Form::submit('Aplicar',['class' => 'btn btn-sm btn-success']) !!}
+                                    {!! Form::close() !!}
+                                @else
+                                    <a class="btn btn-sm btn-danger" href={{route('createProfile')}}>Crear perfil</a>
+                                @endif
                             </div>
                             <img class="card-img-right flex-auto d-none my-auto d-lg-block"
                                  style="width: 100px; height: 100px;"

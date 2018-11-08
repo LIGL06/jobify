@@ -102,15 +102,14 @@
                                 </div>
                                 {!! Form::close() !!}
                             </div><!--/container-->
-                        @endif
-                        @if(Auth::user()->isEmployee() && !$user->info)
+                        @else
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-10">
                                         <h1>{{Auth::user()->name}}</h1>
                                     </div>
                                 </div>
-                                {!! Form::model($user,['route' => ['createProfile'], 'method'=>'post']) !!}
+                                {!! Form::model($user,['route' => ['createProfile'], 'method'=>'post', 'files' => true]) !!}
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="text-center">
@@ -190,60 +189,6 @@
                                         {!! Form::submit('Editar',['class' => 'btn btn-lg btn-success float-right']) !!}
                                     </div>
                                 </div>
-                                {!! Form::close() !!}
-                            </div>
-                        @else
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-10">
-                                        <h1>{{Auth::user()->employer->company->name}}</h1>
-                                    </div>
-                                </div>
-                                {!! Form::model($user,['route' => ['createCompanyProfile', Auth::user()->employer->company->id], 'method'=>'post']) !!}
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="text-center">
-                                            <img class="avatar img-circle img-thumbnail" alt="avatar"
-                                                 src=''>
-                                            <h6>Subir un logo o foto de empresa...</h6>
-                                            {{Form::file('image', ['class'=> 'text-center center-block file-upload', 'required' => true])}}
-                                        </div>
-                                    </div>
-                                    <!--/col-sm-3-->
-                                    <div class="col-8">
-                                        <div class="form-group row">
-                                            <div class="col-6">
-                                                <label for="fName"><h4>{{__('Empresa')}}</h4></label>
-                                                {!! Form::text('companyName', Auth::user()->employer->company->name, ['class'=> 'form-control', 'placeholder' => 'Nombre Empresa']) !!}
-                                            </div>
-                                            <div class="col-6">
-                                                <label for="lName"><h4>{{__('Giro')}}</h4></label>
-                                                {!! Form::text('comapanyRotation', Auth::user()->employer->company->rotation, ['class'=> 'form-control', 'placeholder' => 'Apellido(s)']) !!}
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-6">
-                                                <label for="fName"><h4>{{__('Teléfono corporativo')}}</h4></label>
-                                                {{Form::text('companyPhone', Auth::user()->employer->company->phone, ['class'=> 'form-control','placeholder' => 'Teléfono móvil'])}}
-                                            </div>
-                                            <div class="col-6">
-                                                <label for="lName"><h4>{{__('Contacto')}}</h4></label>
-                                                {!! Form::text('companyContact', $user->name, ['class'=> 'form-control', 'placeholder' => 'Correo electrónico', 'readOnly'=> true]) !!}
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-6">
-                                                <label for="doB"><h4>{{ __('Dirección') }}</h4></label>
-                                                {!! Form::text('companyAddress', Auth::user()->employer->company->address, ['class'=> 'form-control', 'placeholder' => 'Fecha de nacimiento']) !!}
-                                            </div>
-                                            <div class="col-6">
-                                                <label for="doB"><h4>{{ __('Correo corporativo') }}</h4></label>
-                                                {!! Form::text('address', Auth::user()->employer->company->email, ['class'=> 'form-control', 'placeholder' => 'Dirección']) !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/col-sm-9-->
-                                </div><!--/row-->
                                 {!! Form::close() !!}
                             </div>
                         @endif
