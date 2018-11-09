@@ -59,7 +59,7 @@ class JobsController extends Controller
                 ->withInput();
         }
 
-        $job = \App\Job::create($request->all());
+        $job = Job::create($request->all());
         \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleo '$job->title' pendiente validar."));
 
         if ($request->user()->isAdmin()) {
@@ -83,10 +83,11 @@ class JobsController extends Controller
 
     /**
      * @param Job $job
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Job $job)
     {
-        //
+        return view('jobs.edit', ['job' => $job]);
     }
 
     /**
@@ -98,8 +99,8 @@ class JobsController extends Controller
      */
     public function update(Request $request, Job $job)
     {
-        $job = \App\Job::find($job->id);
-        $job->approved = $request->approved;
+        $job = Job::find($job->id);
+        $job->fill($request->all());
         $job->save();
         return redirect('/admin');
     }

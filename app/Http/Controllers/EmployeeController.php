@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\User;
 use App\Notifications\newNotification;
 use Illuminate\Http\Request;
 use Validator;
@@ -24,6 +25,7 @@ class EmployeeController extends Controller
             'jobs' => $jobs,
             'myJobs' => $myJobs
         ]);
+
     }
 
     /**
@@ -56,19 +58,19 @@ class EmployeeController extends Controller
         }
         $employee = Employee::where('userId', $request->user()->id)->where('jobId', $request->jobId)->get();
         if ($employee->count() == 0) {
-            $employee = \App\Employee::create($request->all());
+            $employee = Employee::create($request->all());
             $employer = \DB::table('employers')->
             join('jobs', 'employers.id', '=', 'jobs.employerId')->
             join('users', 'employers.userId', '=', 'users.id')->
-            select('users.email')->groupBy('email')->pluck('email');
+            select('users.email')->groupBy('email')->pluck('email')->first();
             $name = $employee->user->name;
 
-            \Notification::send(\App\User::where('id', 1)->get(), new newNotification("'$name' aplicó un empleo."));
-            \Notification::send(\App\User::where('email', 'LIKE', "%{$employer[0]}%")->get(), new newNotification("'$name' aplicó un empleo."));
-            \Notification::send(\App\User::where('id', $request->userId)->get(), new newNotification("Aplicaste a un empleo."));
+            \Notification::send(User::where('id', 1)->get(), new newNotification("'$name' aplicó un empleo.", User::where('id', 1)->get(), env('APP_URL') . '/admin'));
+            \Notification::send(User::where('email', 'LIKE', "%{$employer}%")->get()->first(), new newNotification("'$name' aplicó un empleo.", User::where('email', 'LIKE', "%{$employer}%")->get()->first(), env('APP_URL') . '/employer'));
+            \Notification::send(User::where('id', $request->userId)->get(), new newNotification("Aplicaste a {$request->user()->employee->job->title}", $employee, env('APP_URL') . '/employee'));
             return redirect('employees')->with('status', "¡Aplicaste a un empleo!");
         }
-        return redirect('employees')->with('alert', "¡Ya habías aplicado a ese empleo!");
+        return redirect('employees')->with('alert', "¡Ya habías aplicado a {$request->user()->employee->job->title}!");
 
     }
 
@@ -86,17 +88,6 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Employee $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employee $employee)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
@@ -105,24 +96,14 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        $employee = \App\Employee::find($employee->id);
+        $employee = Employee::find($employee->id);
         $employee->fill($request->all());
         $employee->save();
         if ($request->user()->isEmployee()) {
-            return redirect('home')->with('status', "¡Aplicaste a un empleo!");
+            return redirect('home')->with('status', "¡Aplicaste al empleo, {$employee->job->title}!");
         }
-        \Notification::send(\App\User::where('id', $employee->userId)->get(), new newNotification("Actualizaron tu estado en '{$employee->job->title}'."));
-        return redirect('employers')->with('status', "¡Validaste a {$employee->user->name}!");
+        \Notification::send(User::where('id', $employee->userId)->get(), new newNotification("Actualizaron tu estado en '{$employee->job->title}' a '{$request->status}'.", $employee, env('APP_URL') . '/employee'));
+        return redirect('employers')->with('status', "¡Actualizaste una propiedad de {$employee->user->name}!");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Employee $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employee $employee)
-    {
-        //
-    }
 }

@@ -14,19 +14,22 @@ class UsersSeeder extends Seeder
         $adminUser = \App\User::create([
             'name' => 'Administrator',
             'email' => 'admin@madero.gob.mx',
-            'password' => bcrypt('Password00')
+            'password' => bcrypt('Password00'),
+            'email_verified_at' => \Carbon\Carbon::now()
         ]);
 
         $employeeUser = \App\User::create([
             'name' => 'Employee',
             'email' => 'employee@madero.gob.mx',
-            'password' => bcrypt('Password00')
+            'password' => bcrypt('Password00'),
+            'email_verified_at' => \Carbon\Carbon::now()
         ]);
 
         $employerUser = \App\User::create([
             'name' => 'Employer',
             'email' => 'employer@madero.gob.mx',
-            'password' => bcrypt('Password00')
+            'password' => bcrypt('Password00'),
+            'email_verified_at' => \Carbon\Carbon::now()
         ]);
 
         \App\UserInfo::create([

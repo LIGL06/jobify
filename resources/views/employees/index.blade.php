@@ -50,9 +50,15 @@
                                     <a class="btn btn-sm btn-danger" href={{route('createProfile')}}>Crear perfil</a>
                                 @endif
                             </div>
+                            @if(!$job->company->bgPictureUrl)
                             <img class="card-img-right flex-auto d-none my-auto d-lg-block"
                                  style="width: 100px; height: 100px;"
                                  src="https://cdn2.iconfinder.com/data/icons/mixed-rounded-flat-icon/512/briefcase-512.png">
+                                @else
+                                <img class="card-img-right flex-auto d-none my-auto d-lg-block"
+                                     style="width: 100px; height: 100px;"
+                                     src={{$job->company->bgPictureUrl}}>
+                            @endif
                         </div>
                     </div>
                 @endforeach

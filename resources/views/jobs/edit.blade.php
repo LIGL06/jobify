@@ -14,72 +14,21 @@
                 @endif
             </div>
             <div class="col-md-1">
-
             </div>
         </div>
         <div class="container">
             <div class="row" style="padding-bottom:100px">
-                <div class="col-2">
-                    <div class="card h100">
-                        <img class="img-fluid img-thumbnail" src={{Auth::user()->employer->company->bgPictureUrl}}>
-                    </div>
-                </div>
-                <div class="col-4 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5>Tus empleos</h5>
-                            <div>
-                                <ul class="list-group">
-                                    @foreach(Auth::user()->employer->company->jobs as $job)
-                                        <a class="list-group-item d-flex justify-content-between align-items-center"
-                                           href={{route('jobs.edit', $job->id)}}>
-                                            {{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}
-                                            <span class="badge badge-primary badge-pill">{{Count($job->employees)}}
-                                                aplicantes</span>
-                                        </a>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5>Tus aplicantes</h5>
-                            <div>
-                                <ul class="list-group">
-                                    @foreach($myEmployees as $employee)
-                                        <a class="list-group-item
-                                           list-group-item-action flex-column align-items-start"
-                                           href={{route('employees.show', $employee->id)}}>
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-0">Nombre: <b>{{$employee->name}}</b></h5>
-                                            </div>
-                                            <p class="mb-0">
-                                                Empleo:
-                                                <b>{{mb_convert_case($employee->title,MB_CASE_TITLE, "UTF-8")}}</b></p>
-                                            <small class="text-muted">Profesión
-                                                deseada:
-                                                <b>{{mb_convert_case($employee->subTitle,MB_CASE_TITLE, "UTF-8")}}</b>
-                                            </small>
-                                        </a>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h1>Crear empleo</h1>
+                            <h1>Editar empleo</h1>
                             <div>
-                                {!! Form::open(['route'=>'jobs.store']) !!}
+                                {!! Form::model($job, ['route'=> ['jobs.update', $job->id], 'method' => 'put']) !!}
+                                {{Form::hidden('approved', true)}}
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Título</label>
                                     <div class="col-sm-10">
-                                        {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Título de puesto']) !!}
+                                        {!! Form::text('title', $job->title, ['class'=> 'form-control', 'placeholder' => 'Título de puesto']) !!}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -87,7 +36,8 @@
                                     <div class="col-sm-10">
                                         <input class="typeahead form-control" type="text"
                                                placeholder="Profesión a buscar (sin acentos)"
-                                               name="subTitle" autocomplete="off" id="jobsAutocomplete">
+                                               name="subTitle" autocomplete="off" id="jobsAutocomplete"
+                                               value={{$job->subTitle}}>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -107,7 +57,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">N° vacantes</label>
                                     <div class="col-sm-10">
-                                        {!! Form::selectRange('vacancies', 1, 6, null, ['class'=> 'form-control']) !!}
+                                        {!! Form::selectRange('vacancies', 1, 6, $job->vacancies, ['class'=> 'form-control']) !!}
                                     </div>
                                 </div>
                                 <fieldset class="form-group">
@@ -151,35 +101,13 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="submit" class="btn btn-dark">Editar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    @elseif(!Auth::user()->employer)
-        <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-4 mx-auto my-4">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_400/v1540658645/04_l6q5l3.jpg"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Permisos</h5>
-                        <p class="card-text">Perece ser que aún no te has registrado a una empresa.</p>
-                        <a href={{route('companies.create')}} class="btn btn-primary">Registrar Empresa</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @else
-        <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-4 mx-auto">
-                <h1 class="font-weight-normal">Permisos</h1>
-                <p class="lead font-weight-normal">No tienes permitido acceder a esta área.</p>
             </div>
         </div>
     @endif

@@ -79,15 +79,17 @@ class CompaniesController extends Controller
     {
         $company = Company::find($company->id);
         $company->approved = $request->approved ? $request->approved : false;
-        if (isset($company->bgPictureUrl)) {
+        if (isset($company->bgPictureUrl) && $request->hasFile('image')) {
             $picParts = explode("/", $company->bgPictureUrl);
             $pictureLink = end($picParts);
             Storage::disk('s3')->delete('profilePictures/' . $pictureLink);
         }
-        $image = $request->file('image')->store('profilePictures', 's3');
-        $imageUrl = Storage::cloud()->url($image);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('profilePictures', 's3');
+            $imageUrl = Storage::cloud()->url($image);
+            $company->bgPictureUrl = $imageUrl;
+        }
         $company->fill($request->all());
-        $company->bgPictureUrl = $imageUrl;
         $company->save();
         return $request->user()->isAdmin() ? redirect('admin')->with('status', "¡Actualizaste a $company->name!") : redirect('company/me')->with('status', "¡Actualizaste a $company->name!");
     }

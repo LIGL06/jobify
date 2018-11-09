@@ -320,14 +320,14 @@
                                                             <td>
                                                                 <span class="badge badge-warning">No aprobado</span>
                                                             </td>
-                                                            <td>
-
-                                                            </td>
                                                         @else
                                                             <td>
                                                                 <span class="badge badge-succes">Aprobado</span>
                                                             </td>
                                                         @endif
+                                                        <td><a class="btn btn-sm btn-success"
+                                                               href={{route('employees.show', $employee->id)}}>Ver</a>
+                                                        </td>
                                                     </tr>
                                                 @endif
                                             @endforeach
@@ -358,14 +358,14 @@
                                                             <td>
                                                                 <span class="badge badge-warning">No aprobado</span>
                                                             </td>
-                                                            <td>
-
-                                                            </td>
                                                         @else
                                                             <td>
                                                                 <span class="badge badge-succes">Aprobado</span>
                                                             </td>
                                                         @endif
+                                                        <td><a class="btn btn-sm btn-success"
+                                                               href={{route('companies.edit', $company->id)}}>Editar</a>
+                                                        </td>
                                                     </tr>
                                                 @endif
                                             @endforeach
@@ -392,14 +392,14 @@
                                                             <td>
                                                                 <span class="badge badge-warning">No aprobado</span>
                                                             </td>
-                                                            <td>
-
-                                                            </td>
                                                         @else
                                                             <td>
                                                                 <span class="badge badge-succes">Aprobado</span>
                                                             </td>
                                                         @endif
+                                                        <td><a class="btn btn-sm btn-success"
+                                                               href={{route('employers.show', $employer->id)}}>Ver</a>
+                                                        </td>
                                                     </tr>
                                                 @endif
                                             @endforeach

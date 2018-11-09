@@ -151,7 +151,7 @@ class HomeController extends Controller
         $user->save();
         $userInfo->save();
 
-        \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("$user->name, creaste tus datos."));
+        \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("Creaste tus perfil.", $user, env('APP_URL') . '/users/me'));
         return redirect('home')->with('status', "¡Actualizaste tu perfil!");
     }
 
@@ -164,7 +164,7 @@ class HomeController extends Controller
     {
         $user = User::where('id', $id)->first();
         $userInfo = \App\UserInfo::where('id', $request->userInfoId)->first();
-        if (isset($userInfo->pictureUrl) && isset($userInfo->cvUrl)) {
+        if (isset($userInfo->pictureUrl) && isset($userInfo->cvUrl) && $request->hasFile('image') && $request->hasFile('cv')) {
             $picParts = explode("/", $userInfo->pictureUrl);
             $cvParts = explode("/", $userInfo->cvUrl);
             $pictureLink = end($picParts);
@@ -172,20 +172,20 @@ class HomeController extends Controller
             Storage::disk('s3')->delete('profilePictures/' . $pictureLink);
             Storage::disk('s3')->delete('cvs/' . $cvLink);
         }
-        $cv = $request->file('cv')->store('cvs', 's3');
-        $cvUrl = Storage::cloud()->url($cv);
-        $image = $request->file('image')->store('profilePictures', 's3');
-        $imageUrl = Storage::cloud()->url($image);
-
+        if ($request->hasFile('image') && $request->hasFile('cv')) {
+            $cv = $request->file('cv')->store('cvs', 's3');
+            $cvUrl = Storage::cloud()->url($cv);
+            $image = $request->file('image')->store('profilePictures', 's3');
+            $imageUrl = Storage::cloud()->url($image);
+            $userInfo->cvUrl = $cvUrl;
+            $userInfo->pictureUrl = $imageUrl;
+        }
         $userInfo->fill($request->all());
-        $userInfo->cvUrl = $cvUrl;
-        $userInfo->pictureUrl = $imageUrl;
         $user->name = $request->fName;
-
         $user->save();
         $userInfo->save();
 
-        \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("$user->name, actualizaste tus datos."));
+        \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("Actualizaste tus datos.", $user, env('APP_URL') . '/users/me'));
         return redirect('home')->with('status', "¡Actualizaste tu perfil!");
     }
 }

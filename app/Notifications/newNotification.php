@@ -11,16 +11,22 @@ class newNotification extends Notification
 {
     use Queueable;
     protected $message;
+    protected $user;
+    protected $mailUrl;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * newNotification constructor.
+     * @param $message
+     * @param $user
+     * @param $mailUrl
      */
-    public function __construct($message)
+    public function __construct($message, $user, $mailUrl)
     {
         $this->message = $message;
+        $this->user = $user;
+        $this->mailUrl = $mailUrl;
     }
+
 
     /**
      * Get the notification's delivery channels.
@@ -57,11 +63,13 @@ class newNotification extends Notification
 
     public function toMail($notifiable)
     {
-        $url = url('/admin');
         return (new MailMessage)
-            ->greeting("¡Hola!")
+            ->subject('Acción requerida')
+            ->greeting(sprintf('Hola %s,', $this->user->name))
             ->line($this->message)
-            ->action('Acción', $url);
+            ->action('Acción', $this->mailUrl)
+            ->line('Nos vemos pronto,')
+            ->salutation('Bolsa de Trabajo Ciudad Madero');
     }
 
 }
