@@ -47,11 +47,13 @@ class CompaniesController extends Controller
         }
         $company = Company::create($request->all());
         if ($request->user()->isAdmin()) {
-            \Notification::send(User::where('id', 1)->get(), new newNotification("Empresa '$company->name' pendiente validar."));
+            $admin = User::where('id', 1)->first();
+            \Notification::send($admin, new newNotification("Empresa '$company->name' pendiente validar.", $admin, env('APP_URL') . '/admin'));
             return redirect('admin')->with('status', "¡Creaste una empresa!");
         }
         if ($request->user()->isEmployer()) {
-            \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("Tu empresa '$company->name' está pendiente de validar."));
+            $employer = User::where('id', $request->user()->id)->first();
+            \Notification::send($employer, new newNotification("Tu empresa '$company->name' está pendiente de validar.", $employer, env('APP_URL') . '/company/me'));
             Employer::create([
                 'userId' => $request->user()->id,
                 'companyId' => $company->id
@@ -60,14 +62,13 @@ class CompaniesController extends Controller
         }
     }
 
+    /**
+     * @param Company $company
+     * @return Company
+     */
     public function show(Company $company)
     {
-        //
-    }
-
-    public function edit(Company $company)
-    {
-        //
+        return $company;
     }
 
     /**
@@ -79,15 +80,17 @@ class CompaniesController extends Controller
     {
         $company = Company::find($company->id);
         $company->approved = $request->approved ? $request->approved : false;
-        if (isset($company->bgPictureUrl)) {
+        if (isset($company->bgPictureUrl) && $request->hasFile('image')) {
             $picParts = explode("/", $company->bgPictureUrl);
             $pictureLink = end($picParts);
             Storage::disk('s3')->delete('profilePictures/' . $pictureLink);
         }
-        $image = $request->file('image')->store('profilePictures', 's3');
-        $imageUrl = Storage::cloud()->url($image);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('profilePictures', 's3');
+            $imageUrl = Storage::cloud()->url($image);
+            $company->bgPictureUrl = $imageUrl;
+        }
         $company->fill($request->all());
-        $company->bgPictureUrl = $imageUrl;
         $company->save();
         return $request->user()->isAdmin() ? redirect('admin')->with('status', "¡Actualizaste a $company->name!") : redirect('company/me')->with('status', "¡Actualizaste a $company->name!");
     }

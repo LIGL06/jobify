@@ -22,10 +22,10 @@ class EmployerController extends Controller
             join('jobs', 'jobs.id', '=', 'employees.jobId')->
             join('users', 'users.id', '=', 'employees.userId')->
             where('jobs.EmployerId', $employerId)->
-            select('name', 'email', 'status', 'title','subTitle', 'employees.id')->get();
+            select('name', 'email', 'status', 'title', 'subTitle', 'employees.id')->get();
             return view('employers.index', ['myEmployees' => $myEmployees]);
         }
-        if(!$request->user()->isEmployer()){
+        if (!$request->user()->isEmployer()) {
             return redirect('home');
         }
         return view('employers.index');
@@ -64,25 +64,12 @@ class EmployerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Employer $employer
-     * @return \Illuminate\Http\Response
+     * @param Employer $employer
+     * @return Employer
      */
     public function show(Employer $employer)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Employer $employer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employer $employer)
-    {
-        //
+        return $employer;
     }
 
     /**
@@ -101,12 +88,7 @@ class EmployerController extends Controller
         return redirect('admin')->with('status', "¡Actualizaste a {$name}!");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Employer $employer
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Employer $employer)
     {
         //

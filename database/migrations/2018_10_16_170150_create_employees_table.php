@@ -21,7 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->foreign('companyId')->references('id')->on('companies')->onDelete('cascade');
             $table->integer('jobId')->index()->unsigned();
             $table->foreign('jobId')->references('id')->on('jobs')->onDelete('cascade');
-            $table->enum('status', ['preConfirmation', 'confirmation', 'interview'])->nullable();
+            $table->enum('status', ['Pre-confirmación', 'Confirmación', 'Entrevista'])->nullable();
             $table->boolean('approved')->default(false);
             $table->timestamps();
         });
