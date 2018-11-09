@@ -151,8 +151,8 @@ class HomeController extends Controller
         $user->save();
         $userInfo->save();
 
-        \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("Creaste tus perfil.", $user, env('APP_URL') . '/users/me'));
-        return redirect('home')->with('status', "¡Actualizaste tu perfil!");
+        \Notification::send($user, new newNotification("Creaste tu perfil.", $user, env('APP_URL') . '/users/me'));
+        return redirect('home')->with('status', "¡Creaste tu perfil!");
     }
 
     /**
@@ -163,7 +163,7 @@ class HomeController extends Controller
     public function updateUser(Request $request, $id)
     {
         $user = User::where('id', $id)->first();
-        $userInfo = \App\UserInfo::where('id', $request->userInfoId)->first();
+        $userInfo = UserInfo::where('id', $request->userInfoId)->first();
         if (isset($userInfo->pictureUrl) && isset($userInfo->cvUrl) && $request->hasFile('image') && $request->hasFile('cv')) {
             $picParts = explode("/", $userInfo->pictureUrl);
             $cvParts = explode("/", $userInfo->cvUrl);
@@ -185,7 +185,7 @@ class HomeController extends Controller
         $user->save();
         $userInfo->save();
 
-        \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("Actualizaste tus datos.", $user, env('APP_URL') . '/users/me'));
+        \Notification::send($user, new newNotification("Actualizaste tus datos.", $user, env('APP_URL') . '/users/me'));
         return redirect('home')->with('status', "¡Actualizaste tu perfil!");
     }
 }

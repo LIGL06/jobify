@@ -97,7 +97,7 @@
                                     </div>
                                     <!--/col-sm-12-->
                                     <div class="col-12">
-                                        {!! Form::submit('Editar',['class' => 'btn btn-lg btn-success float-right']) !!}
+                                        {!! Form::submit('Actualizar',['class' => 'btn btn-lg btn-success float-right']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}
@@ -124,7 +124,7 @@
                                         <div class="form-group row">
                                             <div class="col-6">
                                                 <label for="fName"><h4>{{__('Nombre(s)')}}</h4></label>
-                                                {!! Form::text('fName', null, ['class'=> 'form-control', 'placeholder' => 'Nombre(s)']) !!}
+                                                {!! Form::text('fName', Auth::user()->name, ['class'=> 'form-control', 'placeholder' => 'Nombre(s)']) !!}
                                             </div>
                                             <div class="col-6">
                                                 <label for="lName"><h4>{{__('Apellido(s)')}}</h4></label>
@@ -186,7 +186,7 @@
                                     </div>
                                     <!--/col-sm-12-->
                                     <div class="col-12">
-                                        {!! Form::submit('Editar',['class' => 'btn btn-lg btn-success float-right']) !!}
+                                        {!! Form::submit('Crear',['class' => 'btn btn-lg btn-success float-right']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}

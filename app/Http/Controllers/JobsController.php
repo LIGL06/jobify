@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use App\Job;
 use App\Notifications\newNotification;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -60,13 +62,15 @@ class JobsController extends Controller
         }
 
         $job = Job::create($request->all());
-        \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleo '$job->title' pendiente validar."));
+        $admin = User::where('id', 1)->first();
+        \Notification::send($admin, new newNotification("Empleo '$job->title' pendiente validar.", $admin, env('APP_URL') . '/admin'));
 
         if ($request->user()->isAdmin()) {
             return redirect('admin')->with('status', "¡Creaste una empleo!");
         }
         if ($request->user()->isEmployer()) {
-            \Notification::send(\App\User::where('id', $request->user()->id)->get(), new newNotification("Empleo '$job->title' pendiente validar."));
+            $employer = User::where('id', $request->user()->id)->first();
+            \Notification::send($employer, new newNotification("Tu Empleo '$job->title' está pendiente de validar, pero pueden registrarse los aspirantes.", $employer, env('APP_URL') . '/employer'));
             return redirect('employers')->with('status', "¡Creaste una empleo!");
         }
 
@@ -107,9 +111,16 @@ class JobsController extends Controller
 
     /**
      * @param Job $job
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Job $job)
     {
-        //
+        $employees = Employee::where('jobId', $job->id)->with('user')->get();
+        foreach ($employees as $employee) {
+            \Notification::send($employee->user, new newNotification("El empleo '$job->title' se ha dado de baja, gracias por aplicar.", $employee->user, env('APP_URL') . '/employer'));
+        }
+        $job->delete();
+        return redirect('home');
     }
 }

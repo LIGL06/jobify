@@ -364,7 +364,7 @@
                                                             </td>
                                                         @endif
                                                         <td><a class="btn btn-sm btn-success"
-                                                               href={{route('companies.edit', $company->id)}}>Editar</a>
+                                                               href={{route('companies.show', $company->id)}}>Ver</a>
                                                         </td>
                                                     </tr>
                                                 @endif

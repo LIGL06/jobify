@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(Auth::user()->isEmployee())
+    @if(Auth::user()->isEmployee() && Auth::user()->info)
         <div class="position-relative overflow-hidden text-center bg-light">
             <div class="col-md-4 mx-auto">
                 <h1 class="font-weight-normal mb-0">Encuentra trabajo</h1>
@@ -30,9 +30,9 @@
                     <div class="col-md-4 pb-lg-3 pb-2">
                         <div class="card flex-md-row mb-4 shadow-sm h-md-250 h-100">
                             <div class="card-body d-flex flex-column align-items-start">
-                                <h4 class="mb-0">
-                                    <strong class="d-inline-block mb-2 text-primary">{{ucwords(strtolower($job->company->name))}}</strong>
-                                </h4>
+                                <h5 class="mb-0">
+                                    <strong class="d-inline-block mb-2 text-primary">{{ucwords(strtoupper($job->company->name))}}</strong>
+                                </h5>
                                 <p class="mb-0 h6 text-muted">
                                     {{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}
                                 </p>
@@ -51,10 +51,10 @@
                                 @endif
                             </div>
                             @if(!$job->company->bgPictureUrl)
-                            <img class="card-img-right flex-auto d-none my-auto d-lg-block"
-                                 style="width: 100px; height: 100px;"
-                                 src="https://cdn2.iconfinder.com/data/icons/mixed-rounded-flat-icon/512/briefcase-512.png">
-                                @else
+                                <img class="card-img-right flex-auto d-none my-auto d-lg-block"
+                                     style="width: 100px; height: 100px;"
+                                     src="https://cdn2.iconfinder.com/data/icons/mixed-rounded-flat-icon/512/briefcase-512.png">
+                            @else
                                 <img class="card-img-right flex-auto d-none my-auto d-lg-block"
                                      style="width: 100px; height: 100px;"
                                      src={{$job->company->bgPictureUrl}}>
@@ -69,18 +69,34 @@
                     <div class="col-md-3">
                         <div class="card flex-md-row mb-4 shadow-sm h-md-250">
                             <div class="card-body d-flex flex-column align-items-start">
-                                <strong class="d-inline-block text-primary mb-0">{{ucwords(strtolower($myJob->company->name))}}</strong>
+                                <strong class="d-inline-block text-primary mb-0">{{ucwords(strtoupper($myJob->company->name))}}</strong>
                                 <p class="mb-0 text-muted">
                                     {{mb_convert_case($myJob->job->title,MB_CASE_TITLE, "UTF-8")}}
                                 </p>
                                 <div class="text-muted col-12">
                                     <span class="float-left">{{ \Carbon\Carbon::parse($myJob->created_at)->format('M d')}}</span>
-                                    <span class="badge badge-primary badge-pill float-right">{{ucwords(strtolower($myJob->status))}}</span>
+                                    <span class="badge badge-primary badge-pill float-right">{{mb_convert_case($myJob->status,MB_CASE_TITLE, "UTF-8")}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
+            </div>
+        </div>
+
+    @elseif(!Auth::user()->employer)
+        <div class="position-relative overflow-hidden text-center bg-light">
+            <div class="col-md-4 mx-auto my-4">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_400/v1540658645/04_l6q5l3.jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Permisos</h5>
+                        <p class="card-text">Perece ser que aún no tienes tu perfil.</p>
+                        <a class="btn btn-primary" href={{route('createProfile')}} >Crear perfil</a>
+                    </div>
+                </div>
             </div>
         </div>
     @else

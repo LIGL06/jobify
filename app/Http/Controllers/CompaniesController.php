@@ -47,11 +47,13 @@ class CompaniesController extends Controller
         }
         $company = Company::create($request->all());
         if ($request->user()->isAdmin()) {
-            \Notification::send(User::where('id', 1)->get(), new newNotification("Empresa '$company->name' pendiente validar."));
+            $admin = User::where('id', 1)->first();
+            \Notification::send($admin, new newNotification("Empresa '$company->name' pendiente validar.", $admin, env('APP_URL') . '/admin'));
             return redirect('admin')->with('status', "¡Creaste una empresa!");
         }
         if ($request->user()->isEmployer()) {
-            \Notification::send(User::where('id', $request->user()->id)->get(), new newNotification("Tu empresa '$company->name' está pendiente de validar."));
+            $employer = User::where('id', $request->user()->id)->first();
+            \Notification::send($employer, new newNotification("Tu empresa '$company->name' está pendiente de validar.", $employer, env('APP_URL') . '/company/me'));
             Employer::create([
                 'userId' => $request->user()->id,
                 'companyId' => $company->id
@@ -60,14 +62,13 @@ class CompaniesController extends Controller
         }
     }
 
+    /**
+     * @param Company $company
+     * @return Company
+     */
     public function show(Company $company)
     {
-        //
-    }
-
-    public function edit(Company $company)
-    {
-        //
+        return $company;
     }
 
     /**

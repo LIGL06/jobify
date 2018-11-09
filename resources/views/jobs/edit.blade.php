@@ -100,8 +100,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-dark">Editar</button>
+                                    <div class="col-sm-2 float-left">
+                                        {!! Form::close()!!}
+                                        <button type="submit" class="btn btn-lg btn-dark">Editar</button>
+                                    </div>
+                                    <div class="col-sm-2 offset-8">
+                                        {!! Form::model($job, ['route'=> ['jobs.destroy', $job->id], 'method' => 'delete']) !!}
+                                        {!! Form::submit('Eliminar',['class' => 'btn btn-lg btn-danger float-right']) !!}
+                                        {!! Form::close() !!}
                                     </div>
                                 </div>
                             </div>

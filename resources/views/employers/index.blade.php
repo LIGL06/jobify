@@ -20,8 +20,12 @@
         <div class="container">
             <div class="row" style="padding-bottom:100px">
                 <div class="col-2">
-                    <div class="card h100">
+                    <div class="card h-100">
+                        @if(Auth::user()->employer->company->bgPictureUrl)
                         <img class="img-fluid img-thumbnail" src={{Auth::user()->employer->company->bgPictureUrl}}>
+                        @else
+                            <i class="fa fa-suitcase fa-5x mx-auto"></i>
+                        @endif
                     </div>
                 </div>
                 <div class="col-4 mb-3">
@@ -170,7 +174,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Permisos</h5>
                         <p class="card-text">Perece ser que aún no te has registrado a una empresa.</p>
-                        <a href={{route('companies.create')}} class="btn btn-primary">Registrar Empresa</a>
+                        <a class="btn btn-primary" href={{route('companies.create')}} >Registrar Empresa</a>
                     </div>
                 </div>
             </div>
