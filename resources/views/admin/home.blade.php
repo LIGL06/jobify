@@ -363,8 +363,7 @@
                                                                 <span class="badge badge-succes">Aprobado</span>
                                                             </td>
                                                         @endif
-                                                        <td><a class="btn btn-sm btn-success"
-                                                               href={{route('companies.show', $company->id)}}>Ver</a>
+                                                        <td>
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -397,8 +396,7 @@
                                                                 <span class="badge badge-succes">Aprobado</span>
                                                             </td>
                                                         @endif
-                                                        <td><a class="btn btn-sm btn-success"
-                                                               href={{route('employers.show', $employer->id)}}>Ver</a>
+                                                        <td>
                                                         </td>
                                                     </tr>
                                                 @endif
