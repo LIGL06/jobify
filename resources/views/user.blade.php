@@ -74,11 +74,19 @@
                                             </div>
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('CURP') }}</h4></label>
-                                                {!! Form::text('uniqueKey', $user->info->uniqueKey, ['class'=> 'form-control', 'placeholder' => 'Clave unica de regitro poblacional']) !!}
+                                                {!! Form::text('uniqueKey', $user->info->uniqueKey, ['class'=> "form-control {{ $errors->has('uniqueKey') ? ' is-invalid' : '' }}", 'placeholder' => 'Clave unica de regitro poblacional']) !!}
+                                                @if ($errors->has('uniqueKey'))
+                                                    <span class="invalid-feedback"
+                                                          role="alert"><strong>{{ $errors->first('uniqueKey') }}</strong></span>
+                                                @endif
                                             </div>
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('NSS') }}</h4></label>
-                                                {!! Form::text('socialKey', $user->info->socialKey, ['class'=> 'form-control', 'placeholder' => 'Número de seguro social']) !!}
+                                                {!! Form::text('socialKey', $user->info->socialKey, ['class'=> "form-control {{ $errors->has('socialKey') ? ' is-invalid' : '' }}", 'placeholder' => 'Número de seguro social']) !!}
+                                                @if ($errors->has('socialKey'))
+                                                    <span class="invalid-feedback"
+                                                          role="alert"><strong>{{ $errors->first('socialKey') }}</strong></span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +124,7 @@
                                             <img class="avatar img-circle img-thumbnail" alt="avatar"
                                                  src=''>
                                             <h6>Subir una foto...</h6>
-                                            {{Form::file('image', ['class'=> 'text-center center-block file-upload', 'required' => true])}}
+                                            {{Form::file('image', ['class'=> 'text-center center-block file-upload'])}}
                                         </div>
                                     </div>
                                     <!--/col-sm-3-->
@@ -159,15 +167,30 @@
                                         <div class="form-group row">
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('Profesión') }}</h4></label>
-                                                {!! Form::text('profession', null, ['class'=> 'form-control', 'placeholder' => 'Profesión']) !!}
+                                                {!! Form::text('profession', null, ['class'=> 'form-control', 'required' => true,'placeholder' => 'Profesión']) !!}
                                             </div>
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('CURP') }}</h4></label>
-                                                {!! Form::text('uniqueKey', null, ['class'=> 'form-control', 'placeholder' => 'Clave unica de regitro poblacional']) !!}
+                                                <input id="uniqueKey" type="text"
+                                                       class="form-control{{ $errors->has('uniqueKey') ? ' is-invalid' : '' }}"
+                                                       name="uniqueKey" value="{{ old('uniqueKey') }}"
+                                                       placeholder="Clave unica de registro poblacional" required
+                                                       autofocus>
+                                                @if ($errors->has('uniqueKey'))
+                                                    <span class="invalid-feedback"
+                                                          role="alert"><strong>{{ $errors->first('uniqueKey') }}</strong></span>
+                                                @endif
                                             </div>
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('NSS') }}</h4></label>
-                                                {!! Form::text('socialKey', null, ['class'=> 'form-control', 'placeholder' => 'Número de seguro social']) !!}
+                                                <input id="socialKey" type="text"
+                                                       class="form-control{{ $errors->has('socialKey') ? ' is-invalid' : '' }}"
+                                                       name="socialKey" value="{{ old('socialKey') }}"
+                                                       placeholder="Número de seguro social" required autofocus>
+                                                @if ($errors->has('socialKey'))
+                                                    <span class="invalid-feedback"
+                                                          role="alert"><strong>{{ $errors->first('socialKey') }}</strong></span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -176,7 +199,7 @@
                                         <div class="form-group row">
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('Estado civil') }}</h4></label>
-                                                {{Form::select('civilStatus', ['casado' => 'Casado', 'soltero' => 'Soltero', 'otro'=> 'Otro'], null, ['class'=> 'form-control','placeholder' => 'Seleccionar estado civil'])}}
+                                                {{Form::select('civilStatus', ['casado' => 'Casado', 'soltero' => 'Soltero', 'otro'=> 'Otro'], null, ['class'=> 'form-control','required' => true, 'placeholder' => 'Seleccionar estado civil'])}}
                                             </div>
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('CV') }}</h4></label>
