@@ -7,6 +7,7 @@ use App\User;
 use App\UserInfo;
 use Illuminate\Http\Request;
 use DB;
+use Validator;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
@@ -134,6 +135,23 @@ class HomeController extends Controller
     {
         $user = User::where('id', $request->user()->id)->first();
         $userInfo = new UserInfo();
+        $validator = Validator::make($request->all(), [
+            'fName' => 'required',
+            'lName' => 'required',
+            'doB' => 'required',
+            'civilStatus' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'profession' => 'required',
+            'uniqueKey' => 'required|unique:user_infos',
+            'socialKey' => 'required|unique:user_infos',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('users/me')
+                ->withErrors($validator)
+                ->withInput();
+        }
         $user->name = $request->fName;
         $userInfo->userId = $request->user()->id;
         $userInfo->professional = true;
@@ -164,6 +182,23 @@ class HomeController extends Controller
     {
         $user = User::where('id', $id)->first();
         $userInfo = UserInfo::where('id', $request->userInfoId)->first();
+        $validator = Validator::make($request->all(), [
+            'fName' => 'required',
+            'lName' => 'required',
+            'doB' => 'required',
+            'civilStatus' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'profession' => 'required',
+            'uniqueKey' => 'required|unique:user_infos',
+            'socialKey' => 'required|unique:user_infos',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('users/me')
+                ->withErrors($validator)
+                ->withInput();
+        }
         if (isset($userInfo->pictureUrl) && isset($userInfo->cvUrl) && $request->hasFile('image') && $request->hasFile('cv')) {
             $picParts = explode("/", $userInfo->pictureUrl);
             $cvParts = explode("/", $userInfo->cvUrl);
