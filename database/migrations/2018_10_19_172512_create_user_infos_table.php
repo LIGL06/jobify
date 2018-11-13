@@ -26,8 +26,8 @@ class CreateUserInfosTable extends Migration
             $table->boolean('professional');
             $table->string('profession')->nullable();
             $table->boolean('handyCap');
-            $table->string('uniqueKey')->unique();
-            $table->string('socialKey')->unique();
+            $table->string('uniqueKey')->unique()->nullable();
+            $table->string('socialKey')->unique()->nullable();
             $table->decimal('salary', 6, 2);
             $table->string('pictureUrl')->nullable();
             $table->string('cvUrl')->nullable();

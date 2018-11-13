@@ -143,8 +143,8 @@ class HomeController extends Controller
             'phone' => 'required',
             'address' => 'required',
             'profession' => 'required',
-            'uniqueKey' => 'required|unique:user_infos',
-            'socialKey' => 'required|unique:user_infos',
+            'uniqueKey' => 'unique:user_infos',
+            'socialKey' => 'unique:user_infos',
         ]);
 
         if ($validator->fails()) {
@@ -158,14 +158,18 @@ class HomeController extends Controller
         $userInfo->handyCap = false;
         $userInfo->salary = 0;
 
-        $cv = $request->file('cv')->store('cvs', 's3');
-        $cvUrl = Storage::cloud()->url($cv);
-        $image = $request->file('image')->store('profilePictures', 's3');
-        $imageUrl = Storage::cloud()->url($image);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('profilePictures', 's3');
+            $imageUrl = Storage::cloud()->url($image);
+            $userInfo->pictureUrl = $imageUrl;
+        }
 
+        if ($request->hasFile('cv')) {
+            $cv = $request->file('cv')->store('cvs', 's3');
+            $cvUrl = Storage::cloud()->url($cv);
+            $userInfo->cvUrl = $cvUrl;
+        }
         $userInfo->fill($request->all());
-        $userInfo->cvUrl = $cvUrl;
-        $userInfo->pictureUrl = $imageUrl;
         $user->save();
         $userInfo->save();
 
@@ -189,9 +193,7 @@ class HomeController extends Controller
             'civilStatus' => 'required',
             'phone' => 'required',
             'address' => 'required',
-            'profession' => 'required',
-            'uniqueKey' => 'required|unique:user_infos',
-            'socialKey' => 'required|unique:user_infos',
+            'profession' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -199,22 +201,23 @@ class HomeController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        if (isset($userInfo->pictureUrl) && isset($userInfo->cvUrl) && $request->hasFile('image') && $request->hasFile('cv')) {
+        if ((isset($userInfo->pictureUrl) && $request->hasFile('image')) || $request->hasFile('image')) {
             $picParts = explode("/", $userInfo->pictureUrl);
-            $cvParts = explode("/", $userInfo->cvUrl);
             $pictureLink = end($picParts);
-            $cvLink = end($cvParts);
             Storage::disk('s3')->delete('profilePictures/' . $pictureLink);
-            Storage::disk('s3')->delete('cvs/' . $cvLink);
-        }
-        if ($request->hasFile('image') && $request->hasFile('cv')) {
-            $cv = $request->file('cv')->store('cvs', 's3');
-            $cvUrl = Storage::cloud()->url($cv);
             $image = $request->file('image')->store('profilePictures', 's3');
             $imageUrl = Storage::cloud()->url($image);
-            $userInfo->cvUrl = $cvUrl;
             $userInfo->pictureUrl = $imageUrl;
         }
+        if ((isset($userInfo->cvUrl) && $request->hasFile('cv')) || $request->hasFile('cv')) {
+            $cvParts = explode("/", $userInfo->cvUrl);
+            $cvLink = end($cvParts);
+            Storage::disk('s3')->delete('cvs/' . $cvLink);
+            $cv = $request->file('cv')->store('cvs', 's3');
+            $cvUrl = Storage::cloud()->url($cv);
+            $userInfo->cvUrl = $cvUrl;
+        }
+
         $userInfo->fill($request->all());
         $user->name = $request->fName;
         $user->save();

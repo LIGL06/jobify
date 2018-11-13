@@ -27,7 +27,7 @@
                                             <img class="avatar img-circle img-thumbnail" alt="avatar"
                                                  src={{Auth::user()->info->pictureUrl}}>
                                             <h6>Subir una foto...</h6>
-                                            {{Form::file('image', ['class'=> 'text-center center-block file-upload', 'required' => true])}}
+                                            {{Form::file('image', ['class'=> 'text-center center-block file-upload'])}}
                                         </div>
                                     </div>
                                     <!--/col-sm-3-->
@@ -99,7 +99,7 @@
                                             </div>
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('CV') }}</h4></label>
-                                                {{Form::file('cv', ['class'=> 'form-control-file', 'required' => true])}}
+                                                {{Form::file('cv', ['class'=> 'form-control-file'])}}
                                             </div>
                                         </div>
                                     </div>
@@ -136,13 +136,13 @@
                                             </div>
                                             <div class="col-6">
                                                 <label for="lName"><h4>{{__('Apellido(s)')}}</h4></label>
-                                                {!! Form::text('lName', null, ['class'=> 'form-control', 'placeholder' => 'Apellido(s)']) !!}
+                                                {!! Form::text('lName', null, ['class'=> 'form-control','required'=>true, 'placeholder' => 'Apellido(s)']) !!}
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-6">
                                                 <label for="fName"><h4>{{__('Teléfono')}}</h4></label>
-                                                {{Form::text('phone', null, ['class'=> 'form-control','placeholder' => 'Teléfono móvil'])}}
+                                                {{Form::text('phone', null, ['class'=> 'form-control','required'=>true,'placeholder' => 'Teléfono móvil'])}}
                                             </div>
                                             <div class="col-6">
                                                 <label for="lName"><h4>{{__('Correo electrónico')}}</h4></label>
@@ -152,11 +152,11 @@
                                         <div class="form-group row">
                                             <div class="col-6">
                                                 <label for="doB"><h4>{{ __('Fecha nacimiento') }}</h4></label>
-                                                {!! Form::date('doB', null, ['class'=> 'form-control', 'placeholder' => 'Fecha de nacimiento']) !!}
+                                                {!! Form::date('doB', null, ['class'=> 'form-control','required'=>true, 'placeholder' => 'Fecha de nacimiento']) !!}
                                             </div>
                                             <div class="col-6">
                                                 <label for="doB"><h4>{{ __('Dirección') }}</h4></label>
-                                                {!! Form::text('address', null, ['class'=> 'form-control', 'placeholder' => 'Dirección']) !!}
+                                                {!! Form::text('address', null, ['class'=> 'form-control','required'=>true, 'placeholder' => 'Dirección']) !!}
                                             </div>
                                         </div>
                                     </div>
@@ -167,15 +167,14 @@
                                         <div class="form-group row">
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('Profesión') }}</h4></label>
-                                                {!! Form::text('profession', null, ['class'=> 'form-control', 'required' => true,'placeholder' => 'Profesión']) !!}
+                                                {!! Form::text('profession', null, ['class'=> 'form-control','placeholder' => 'Profesión']) !!}
                                             </div>
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('CURP') }}</h4></label>
                                                 <input id="uniqueKey" type="text"
                                                        class="form-control{{ $errors->has('uniqueKey') ? ' is-invalid' : '' }}"
                                                        name="uniqueKey" value="{{ old('uniqueKey') }}"
-                                                       placeholder="Clave unica de registro poblacional" required
-                                                       autofocus>
+                                                       placeholder="Clave unica de registro poblacional">
                                                 @if ($errors->has('uniqueKey'))
                                                     <span class="invalid-feedback"
                                                           role="alert"><strong>{{ $errors->first('uniqueKey') }}</strong></span>
@@ -186,7 +185,7 @@
                                                 <input id="socialKey" type="text"
                                                        class="form-control{{ $errors->has('socialKey') ? ' is-invalid' : '' }}"
                                                        name="socialKey" value="{{ old('socialKey') }}"
-                                                       placeholder="Número de seguro social" required autofocus>
+                                                       placeholder="Número de seguro social">
                                                 @if ($errors->has('socialKey'))
                                                     <span class="invalid-feedback"
                                                           role="alert"><strong>{{ $errors->first('socialKey') }}</strong></span>
@@ -203,7 +202,7 @@
                                             </div>
                                             <div class="col-4">
                                                 <label for="doB"><h4>{{ __('CV') }}</h4></label>
-                                                {{Form::file('cv', ['class'=> 'form-control-file', 'required' => true])}}
+                                                {{Form::file('cv', ['class'=> 'form-control-file'])}}
                                             </div>
                                         </div>
                                     </div>
