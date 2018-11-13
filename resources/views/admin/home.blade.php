@@ -324,8 +324,7 @@
                                                             <td>
                                                                 <span class="badge badge-succes">Aprobado</span>
                                                             </td>
-                                                        @endif
-                                                        <td><a class="btn btn-sm btn-success"
+env                                                        <td><a class="btn btn-sm btn-success"
                                                                href={{route('employees.show', $employee->id)}}>Ver</a>
                                                         </td>
                                                     </tr>
