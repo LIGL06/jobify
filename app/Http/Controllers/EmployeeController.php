@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Job;
 use App\User;
 use App\Notifications\newNotification;
 use Illuminate\Http\Request;
@@ -57,6 +58,7 @@ class EmployeeController extends Controller
                 ->withInput();
         }
         $employee = Employee::where('userId', $request->user()->id)->where('jobId', $request->jobId)->get();
+        $job = Job::where('id', $request->jobId)->first();
         if ($employee->count() == 0) {
             $employee = new Employee();
             $employee->fill($request->all());
@@ -68,15 +70,14 @@ class EmployeeController extends Controller
             select('users.email')->groupBy('email')->pluck('email')->first();
             $name = $employee->user->name;
 
-            $admin = User::where('id', 1)->first();
             $employer = User::where('email', 'LIKE', "%{$employer}%")->first();
             $user = User::where('id', $request->user()->id)->first();
 
             \Notification::send($employer, new newNotification("'$name' aplicó un empleo.", $employer, env('APP_URL') . '/employer'));
             \Notification::send($user, new newNotification("Aplicaste a {$request->user()->employee->job->title}", $user, env('APP_URL') . '/employee'));
-            return redirect('employees')->with('status', "¡Aplicaste a {$request->user()->employee->job->title}\"!");
+            return redirect('employees')->with('status', "¡Aplicaste a {$job->title}!");
         }
-        return redirect('employees')->with('alert', "¡Ya habías aplicado a {$request->user()->employee->job->title}!");
+        return redirect('employees')->with('alert', "¡Ya habías aplicado a {$job->title}!");
 
     }
 
