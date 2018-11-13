@@ -324,9 +324,10 @@
                                                             <td>
                                                                 <span class="badge badge-succes">Aprobado</span>
                                                             </td>
-env                                                        <td><a class="btn btn-sm btn-success"
-                                                               href={{route('employees.show', $employee->id)}}>Ver</a>
-                                                        </td>
+                                                            <td><a class="btn btn-sm btn-success"
+                                                                   href={{route('employees.show', $employee->id)}}>Ver</a>
+                                                            </td>
+                                                        @endif
                                                     </tr>
                                                 @endif
                                             @endforeach
