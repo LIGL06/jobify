@@ -16,7 +16,7 @@ class Company extends Model
     protected $fillable = [
         'name', 'rotation', 'phone', 'email',
         'address', 'observations', 'noPenalties',
-        'contact', 'parent'
+        'contact', 'parent', 'parentId'
     ];
 
     /**

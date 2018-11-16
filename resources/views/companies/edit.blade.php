@@ -104,38 +104,38 @@
                                                             <div class="col-8">
                                                                 <div class="form-group row">
                                                                     <div class="col-6">
-                                                                        <label for="fName"><h4>{{__('Nombre')}}</h4>
-                                                                        </label>
+                                                                        <small for="fName"><h4>{{__('Nombre')}}</h4>
+                                                                        </small>
                                                                         {!! Form::text('name', $company->name, ['class'=> 'form-control', 'placeholder' => 'Nombre de empresa']) !!}
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <label for="lName"><h4>{{__('Giro')}}</h4>
-                                                                        </label>
+                                                                        <small for="lName"><h4>{{__('Giro')}}</h4>
+                                                                        </small>
                                                                         {!! Form::text('rotation', $company->rotation, ['class'=> 'form-control', 'placeholder' => 'Giro de empresa' ]) !!}
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <div class="col-6">
-                                                                        <label for="fName"><h4>{{__('Teléfono')}}</h4>
-                                                                        </label>
+                                                                        <small for="fName"><h4>{{__('Teléfono')}}</h4>
+                                                                        </small>
                                                                         {!! Form::text('phone', $company->phone, ['class'=> 'form-control','placeholder' => 'Teléfono de empresa']) !!}
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <label for="lName"><h4>{{__('Contacto')}}</h4>
-                                                                        </label>
+                                                                        <small for="lName"><h4>{{__('Contacto')}}</h4>
+                                                                        </small>
                                                                         {!! Form::text('contact', Auth::user()->name, ['class'=> 'form-control','placeholder' => 'Contacto en empresa','readOnly'=>true]) !!}
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <div class="col-6">
-                                                                        <label for="doB">
+                                                                        <small for="doB">
                                                                             <h4>{{ __('Correo electrónico') }}</h4>
-                                                                        </label>
+                                                                        </small>
                                                                         {!! Form::email('email', $company->email, ['class'=> 'form-control','placeholder' => 'Email de empresa']) !!}
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <label for="doB"><h4>{{ __('Dirección') }}</h4>
-                                                                        </label>
+                                                                        <small for="doB"><h4>{{ __('Dirección') }}</h4>
+                                                                        </small>
                                                                         {!! Form::text('address', $company->address, ['class'=> 'form-control','placeholder' => 'Domicilio de empresa']) !!}
                                                                     </div>
                                                                 </div>
@@ -146,8 +146,8 @@
                                                             <div class="col-12">
                                                                 <div class="form-group row">
                                                                     <div class="col-6">
-                                                                        <label for="doB">
-                                                                            <h4>{{ __('Observaciones') }}</h4></label>
+                                                                        <small for="doB">
+                                                                            <h4>{{ __('Observaciones') }}</h4></small>
                                                                         {!! Form::text('observations', $company->observations, ['class'=> 'form-control','placeholder' => 'Observaciones de empresa']) !!}
                                                                     </div>
 
@@ -160,6 +160,7 @@
                                                         </div>
                                                         {!! Form::hidden('parentId', Auth::user()->employer->company->id) !!}
                                                         {!! Form::hidden('parent', 0) !!}
+                                                        {!! Form::close() !!}
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -169,65 +170,62 @@
                                             <div>
                                                 {!! Form::open(['route'=>'companies.store']) !!}
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Nombre</label>
+                                                    <small class="col-sm-2 ">Nombre</small>
                                                     <div class="col-sm-10">
-                                                        {!! Form::text('name', null, ['class'=> 'form-control', 'placeholder' => 'Nombre de franquicia']) !!}
+                                                        {!! Form::text('name', null, ['class'=> 'form-control', 'placeholder' => 'Nombre de franquicia', 'required' => true]) !!}
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Giro</label>
+                                                    <small class="col-sm-2 ">Giro</small>
                                                     <div class="col-sm-10">
-                                                        {!! Form::text('rotation', null, ['class'=> 'form-control', 'placeholder' => 'Giro de franquicia' ]) !!}
+                                                        {!! Form::text('rotation', null, ['class'=> 'form-control', 'placeholder' => 'Giro de franquicia', 'required' => true ]) !!}
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Teléfono</label>
+                                                    <small class="col-sm-2 ">Teléfono</small>
                                                     <div class="col-sm-10">
-                                                        {!! Form::text('phone', null, ['class'=> 'form-control','placeholder' => 'Teléfono de franquicia']) !!}
+                                                        {!! Form::text('phone', null, ['class'=> 'form-control','placeholder' => 'Teléfono de franquicia', 'required' => true]) !!}
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Correo electrónico</label>
+                                                    <small class="col-sm-2 ">Correo electrónico</small>
                                                     <div class="col-sm-10">
-                                                        {!! Form::email('email', null, ['class'=> 'form-control','placeholder' => 'Email de franquicia']) !!}
+                                                        {!! Form::email('email', Auth::user()->email, ['class'=> 'form-control','placeholder' => 'Email de franquicia', 'required' => true]) !!}
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Dirección</label>
+                                                    <small class="col-sm-2 ">Dirección</small>
                                                     <div class="col-sm-10">
-                                                        {!! Form::text('address', null, ['class'=> 'form-control','placeholder' => 'Domicilio de franquicia']) !!}
+                                                        {!! Form::text('address', null, ['class'=> 'form-control','placeholder' => 'Domicilio de franquicia', 'required' => true]) !!}
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Observaciones</label>
+                                                    <small class="col-sm-2 ">Observaciones</small>
                                                     <div class="col-sm-10">
-                                                        {!! Form::text('observations', null, ['class'=> 'form-control','placeholder' => 'Observaciones de franquicia']) !!}
+                                                        {!! Form::text('observations', null, ['class'=> 'form-control','placeholder' => 'Observaciones de franquicia', 'required' => true]) !!}
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Contacto</label>
+                                                    <small class="col-sm-2 ">Contacto</small>
                                                     <div class="col-sm-10">
-                                                        {!! Form::text('contact', Auth::user()->name, ['class'=> 'form-control','placeholder' => 'Contacto en franquicia']) !!}
+                                                        {!! Form::text('contact', Auth::user()->name, ['class'=> 'form-control','placeholder' => 'Contacto en franquicia', 'required' => true]) !!}
                                                     </div>
                                                 </div>
                                                 {!! Form::hidden('parentId', Auth::user()->employer->company->id) !!}
-                                                {!! Form::hidden('parent', false) !!}
+                                                {!! Form::hidden('parent', 0) !!}
                                                 <div class="form-group row">
-                                                    <div class="col-sm-2">Antecedentes no penales</div>
+                                                    <small class="col-sm-2">Antecedentes no penales</small>
                                                     <div class="col-sm-10">
                                                         <div class="form-check">
                                                             {!! Form::checkbox('noPenalties', '1', true) !!}
-                                                            <label class="form-check-label">
+                                                            <small>
                                                                 Se solicita carta de antecedentes no penales
-                                                            </label>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-10">
-                                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                                    </div>
-                                                </div>
+                                                {!! Form::submit('Crear franquicia',['class' => 'btn btn-lg btn-primary float-right']) !!}
+                                                {!! Form::close() !!}
                                             </div>
                                         </div>
                                     </div>

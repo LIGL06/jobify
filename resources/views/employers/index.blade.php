@@ -107,8 +107,12 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Empresa</label>
                                     <div class="col-sm-10">
-                                        {!! Form::hidden('companyId', (Auth::user()->employer->company->id)) !!}
-                                        {!! Form::text('Empresa', (Auth::user()->employer->company->name), ['disabled' => true, 'class' => 'form-control']) !!}
+                                        <select name="companyId" class="form-control">
+                                            <option value="{{Auth::user()->employer->company->id}}">{{Auth::user()->employer->company->name}}</option>
+                                            @foreach(Auth::user()->employer->company->companies as $company)
+                                                <option value="{{$company->id}}">{{$company->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
