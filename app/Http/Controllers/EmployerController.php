@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Employer;
 use App\Notifications\newNotification;
 use Illuminate\Http\Request;
@@ -10,20 +11,20 @@ use Validator;
 class EmployerController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function index(Request $request)
     {
         if (isset($request->user()->employer->id)) {
             $employerId = $request->user()->employer->id;
+            $myFranchises = Company::where('parentId', $request->user()->employer->company->id)->with('jobs')->get();
             $myEmployees = \DB::table('employees')->
             join('jobs', 'jobs.id', '=', 'employees.jobId')->
             join('users', 'users.id', '=', 'employees.userId')->
             where('jobs.EmployerId', $employerId)->
             select('name', 'email', 'status', 'title', 'subTitle', 'employees.id')->get();
-            return view('employers.index', ['myEmployees' => $myEmployees]);
+            return view('employers.index', ['myEmployees' => $myEmployees, 'myFranchises' => $myFranchises]);
         }
         if (!$request->user()->isEmployer()) {
             return redirect('home');
@@ -50,17 +51,17 @@ class EmployerController extends Controller
     public function store(Request $request)
     {
 
-        $userId = \App\User::where('email', $request->email)->pluck('id');
-        $companyId = \App\Company::where("name", "LIKE", "%{$request->company}%")->pluck('id');
+        $userId = User::where('email', $request->email)->pluck('id');
+        $companyId = Company::where("name", "LIKE", "%{$request->company}%")->pluck('id');
 
-        $employer = \App\Employer::create([
+        $employer = Employer::create([
             'userId' => $userId[0],
             'companyId' => $companyId[0]
         ]);
-        $employerName = $employer->user->name;
-
-        \Notification::send(\App\User::where('id', 1)->get(), new newNotification("Empleador '$employerName' pendiente validar."));
-        return redirect('admin')->with('status', "¡Creaste una empleador!");
+        if ($request->user()->isEmployee()) {
+            return redirect('employer')->with('status', "¡Bienvenido empleador!");
+        }
+        return redirect('admin')->with('status', "¡Empleador {$employer->user->name} registrado!");
     }
 
     /**
@@ -81,7 +82,7 @@ class EmployerController extends Controller
      */
     public function update(Request $request, Employer $employer)
     {
-        $employer = \App\Employer::find($employer->id);
+        $employer = Employer::find($employer->id);
         $employer->approved = $request->approved;
         $employer->save();
         $name = $employer->user->name;
