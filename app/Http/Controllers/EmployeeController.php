@@ -20,7 +20,7 @@ class EmployeeController extends Controller
         if (!$request->user()->isEmployee()) {
             return redirect('home');
         }
-        $jobs = \App\Job::all();
+        $jobs = Job::orderBy($request->input('sort', 'title'))->paginate(6);
         $myJobs = Employee::where('userId', $request->user()->id)->get();
         return view('employees.index', [
             'jobs' => $jobs,
@@ -74,7 +74,7 @@ class EmployeeController extends Controller
             $user = User::where('id', $request->user()->id)->first();
 
             \Notification::send($employer, new newNotification("'$name' aplicó un empleo.", $employer, env('APP_URL') . '/employer'));
-            \Notification::send($user, new newNotification("Aplicaste a {$request->user()->employee->job->title}", $user, env('APP_URL') . '/employee'));
+            \Notification::send($user, new newNotification("Aplicaste a {$job->title}", $user, env('APP_URL') . '/employee'));
             return redirect('employees')->with('status', "¡Aplicaste a {$job->title}!");
         }
         return redirect('employees')->with('alert', "¡Ya habías aplicado a {$job->title}!");

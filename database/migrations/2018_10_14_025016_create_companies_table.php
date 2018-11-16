@@ -25,6 +25,8 @@ class CreateCompaniesTable extends Migration
             $table->boolean('noPenalties')->nullable();
             $table->boolean('approved')->default(false);
             $table->string('contact')->nullable();
+            $table->boolean('parent')->default('false');
+            $table->integer('parentId')->index()->nullable();
             $table->timestamps();
         });
     }
