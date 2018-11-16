@@ -40,7 +40,7 @@
                                 <div class="card flex-md-row mb-4 shadow-sm h-md-250 h-100">
                                     <div class="card-body d-flex flex-column align-items-start">
                                         <h5 class="mb-0">
-                                            <strong class="d-inline-block mb-2 text-primary">{{ucwords(strtoupper($job->company->name))}}</strong>
+                                            <strong class="d-inline-block mb-2 text-primary">{{mb_convert_case($job->company->name,MB_CASE_TITLE, "UTF-8")}}</strong>
                                         </h5>
                                         <p class="mb-0 h6 text-muted">
                                             {{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}
@@ -82,7 +82,7 @@
                     <div class="col-md-3">
                         <div class="card flex-md-row mb-4 shadow-sm h-md-250">
                             <div class="card-body d-flex flex-column align-items-start">
-                                <strong class="d-inline-block text-primary mb-0">{{ucwords(strtoupper($myJob->company->name))}}</strong>
+                                <strong class="d-inline-block text-primary mb-0">{{mb_convert_case($job->company->name,MB_CASE_TITLE, "UTF-8")}}</strong>
                                 <p class="mb-0 text-muted">
                                     {{mb_convert_case($myJob->job->title,MB_CASE_TITLE, "UTF-8")}}
                                 </p>
