@@ -22,7 +22,7 @@
                 <div class="col-2">
                     <div class="card">
                         @if(Auth::user()->employer->company->bgPictureUrl)
-                        <img class="img-fluid img-thumbnail" src={{Auth::user()->employer->company->bgPictureUrl}}>
+                            <img class="img-fluid img-thumbnail" src={{Auth::user()->employer->company->bgPictureUrl}}>
                         @else
                             <i class="fa fa-suitcase fa-5x mx-auto my-auto"></i>
                         @endif
@@ -41,6 +41,16 @@
                                             <span class="badge badge-primary badge-pill">{{Count($job->employees)}}
                                                 aplicantes</span>
                                         </a>
+                                    @endforeach
+                                    @foreach($myFranchises as $subCompany)
+                                        @foreach($subCompany->jobs as $job)
+                                            <a class="list-group-item d-flex justify-content-between align-items-center"
+                                               href={{route('jobs.edit', $job->id)}}>
+                                                {{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}
+                                                <span class="badge badge-primary badge-pill">{{Count($job->employees)}}
+                                                    aplicantes</span>
+                                            </a>
+                                        @endforeach
                                     @endforeach
                                 </ul>
                             </div>

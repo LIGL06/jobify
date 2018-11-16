@@ -17,7 +17,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           type="text/css">
     <!-- Styles -->
-    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -61,7 +61,7 @@
                     </li>
                 @else
                     @if(Auth()->check())
-                        <notappification v-bind:notifications="notifications"></notappification>
+                        <notification v-bind:notifications="notifications"></notification>
                     @endif
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -132,7 +132,7 @@
     @endif
 
 </script>
-<script src="{{secure_asset('js/app.js')}}"></script>
+<script src="{{asset('js/app.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script>
     var jobsPath = "{{ route('jobAutoComplete') }}";

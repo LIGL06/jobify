@@ -26,7 +26,7 @@
                                             <img class="avatar img-circle img-thumbnail" alt="avatar"
                                                  src={{Auth::user()->employer->company->bgPictureUrl}}>
                                             <h6>Subir un logo o foto...</h6>
-                                            {{Form::file('image', ['class'=> 'text-center center-block file-upload', 'required' => true])}}
+                                            {{Form::file('image', ['class'=> 'text-center center-block file-upload'])}}
                                         </div>
                                     </div>
                                     <!--/col-sm-3-->
@@ -97,7 +97,7 @@
                                                                          alt="avatar"
                                                                          src={{$company->bgPictureUrl}}>
                                                                     <h6>Subir un logo o foto...</h6>
-                                                                    {{Form::file('image', ['class'=> 'text-center center-block companyAvatarUpload', 'required' => true])}}
+                                                                    {{Form::file('image', ['class'=> 'text-center center-block companyAvatarUpload'])}}
                                                                 </div>
                                                             </div>
                                                             <!--/col-sm-3-->

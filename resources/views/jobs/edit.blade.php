@@ -43,8 +43,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Empresa</label>
                                     <div class="col-sm-10">
-                                        {!! Form::hidden('companyId', (Auth::user()->employer->company->id)) !!}
-                                        {!! Form::text('Empresa', (Auth::user()->employer->company->name), ['disabled' => true, 'class' => 'form-control']) !!}
+                                        {!! Form::hidden('companyId', $job->companyId) !!}
+                                        {!! Form::text('Empresa', $job->company->name, ['disabled' => true, 'class' => 'form-control']) !!}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -101,10 +101,13 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-2 float-left">
-                                        {!! Form::close()!!}
-                                        <button type="submit" class="btn btn-lg btn-dark">Editar</button>
+                                        <a href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</a>
                                     </div>
-                                    <div class="col-sm-2 offset-8">
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn btn-sm btn-dark">Editar</button>
+                                        {!! Form::close()!!}
+                                    </div>
+                                    <div class="col-sm-2 offset-6">
                                         {!! Form::model($job, ['route'=> ['jobs.destroy', $job->id], 'method' => 'delete']) !!}
                                         {!! Form::submit('Eliminar',['class' => 'btn btn-lg btn-danger float-right']) !!}
                                         {!! Form::close() !!}

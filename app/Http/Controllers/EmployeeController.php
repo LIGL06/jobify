@@ -73,7 +73,7 @@ class EmployeeController extends Controller
             $employer = User::where('email', 'LIKE', "%{$employer}%")->first();
             $user = User::where('id', $request->user()->id)->first();
 
-            \Notification::send($employer, new newNotification("'$name' aplicó un empleo.", $employer, env('APP_URL') . '/employer'));
+            \Notification::send($employer, new newNotification("$name aplicó a {$job->title}.", $employer, env('APP_URL') . '/employer'));
             \Notification::send($user, new newNotification("Aplicaste a {$job->title}", $user, env('APP_URL') . '/employee'));
             return redirect('employees')->with('status', "¡Aplicaste a {$job->title}!");
         }
