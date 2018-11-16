@@ -37,7 +37,8 @@ class CompaniesController extends Controller
             'rotation' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'parent' => 'required'
         ]);
 
         if ($validator->fails()) {

@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             'rotation' => 'demo',
             'phone' => '123456789',
             'email' => 'demo@madero.gob.mx',
-            'address' => 'Dirección demo'
+            'address' => 'Dirección demo',
+            'parent' => true
         ]);
 
         $jobs = array(['name' => 'Psicólogo'],

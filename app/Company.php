@@ -22,8 +22,17 @@ class Company extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function jobs(){
-        return $this->hasMany(Job::class,'companyId');
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'companyId');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function companies()
+    {
+        return $this->hasMany(Company::class, 'parentId');
     }
 
 }

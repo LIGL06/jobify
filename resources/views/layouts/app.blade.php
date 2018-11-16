@@ -73,12 +73,12 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             @if(Auth::user()->isEmployee())
                                 <a class="dropdown-item" href="{{ route('profile') }}">
-                                    <i class="fa fa-user-circle"></i> {{ __('Perfil') }}
+                                    <i class="fa fa-user-circle"></i> {{ __('Mi Perfil') }}
                                 </a>
                             @endif
                             @if(Auth::user()->isEmployer())
                                 <a class="dropdown-item" href="{{ route('companyProfile') }}">
-                                    <i class="fa fa-suitcase"></i> {{ __('Empresa') }}
+                                    <i class="fa fa-suitcase"></i> {{ __('Mi Empresa') }}
                                 </a>
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -176,6 +176,18 @@
     }
     $(".file-upload").on('change', function () {
         readURL(this);
+    });
+    var readURLCompany = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.companyAvatar').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(".companyAvatarUpload").on('change', function () {
+        readURLCompany(this);
     });
 </script>
 </body>
