@@ -50,6 +50,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <div class="col-sm-2">Operador de franquicias</div>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                {!! Form::checkbox('parent', '1', true) !!}
+                                <label class="form-check-label">
+                                    Esta empresa tiene varias franquicias
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <div class="col-sm-2">Antecedentes no penales</div>
                         <div class="col-sm-10">
                             <div class="form-check">
