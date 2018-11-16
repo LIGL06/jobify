@@ -20,20 +20,20 @@
         <div class="container">
             <div class="row" style="padding-bottom:100px">
                 <div class="col-2">
-                    <div class="card h-100">
+                    <div class="card">
                         @if(Auth::user()->employer->company->bgPictureUrl)
                         <img class="img-fluid img-thumbnail" src={{Auth::user()->employer->company->bgPictureUrl}}>
                         @else
-                            <i class="fa fa-suitcase fa-5x mx-auto"></i>
+                            <i class="fa fa-suitcase fa-5x mx-auto my-auto"></i>
                         @endif
                     </div>
                 </div>
                 <div class="col-4 mb-3">
-                    <div class="card h-100">
+                    <div class="card">
                         <div class="card-body">
                             <h5>Tus empleos</h5>
                             <div>
-                                <ul class="list-group">
+                                <ul class="list-group pre-scrollable" style="height:150px!important">
                                     @foreach(Auth::user()->employer->company->jobs as $job)
                                         <a class="list-group-item d-flex justify-content-between align-items-center"
                                            href={{route('jobs.edit', $job->id)}}>
@@ -48,11 +48,11 @@
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <div class="card h-100">
+                    <div class="card">
                         <div class="card-body">
                             <h5>Tus aplicantes</h5>
                             <div>
-                                <ul class="list-group">
+                                <ul class="list-group pre-scrollable" style="height:150px!important">
                                     @foreach($myEmployees as $employee)
                                         <a class="list-group-item
                                            list-group-item-action flex-column align-items-start"

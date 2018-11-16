@@ -17,7 +17,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           type="text/css">
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -37,8 +37,12 @@
                 @if(Auth::user() && Auth::user()->isAdmin())
                     <a class="nav-item nav-link" href="{{ url('/admin') }}">Admnistrador</a>
                 @endif
-                <a class="nav-item nav-link" href="{{ url('/employees') }}">Aspirantes</a>
-                <a class="nav-item nav-link" href="{{ url('/employers') }}">Empresas</a>
+                @if(Auth::user() && Auth::user()->isEmployee())
+                    <a class="nav-item nav-link" href="{{ url('/employees') }}">Aspirantes</a>
+                @endif
+                @if(Auth::user() && Auth::user()->isEmployer())
+                    <a class="nav-item nav-link" href="{{ url('/employers') }}">Empresas</a>
+                @endif
             </div>
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
@@ -57,7 +61,7 @@
                     </li>
                 @else
                     @if(Auth()->check())
-                        <notification v-bind:notifications="notifications"></notification>
+                        <notappification v-bind:notifications="notifications"></notappification>
                     @endif
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -73,9 +77,6 @@
                                 </a>
                             @endif
                             @if(Auth::user()->isEmployer())
-                                <a class="dropdown-item" href="{{ route('profile') }}">
-                                    <i class="fa fa-user-circle"></i> {{ __('Perfil') }}
-                                </a>
                                 <a class="dropdown-item" href="{{ route('companyProfile') }}">
                                     <i class="fa fa-suitcase"></i> {{ __('Empresa') }}
                                 </a>
@@ -131,7 +132,7 @@
     @endif
 
 </script>
-<script src="{{asset('js/app.js')}}"></script>
+<script src="{{secure_asset('js/app.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 <script>
     var jobsPath = "{{ route('jobAutoComplete') }}";
