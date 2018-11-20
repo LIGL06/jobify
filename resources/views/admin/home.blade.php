@@ -20,7 +20,7 @@
                         <li>Crea o ten vacantes de empleos disponibles.</li>
                     </ol>
                     </p>
-                    <div class="row mb-3">
+                    <div class="row">
                         <div class="col-xl-3 col-lg-6">
                             <div class="card h-100">
                                 <div class="card-body text-center">
@@ -66,194 +66,158 @@
                         </div>
                     </div>
                     <!--/row-->
-
                     <hr>
-                    <div class="row mb-3 pb-lg-1">
+                    <div class="row pb-5">
                         <div class="col-md-3 col-12">
-                            <h2 class="mx-auto">Empresas</h2>
+                            <h2 class="text-center">Empresas</h2>
                             <div class="card card-default card-block h-100">
                                 <div class="list-group pre-scrollable">
                                     @foreach($companies as $company)
-                                        <a href="#"
+                                        <a
                                            class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">{{mb_convert_case($company->name,MB_CASE_TITLE, "UTF-8")}}</h5>
                                                 <small>{{\Carbon\Carbon::parse($company->created_at)->format('M d')}}</small>
                                             </div>
                                             <p class="mb-1">{{mb_convert_case($company->rotation,MB_CASE_TITLE, "UTF-8")}}</p>
-                                            <small>{{mb_convert_case($company->observations,MB_CASE_TITLE, "UTF-8")}}</small>
-                                        </a>
-
-                                        @if(!$company->approved)
-                                            <tr>
-                                                <td scope="row">{{$company->name}}</td>
-                                                <td>{{$company->rotation}}</td>
-                                                <td>{{$company->phone}}</td>
-                                                <td>{{$company->address}}</td>
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <small>{{mb_convert_case($company->observations,MB_CASE_TITLE, "UTF-8")}}</small>
                                                 @if(!$company->approved)
-                                                    <td>
-                                                        <span class="badge badge-warning">No aprobado</span>
-                                                    </td>
-                                                    <td>
-                                                        {!! Form::model($company,['route' => ['companies.update',
-                                                        $company->id], 'method'=>'put']) !!}
-                                                        {!! Form::hidden('approved',1)!!}
-                                                        {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
-                                                        {!! Form::close() !!}
-                                                    </td>
+                                                    {!! Form::model($company,['route' => ['companies.update',
+                                                    $company->id], 'method'=>'put']) !!}
+                                                    {!! Form::hidden('approved',1)!!}
+                                                    {!! Form::submit('Aprobar',['class' => 'btn btn-sm btn-success']) !!}
+                                                    {!! Form::close() !!}
                                                 @else
-                                                    <td>
-                                                        <span class="badge badge-succes">Aprobado</span>
-                                                    </td>
-                                        @endif
-                                        @endif
+                                                    <span class="badge badge-primary">Aprobado</span>
+                                                @endif
+                                            </div>
+                                        </a>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3 col-12">
-                            <h2 class="mx-auto">Aspirantes</h2>
+                            <h2 class="text-center">Empleadores</h2>
+                            <div class="card card-default card-block h-100">
+                                <div class="list-group pre-scrollable">
+                                    @foreach($employers as $employer)
+                                        <a
+                                           class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-0">{{mb_convert_case($employer->user->name,MB_CASE_TITLE, "UTF-8")}}</h5>
+                                                <small>{{\Carbon\Carbon::parse($employer->created_at)->format('M d')}}</small>
+                                            </div>
+                                            <small class="mb-0">{{mb_convert_case($employer->user->email,MB_CASE_TITLE, "UTF-8")}}</small>
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <small>{{mb_convert_case($employer->company->name,MB_CASE_TITLE, "UTF-8")}}</small>
+                                                @if(!$employer->approved)
+                                                    {!! Form::model($employer,['route' => ['employers.update',
+                                                    $employer->id], 'method'=>'put']) !!}
+                                                    {!! Form::hidden('approbed',1)!!}
+                                                    {!! Form::submit('Aprobar',['class' => 'btn btn-sm btn-success']) !!}
+                                                    {!! Form::close() !!}
+                                                @else
+                                                    <span class="badge badge-primary">Aprobado</span>
+                                                @endif
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <h2 class="col-12 text-center">Empleos</h2>
+                            <div class="card card-default card-block h-100">
+                                <div class="list-group pre-scrollable">
+                                    @foreach($jobs as $job)
+                                        <a href="{{route('jobs.show', $job->id)}}"
+                                           class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-0">{{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}</h5>
+                                                <small>{{\Carbon\Carbon::parse($job->created_at)->format('M d')}}</small>
+                                            </div>
+                                            <small>{{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8").' en '. $job->company->name}}</small>
+                                            <div class="d-flex w-100 justify-content-between">
+                                                @if($job->vacancies <= 2)
+                                                    <span class="badge badge-warning">{{$job->vacancies.' vacantes'}}</span>
+                                                @else
+                                                    <span class="badge badge-success">{{$job->vacancies.' vacantes'}}</span>
+                                                @endif
+                                                @if(!$job->approved)
+                                                    {!! Form::model($job,['route' => ['jobs.update',
+                                                    $job->id], 'method'=>'put']) !!}
+                                                    {!! Form::hidden('approved',1)!!}
+                                                    {!! Form::submit('Aprobar',['class' => 'btn btn-sm btn-success']) !!}
+                                                    {!! Form::close() !!}
+                                                @else
+                                                    <span class="badge badge-primary">Aprobado</span>
+                                                @endif
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <h2 class="text-center">Aspirantes</h2>
                             <div class="card card-default card-block h-100">
                                 <div class="list-group pre-scrollable">
                                     @foreach($employees as $employee)
-                                        <a href="#"
+                                        <a href="{{route('employees.show', $employee->id)}}"
                                            class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1">{{mb_convert_case($employee->user->name,MB_CASE_TITLE, "UTF-8")}}</h5>
                                                 <small>{{\Carbon\Carbon::parse($employee->created_at)->format('M d')}}</small>
                                             </div>
                                             <p class="mb-1">{{mb_convert_case($employee->job->title,MB_CASE_TITLE, "UTF-8")}}</p>
-                                            <small>{{mb_convert_case($employee->job->company->name,MB_CASE_TITLE, "UTF-8")}}</small>
-                                        </a>
-                                        @if(!$employee->approved)
-                                            <td>
-                                                <span class="badge badge-warning">No aprobado</span>
-                                            </td>
-                                            <td>
-                                                {!! Form::model($employee,['route' => ['employees.update',
-                                                $employee->id], 'method'=>'put']) !!}
-                                                {!! Form::hidden('approved',1)!!}
-                                                {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
-                                                {!! Form::close() !!}
-                                            </td>
-                                        @else
-                                            <td>
-                                                <span class="badge badge-succes">Aprobado</span>
-                                            </td>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <h2 class="mx-auto">Empleadores</h2>
-                            <div class="card card-default card-block h-100">
-                                <div class="list-group pre-scrollable">
-                                    @foreach($employers as $employer)
-                                        <a href="#"
-                                           class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">{{mb_convert_case($employer->user->name,MB_CASE_TITLE, "UTF-8")}}</h5>
-                                                <small>{{\Carbon\Carbon::parse($employer->created_at)->format('M d')}}</small>
-                                            </div>
-                                            <p class="mb-1">{{mb_convert_case($employer->user->email,MB_CASE_TITLE, "UTF-8")}}</p>
-                                            <small>{{mb_convert_case($employer->company->name,MB_CASE_TITLE, "UTF-8")}}</small>
-                                        </a>
-                                        @if(!$employer->approved)
-                                            <td>
-                                                <span class="badge badge-warning">No aprobado</span>
-                                            </td>
-                                            <td>
-                                                {!! Form::model($employer,['route' => ['employers.update',
-                                                $employer->id], 'method'=>'put']) !!}
-                                                {!! Form::hidden('approved',1)!!}
-                                                {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
-                                                {!! Form::close() !!}
-                                            </td>
-                                        @else
-                                            <td>
-                                                <span class="badge badge-succes">Aprobado</span>
-                                            </td>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <h2 class="mx-auto">Empleos</h2>
-                            <div class="card card-default card-block h-100">
-                                <div class="list-group pre-scrollable">
-                                    @foreach($jobs as $job)
-                                        <a href="#"
-                                           class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">{{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}</h5>
-                                                <small>{{\Carbon\Carbon::parse($job->created_at)->format('M d')}}</small>
-                                            </div>
-                                            <p class="mb-1">{{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}</p>
-                                            <small>{{mb_convert_case($job->vacancies,MB_CASE_TITLE, "UTF-8").' vacantes'}}</small>
-                                        </a>
-                                        @if(!$job->approved)
-                                            <tr>
-                                                <td scope="row">{{$job->title}}</td>
-                                                <td>{{$job->subTitle}}</td>
-                                                <td>{{$job->company->name}}</td>
-                                                <td>
-                                                    @if($job->vacancies <= 2) <span
-                                                            class="badge badge-warning">{{$job->vacancies}}</span>
-                                                    @else
-                                                        <span class="badge badge-success">{{$job->vacancies}}</span>
-                                                    @endif
-                                                </td>
-                                                @if(!$job->approved)
-                                                    <td>
-                                                        <span class="badge badge-warning">No aprobado</span>
-                                                    </td>
-                                                    <td>
-                                                        {!! Form::model($job,['route' => ['jobs.update',
-                                                        $job->id], 'method'=>'put']) !!}
-                                                        {!! Form::hidden('approved',1)!!}
-                                                        {!! Form::submit('Activar',['class' => 'btn btn-sm btn-success']) !!}
-                                                        {!! Form::close() !!}
-                                                    </td>
+                                                <small>{{mb_convert_case($employee->job->company->name,MB_CASE_TITLE, "UTF-8")}}</small>
+                                                @if(!$employee->approved)
+                                                    {!! Form::model($employee,['route' => ['employees.update',
+                                                    $employee->id], 'method'=>'put']) !!}
+                                                    {!! Form::hidden('approved',1)!!}
+                                                    {!! Form::submit('Aprobar',['class' => 'btn btn-sm btn-success']) !!}
+                                                    {!! Form::close() !!}
                                                 @else
-                                                    <td>
-                                                        <span class="badge badge-succes">Aprobado</span>
-                                                    </td>
-                                            </tr>
-                                        @endif
-                                        @endif
+                                                    <span class="badge badge-primary">Aprobado</span>
+                                                @endif
+                                            </div>
+                                        </a>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--/card-->
-                </div>
-                <!--/col-->
-            </div>
-            <!--/row-->
-            <hr>
-            <p class="lead ">Aquí puedes ver los ultimos empleos creados de empresas validas</p>
-            <div class="row placeholders mb-2" style="padding-bottom:100px;">
-                @foreach($jobs as $job)
-                    @if($job->company->approved && $job->vacancies>0)
-                        <div class="card col-3 mb-2 mr-1">
-                            <div class="card-body">
-                                <h5 class="card-title mb-0">{{ucfirst(strtolower($job->title))}}</h5>
-                                <b class="card-subtitle mb-2 text-muted">{{$job->company->name}}</b>
-                                <br>
-                                <small class="card-text"><b>{{$job->vacancies}}</b> vacantes</small>
-                                <hr>
-                                <a href={{url("/jobs/{$job->id}")}} class="card-link">Ver</a>
-                                <a href={{url("/jobs/{$job->id}/edit")}} class="card-link">Editar</a>
+                    <!--/row-->
+                    <hr>
+                    <div class="row pb-5">
+                        <h5 class="text-center col-12">Aquí puedes ver los ultimos empleos creados de empresas
+                            validas</h5>
+                        @foreach($jobs as $job)
+                            <div class="col-md-3 col-12 pb-1">
+                                @if($job->company->approved && $job->vacancies>0)
+                                    <div class="card card-default">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-0">{{ucfirst(strtolower($job->title))}}</h5>
+                                            <b class="card-subtitle mb-2 text-muted">{{$job->company->name}}</b>
+                                            <br>
+                                            <small class="card-text"><b>{{$job->vacancies}}</b> vacantes</small>
+                                            <hr>
+                                            <a href={{url("/jobs/{$job->id}")}} class="card-link">Ver</a>
+                                            <a href={{url("/jobs/{$job->id}/edit")}} class="card-link">Editar</a>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
-                        </div>
-                    @endif
-                @endforeach
+                        @endforeach
+                    </div>
+
+                </div>
+                <!--/main-->
+
             </div>
-        </div>
-        </div>
+            <!--/container-->
         </div>
     @else
         <div class="position-relative overflow-hidden text-center bg-light">

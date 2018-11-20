@@ -7,7 +7,8 @@
                 <div class="card mt-4">
                     <div class="card-header m-0" style="background:#680e1b;">
                         <h1 class="text-white text-center mb-0">{{$employee->job->title}}</h1>
-                        <h5 class="text-white text-center mb-0">{{$employee->job->subTitle}}</h5>
+                        <h5 class="text-white text-center mb-0">{{$employee->job->subTitle}}
+                            en {{$employee->job->company->name}}</h5>
                     </div>
                     @if($user->info)
                         <div class="card-body text-center">
@@ -33,27 +34,25 @@
                                                href={{$user->info->cvUrl}}><i
                                                         class="fa fa-eye"></i> Ver CV</a>
                                         @endif
-                                        @if(Auth::user()->isEmployer())
-                                            <div class="mt-5">
+                                        <div class="mt-5 justify-content-between">
+                                            @if(Auth::user()->isEmployer())
                                                 @if($employee->status == 'Pre-confirmación')
                                                     {!! Form::model($employee,['route' => ['employees.update', $employee->id], 'method'=>'put']) !!}
                                                     {!! Form::hidden('status', 'Confirmación')!!}
-                                                    {!! Form::submit('Me gusta su perfil',['class' => 'btn btn-lg btn-primary float-right']) !!}
+                                                    {!! Form::submit('Me gusta su perfil',['class' => 'btn btn-sm btn-primary float-right']) !!}
                                                     {!! Form::close() !!}
                                                 @elseif($employee->status == 'Confirmación')
                                                     {!! Form::model($employee,['route' => ['employees.update', $employee->id], 'method'=>'put']) !!}
                                                     {!! Form::hidden('status', 'Entrevista')!!}
-                                                    {!! Form::submit('Quiero entrevistar',['class' => 'btn btn-lg btn-primary float-right']) !!}
+                                                    {!! Form::submit('Quiero entrevistar',['class' => 'btn btn-sm btn-primary float-right']) !!}
                                                     {!! Form::close() !!}
                                                 @else
-                                                    <p class="badge badge-danger float-right">Ya has actualizado el
+                                                    <p class="badge badge-danger">Ya has actualizado el
                                                         estado de éste aspirante, contáctalo.</p>
                                                 @endif
-                                                <div class="col-sm-2 float-left">
-                                                    <a href="{{route('home')}}" class="btn btn-sm btn-dark">Regresar</a>
-                                                </div>
-                                            </div>
-                                        @endif
+                                            @endif
+                                            <a href="{{route('home')}}" class="btn btn-sm btn-dark">Regresar</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Employer;
 use App\Notifications\newNotification;
+use App\User;
 use Illuminate\Http\Request;
 use Validator;
 

@@ -82,7 +82,8 @@ class JobsController extends Controller
      */
     public function show(Job $job)
     {
-        return $job;
+        $employees = Employee::where('jobId', $job->id)->get();
+        return view('jobs.show', ['employees' => $employees, 'job' => $job]);
     }
 
     /**
