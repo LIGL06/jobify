@@ -99,17 +99,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-2 float-left">
-                                        <a href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</a>
+                                <div class="form-group row align-content-between">
+                                    <div class="col">
+                                        <button href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</button>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col">
                                         <button type="submit" class="btn btn-sm btn-dark">Editar</button>
-                                        {!! Form::close()!!}
+                                        {!! Form::close() !!}
                                     </div>
-                                    <div class="col-sm-2 offset-6">
+                                    <div class="col">
                                         {!! Form::model($job, ['route'=> ['jobs.destroy', $job->id], 'method' => 'delete']) !!}
-                                        {!! Form::submit('Eliminar',['class' => 'btn btn-lg btn-danger float-right']) !!}
+                                        {!! Form::submit('Eliminar',['class' => 'btn btn-sm btn-danger float-right']) !!}
                                         {!! Form::close() !!}
                                     </div>
                                 </div>

@@ -16,7 +16,7 @@
                                     <img class="img-fluid img-thumbnail col-4 mt-0 mb-0 mx-auto h-100" alt="profile-img"
                                          src={{$user->info->pictureUrl}}>
                                 @endif
-                                <div class="col-6">
+                                <div class="col-lg-6 col-12">
                                     <h1 class="card-title mt-4 mb-0">
                                         {{$user->name}}<br>
                                     </h1>
@@ -46,8 +46,12 @@
                                                     {!! Form::submit('Quiero entrevistar',['class' => 'btn btn-lg btn-primary float-right']) !!}
                                                     {!! Form::close() !!}
                                                 @else
-                                                    <p class="badge badge-danger float-right">Ya has actualizado el estado de éste aspirante, contáctalo.</p>
+                                                    <p class="badge badge-danger float-right">Ya has actualizado el
+                                                        estado de éste aspirante, contáctalo.</p>
                                                 @endif
+                                                <div class="col-sm-2 float-left">
+                                                    <a href="{{route('home')}}" class="btn btn-sm btn-dark">Regresar</a>
+                                                </div>
                                             </div>
                                         @endif
                                     </div>

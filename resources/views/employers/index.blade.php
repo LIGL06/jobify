@@ -3,7 +3,7 @@
 @section('content')
     @if(Auth::user()->isEmployer() && Auth::user()->employer)
         <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-4 mx-auto">
+            <div class="col-md-4 mx-auto col-12">
                 <h1 class="font-weight-normal mb-0">Empresas</h1>
                 <p class="lead font-weight-normal mb-0">Tu panel de empleos en {{ config('app.name', 'Ciudad Madero') }}
                     .</p>
@@ -19,7 +19,7 @@
         </div>
         <div class="container">
             <div class="row" style="padding-bottom:100px">
-                <div class="col-2">
+                <div class="col-md-2 col-6 mx-auto">
                     <div class="card">
                         @if(Auth::user()->employer->company->bgPictureUrl)
                             <img class="img-fluid img-thumbnail" src={{Auth::user()->employer->company->bgPictureUrl}}>
@@ -28,7 +28,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-4 mb-3">
+                <div class="col-md-4 col-12 mb-3">
                     <div class="card">
                         <div class="card-body">
                             <h5>Tus empleos</h5>
