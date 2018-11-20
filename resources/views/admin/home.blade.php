@@ -114,7 +114,7 @@
                                                 @if(!$employer->approved)
                                                     {!! Form::model($employer,['route' => ['employers.update',
                                                     $employer->id], 'method'=>'put']) !!}
-                                                    {!! Form::hidden('approbed',1)!!}
+                                                    {!! Form::hidden('approved',1)!!}
                                                     {!! Form::submit('Aprobar',['class' => 'btn btn-sm btn-success']) !!}
                                                     {!! Form::close() !!}
                                                 @else
