@@ -24,9 +24,9 @@
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="https://res.cloudinary.com/hammock-software/image/upload/v1539445395/logo.png"
+            <img src="{{env('APP_LOGO_URL')}}"
                  class="d-inline-block align-top img-fluid"
-                 alt="" style="max-height:50px">
+                 style="max-height:40px">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,11 +103,11 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-3 col-md-2 col-lg-1 my-auto">
+                <div class="col-3 col-md-2 col-lg-1 my-auto d-none d-sm-block">
                     <img src="https://res.cloudinary.com/hammock-software/image/upload/v1540740818/LOGO_DIRECCION_DE_DESARROLLO_ECONOMIGO_3183_d60tju.png"
                          class="img-fluid img-thumbnail">
                 </div>
-                <div class="col-9 col-md-20">
+                <div class="col-12 col-md-10">
                     <h5 class="mt-2 mb-0">H. Ayuntamiento de Cuidad Madero</h5>
                     <b class="mb-0">Dirección de Desarrollo Económico</b><br>
                     <small>Av. Álvaro Obregón 201 Sur, Zona Centro, 89400 Cd Madero, Tamps.</small>

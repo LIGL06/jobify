@@ -6,8 +6,7 @@
             <div class="col-md-4 mx-auto">
                 <h1 class="font-weight-normal mb-0">Encuentra trabajo</h1>
                 <p class="lead font-weight-normal mb-0">El trabajo que buscas está
-                    en {{ config('app.name', 'Ciudad Madero') }}
-                    .</p>
+                    en {{ config('app.name', 'Ciudad Madero') }}.</p>
                 @if (session('status'))
                     <div class="alert alert-success">
                         {{ session('status') }}
@@ -23,11 +22,11 @@
             <div class="row mb-2 pb-lg-2">
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-6 offset-5">
+                        <div class="col-md-6 offset-md-5 col-12">
                             <span>Ordenar por:
                                 <a class="btn btn-sm" href="{{ Request::fullUrlWithQuery(['sort' => 'id']) }}">Fecha</a>
                                 <a class="btn btn-sm" href="{{ Request::fullUrlWithQuery(['sort' => 'subTitle']) }}">Profesión</a>
-                                <a class="btn btn-sm" href="{{ Request::url() }}">Título</a>
+                                <a class="btn btn-sm" href="{{ Request::url() }}">Vacante</a>
                             </span>
                         </div>
                         @foreach($jobs as $job)
@@ -43,11 +42,11 @@
                                             <strong class="d-inline-block mb-2 text-primary">{{mb_convert_case($job->company->name,MB_CASE_TITLE, "UTF-8")}}</strong>
                                         </h5>
                                         <p class="mb-0 h6 text-muted">
-                                            {{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}
+                                            Profesión: {{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}
                                         </p>
                                         <div class="mb-1 text-muted">{{ \Carbon\Carbon::parse($job->created_at)->format('M d')}}</div>
                                         <b class="card-text mb-auto">
-                                            {{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}</b>
+                                            Vacante: {{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}</b>
                                         @if(Auth::user()->info)
                                             {!! Form::open(['route' => 'employees.store']) !!}
                                             {!! Form::hidden('companyId',$job->companyId)!!}
@@ -76,7 +75,8 @@
                     {{ $jobs->appends(Request::query())->render() }}
                 </div>
             </div>
-            <div class="row mb-2 pb-lg-5">
+            <hr>
+            <div class="row mb-2 pb-5">
                 <h5 class="col-12">Mis aplicaciones</h5>
                 @foreach($myJobs as $myJob)
                     <div class="col-md-3">
@@ -84,7 +84,7 @@
                             <div class="card-body d-flex flex-column align-items-start">
                                 <strong class="d-inline-block text-primary mb-0">{{mb_convert_case($job->company->name,MB_CASE_TITLE, "UTF-8")}}</strong>
                                 <p class="mb-0 text-muted">
-                                    {{mb_convert_case($myJob->job->title,MB_CASE_TITLE, "UTF-8")}}
+                                    Profesión: {{mb_convert_case($myJob->job->title,MB_CASE_TITLE, "UTF-8")}}
                                 </p>
                                 <div class="text-muted col-12">
                                     <span class="float-left">{{ \Carbon\Carbon::parse($myJob->created_at)->format('M d')}}</span>

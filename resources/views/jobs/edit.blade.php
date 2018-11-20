@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(Auth::user()->isEmployer() && Auth::user()->employer)
+    @if((Auth::user()->isEmployer() && Auth::user()->employer)||(Auth::user()->isAdmin()))
         <div class="position-relative overflow-hidden text-center bg-light">
             <div class="col-md-4 mx-auto">
                 <h1 class="font-weight-normal mb-0">Empresas</h1>
@@ -44,14 +44,14 @@
                                     <label class="col-sm-2 col-form-label">Empresa</label>
                                     <div class="col-sm-10">
                                         {!! Form::hidden('companyId', $job->companyId) !!}
-                                        {!! Form::text('Empresa', $job->company->name, ['disabled' => true, 'class' => 'form-control']) !!}
+                                        {!! Form::text('company', $job->company->name, ['disabled' => true, 'class' => 'form-control']) !!}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Empleador</label>
                                     <div class="col-sm-10">
-                                        {!! Form::hidden('employerId', (Auth::user()->employer->id)) !!}
-                                        {!! Form::text('Empresa', (Auth::user()->name), ['disabled' => true, 'class' => 'form-control']) !!}
+                                        {!! Form::hidden('employerId', $job->employerId) !!}
+                                        {!! Form::text('employer', $job->employer->user->name, ['disabled' => true, 'class' => 'form-control']) !!}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -99,22 +99,37 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-2 float-left">
-                                        <a href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</a>
+                                <div class="row align-content-between">
+                                    <div class="col">
+                                        <button href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</button>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col">
                                         <button type="submit" class="btn btn-sm btn-dark">Editar</button>
-                                        {!! Form::close()!!}
+                                        {!! Form::close() !!}
                                     </div>
-                                    <div class="col-sm-2 offset-6">
+                                    <div class="col">
                                         {!! Form::model($job, ['route'=> ['jobs.destroy', $job->id], 'method' => 'delete']) !!}
-                                        {!! Form::submit('Eliminar',['class' => 'btn btn-lg btn-danger float-right']) !!}
+                                        {!! Form::submit('Eliminar',['class' => 'btn btn-sm btn-danger float-right']) !!}
                                         {!! Form::close() !!}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @else
+        <div class="position-relative overflow-hidden text-center bg-light">
+            <div class="col-md-4 mx-auto my-4">
+                <div class="card">
+                    <img class="card-img-top"
+                         src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_400/v1540658645/04_l6q5l3.jpg"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Permisos</h5>
+                        <p class="card-text">No tienes permisos para acceder a esta parte.</p>
+                        <a class="btn btn-primary" href={{route('home')}} >Regresar</a>
                     </div>
                 </div>
             </div>

@@ -73,6 +73,15 @@ class CompaniesController extends Controller
     }
 
     /**
+     * @param Company $company
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Company $company)
+    {
+        return view('companies.edit', ['company' => $company]);
+    }
+
+    /**
      * @param Request $request
      * @param Company $company
      * @return \Illuminate\Http\RedirectResponse

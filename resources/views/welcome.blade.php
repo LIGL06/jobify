@@ -11,38 +11,41 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="first-slide"
-                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232384/pexels1.jpg"
-                             alt="First slide" width="100%">
+                        <img class="w-100"
+                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232384/pexels1.jpg">
                         <div class="container">
                             <div class="carousel-caption text-left">
                                 <h1>Entrevistas.</h1>
-                                <p>Las entrevistas de trabajo son un método indispensable en cualquier proceso de reclutamiento. Es por eso que debemos prepararnos con anticipación y aprender a vendernos de la mejor manera posible.</p>
-                                <p><a class="btn btn-lg btn-primary" href={{route('register')}} role="button">Registrarse</a></p>
+                                <p>Las entrevistas de trabajo son un método indispensable en cualquier proceso de
+                                    reclutamiento. Es por eso que debemos prepararnos con anticipación y aprender a
+                                    vendernos de la mejor manera posible.</p>
+                                <p><a class="btn btn-lg btn-primary" href={{route('register')}} role="button">Registrarse</a>
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="second-slide"
-                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232381/pexels2.jpg"
-                             alt="Second slide" width="100%">
+                        <img class="w-100"
+                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232381/pexels2.jpg">
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>Crea oportunidades.</h1>
-                                <p>Dale a todos la oportunidad de realizar un trabajo, ya sea como plomero, albañil o programador.</p>
-                                <p><a class="btn btn-lg btn-primary" href={{url('employees')}} role="button">Aspirantes</a></p>
+                                <p>Dale a todos la oportunidad de realizar un trabajo, ya sea como plomero, albañil o
+                                    programador.</p>
+                                <p><a class="btn btn-lg btn-primary"
+                                      href={{url('employees')}} role="button">Aspirantes</a></p>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="third-slide"
-                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232381/pexels3.jpg"
-                             alt="Third slide" width="100%">
+                        <img class="w-100"
+                             src="https://res.cloudinary.com/hammock-software/image/upload/c_scale,h_500/c_scale,g_south_east,h_100,l_icon.png/v1540232381/pexels3.jpg">
                         <div class="container">
                             <div class="carousel-caption text-right">
                                 <h1>Comparte tu experiencia de trabajo.</h1>
                                 <p>Genera un historial de una empresa y ayudanos a crecer contigo.</p>
-                                <p><a class="btn btn-lg btn-primary" href={{url('employers')}} role="button">Empresas</a></p>
+                                <p><a class="btn btn-lg btn-primary"
+                                      href={{url('employers')}} role="button">Empresas</a></p>
                             </div>
                         </div>
                     </div>
