@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Ciudad Madero') }}</title>
     <link rel="icon" type="image/png" sizes="196x196"
-          href="https://res.cloudinary.com/hammock-software/image/upload/v1539446336/icon.png">
+          href="{{env('APP_ICON_URL')}}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_editor.min.css" rel="stylesheet"
@@ -106,14 +106,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-3 col-md-2 col-lg-1 my-auto d-none d-sm-block">
-                    <img src="https://res.cloudinary.com/hammock-software/image/upload/v1540740818/LOGO_DIRECCION_DE_DESARROLLO_ECONOMIGO_3183_d60tju.png"
-                         class="img-fluid img-thumbnail">
+                    <img src="{{env('APP_ICON_URL')}}" class="img-fluid img-thumbnail">
                 </div>
                 <div class="col-12 col-md-10">
-                    <h5 class="mt-2 mb-0">H. Ayuntamiento de Cuidad Madero</h5>
-                    <b class="mb-0">Dirección de Desarrollo Económico</b><br>
-                    <small>Av. Álvaro Obregón 201 Sur, Zona Centro, 89400 Cd Madero, Tamps.</small>
-                    <small><b>(833) 305 2300</b></small>
+                    <h5 class="mt-2 mb-0">Peopable</h5>
+                    <b class="mb-0">Genera, Ve o Aplica a Empleos</b><br>
+                    <small>By <a href="mailto:luis.garcialuna@outlook.com">luis.garcialuna@outlook.com</a></small>
+                    <small><b>(833) 411 4394</b></small>
                 </div>
             </div>
         </div>
