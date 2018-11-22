@@ -13,6 +13,10 @@
           href="https://res.cloudinary.com/hammock-software/image/upload/v1539446336/icon.png">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_editor.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_style.min.css" rel="stylesheet"
+          type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           type="text/css">
@@ -20,7 +24,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body>
+<s>
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -134,6 +138,10 @@
 </script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/froala_editor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/plugins/paragraph_format.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/plugins/font_size.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/plugins/lists.min.js"></script>
 <script>
     var jobsPath = "{{ route('jobAutoComplete') }}";
     $('#jobsAutocomplete').typeahead({
@@ -188,6 +196,12 @@
     }
     $(".companyAvatarUpload").on('change', function () {
         readURLCompany(this);
+    });
+    $('textarea').froalaEditor({
+        theme: "dark",
+        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', '|', 'fontSize',  'paragraphFormat',  'formatOL', 'formatUL', 'outdent', 'indent', '|', 'undo', 'redo'],
+        toolbarButtonsXS: ['bold', 'italic', 'underline','|','paragraphFormat'],
+        listAdvancedTypes: true,
     });
 </script>
 </body>

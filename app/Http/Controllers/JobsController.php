@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Employee;
 use App\Job;
+use App\JobInfo;
 use App\Notifications\newNotification;
 use App\User;
 use Illuminate\Http\Request;
@@ -62,6 +63,10 @@ class JobsController extends Controller
         }
 
         $job = Job::create($request->all());
+        JobInfo::updateOrCreate([
+            'jobId' => $job->id,
+            'skills' => $request->skills
+        ], ['jobId', $job->id]);
         $admin = User::where('id', 1)->first();
         \Notification::send($admin, new newNotification("Empleo '$job->title' pendiente validar.", $admin, env('APP_URL') . '/admin'));
 
@@ -105,8 +110,11 @@ class JobsController extends Controller
     public function update(Request $request, Job $job)
     {
         $job = Job::find($job->id);
-        $job->fill($request->all());
-        $job->save();
+        $job->fill($request->all())->save();
+        JobInfo::updateOrCreate([
+            'jobId' => $job->id,
+            'skills' => $request->skills
+        ], ['jobId', $job->id]);
         return redirect('/admin');
     }
 
