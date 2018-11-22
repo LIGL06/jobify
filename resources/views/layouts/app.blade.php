@@ -23,8 +23,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-
-<s>
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -198,9 +196,8 @@
         readURLCompany(this);
     });
     $('textarea').froalaEditor({
-        theme: "dark",
-        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', '|', 'fontSize',  'paragraphFormat',  'formatOL', 'formatUL', 'outdent', 'indent', '|', 'undo', 'redo'],
-        toolbarButtonsXS: ['bold', 'italic', 'underline','|','paragraphFormat'],
+        toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', '|', 'fontSize', 'paragraphFormat', 'formatOL', 'formatUL', 'outdent', 'indent', '|', 'undo', 'redo'],
+        toolbarButtonsXS: ['bold', 'italic', 'underline', '|', 'paragraphFormat'],
         listAdvancedTypes: true,
     });
 </script>
