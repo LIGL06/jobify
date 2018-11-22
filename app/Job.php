@@ -37,4 +37,12 @@ class Job extends Model
     {
         return $this->belongsTo(Employer::class, 'employerId');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function info()
+    {
+        return $this->belongsTo(JobInfo::class, 'id', 'jobId');
+    }
 }
