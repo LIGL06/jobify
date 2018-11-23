@@ -11,9 +11,9 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
+                        <img class="w-100"
+                             src="https://res.cloudinary.com/hur6st2mn/image/upload/c_scale,h_800/v1542906297/samples/people/jazz.jpg">
                         <div class="container" style="max-height:500px">
-                            <img class="w-100"
-                                 src="https://res.cloudinary.com/hur6st2mn/image/upload/c_scale,h_800/v1542906297/samples/people/jazz.jpg">
                             <div class="carousel-caption text-left">
                                 <h3 class="text-white">Entrevista aspirantes</h3>
                                 <p><a class="btn btn-lg btn-primary" href={{route('register')}} role="button">Registrarse</a>
@@ -22,9 +22,9 @@
                         </div>
                     </div>
                     <div class="carousel-item">
+                        <img class="w-100"
+                             src="https://res.cloudinary.com/hur6st2mn/image/upload/c_scale,h_800/v1542906292/samples/people/kitchen-bar.jpg">
                         <div class="container" style="max-height:500px">
-                            <img class="w-100"
-                                 src="https://res.cloudinary.com/hur6st2mn/image/upload/c_scale,h_800/v1542906292/samples/people/kitchen-bar.jpg">
                             <div class="carousel-caption">
                                 <h3 class="text-danger">Crea oportunidades</h3>
                                 <p><a class="btn btn-lg btn-primary"
@@ -33,11 +33,11 @@
                         </div>
                     </div>
                     <div class="carousel-item">
+                        <img class="w-100"
+                             src="https://res.cloudinary.com/hur6st2mn/image/upload/c_scale,h_800/v1542906295/samples/people/smiling-man.jpg">
                         <div class="container" style="max-height:500px">
-                            <img class="w-100"
-                                 src="https://res.cloudinary.com/hur6st2mn/image/upload/c_scale,h_800/v1542906295/samples/people/smiling-man.jpg">
                             <div class="carousel-caption text-right">
-                                <h3 class="text-dark">Ayudanos a crecer contigo.</h3>
+                                <h3 class="text-white">Ayudanos a crecer contigo.</h3>
                                 <p><a class="btn btn-lg btn-primary"
                                       href={{url('employers')}} role="button">Empresas</a></p>
                             </div>
