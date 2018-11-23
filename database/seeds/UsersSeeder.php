@@ -13,21 +13,21 @@ class UsersSeeder extends Seeder
     {
         $adminUser = \App\User::create([
             'name' => 'Administrator',
-            'email' => 'admin@madero.gob.mx',
+            'email' => 'admin@peopable.com',
             'password' => bcrypt('Password00'),
             'email_verified_at' => \Carbon\Carbon::now()
         ]);
 
         $employeeUser = \App\User::create([
             'name' => 'Employee',
-            'email' => 'employee@madero.gob.mx',
+            'email' => 'employee@peopable.com',
             'password' => bcrypt('Password00'),
             'email_verified_at' => \Carbon\Carbon::now()
         ]);
 
         $employerUser = \App\User::create([
             'name' => 'Employer',
-            'email' => 'employer@madero.gob.mx',
+            'email' => 'employer@peopable.com',
             'password' => bcrypt('Password00'),
             'email_verified_at' => \Carbon\Carbon::now()
         ]);

@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'bolsa@cuidadmadero.gob.mx'),
-        'name' => env('MAIL_FROM_NAME', 'Bolsa de Trabajo Cuidad Madero'),
+        'address' => env('MAIL_FROM_ADDRESS', 'bolsa@peopable.com'),
+        'name' => env('MAIL_FROM_NAME', "Bolsa de Trabajo en " . env('APP_NAME')),
     ],
 
     /*

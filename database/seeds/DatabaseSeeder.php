@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Empresa demo',
             'rotation' => 'demo',
             'phone' => '123456789',
-            'email' => 'demo@madero.gob.mx',
+            'email' => 'demo@peopable.com',
             'address' => 'Dirección demo',
             'parent' => true
         ]);
