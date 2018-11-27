@@ -100,6 +100,10 @@
                                             <div class="col-md-4 col-12">
                                                 <label for="doB"><h4>{{ __('CV') }}</h4></label>
                                                 {{Form::file('cv', ['class'=> 'form-control-file'])}}
+                                                @if ($errors->has('cv'))
+                                                    <span class="invalid-feedback"
+                                                          role="alert"><strong>{{ $errors->first('cv') }}</strong></span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -203,6 +207,10 @@
                                             <div class="col-md-4 col-12">
                                                 <label for="doB"><h4>{{ __('CV') }}</h4></label>
                                                 {{Form::file('cv', ['class'=> 'form-control-file'])}}
+                                                @if ($errors->has('cv'))
+                                                    <span class="invalid-feedback"
+                                                          role="alert"><strong>{{ $errors->first('cv') }}</strong></span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
