@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Notifications\newNotification;
 use App\User;
 use App\UserInfo;
+use Cloudinary\Uploader;
 use Illuminate\Http\Request;
 use DB;
+use JD\Cloudder\Facades\Cloudder;
 use Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -131,6 +133,10 @@ class HomeController extends Controller
         return view('companies.edit', ['user' => $user]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function createProfile(Request $request)
     {
         $user = User::where('id', $request->user()->id)->first();
@@ -159,15 +165,37 @@ class HomeController extends Controller
         $userInfo->salary = 0;
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('profilePictures', 's3');
-            $imageUrl = Storage::cloud()->url($image);
-            $userInfo->pictureUrl = $imageUrl;
+            $validator = Validator::make($request->all(), [
+                'image' => 'required|mimes:jpeg,bmp,jpg,png|between:1,5000'
+            ], [
+                'between' => 'The :attribute value :input is not between :min - :max.',
+                'mimes' => 'The :attribute must be one of the following types: :values',
+            ]);
+            if ($validator->fails()) {
+                return redirect('users/me')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $image = $request->file('image')->getRealPath();
+            Cloudder::upload($image, null);
+            $userInfo->pictureUrl = Cloudder::show(Cloudder::getPublicId());
         }
 
         if ($request->hasFile('cv')) {
-            $cv = $request->file('cv')->store('cvs', 's3');
-            $cvUrl = Storage::cloud()->url($cv);
-            $userInfo->cvUrl = $cvUrl;
+            $validator = Validator::make($request->all(), [
+                'cv' => 'required|mimes:pdf,docx,doc,ppt|between:1,2000'
+            ], [
+                'between' => 'The :attribute value :input is not between :min - :max.',
+                'mimes' => 'The :attribute must be one of the following types: :values',
+            ]);
+            if ($validator->fails()) {
+                return redirect('users/me')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $cv = $request->file('cv')->getRealPath();
+            Cloudder::upload($cv, $request->file('cv')->getFilename());
+            $userInfo->cvUrl = Cloudder::getResult()['url'];
         }
         $userInfo->fill($request->all());
         $user->save();
@@ -180,7 +208,7 @@ class HomeController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function updateUser(Request $request, $id)
     {
@@ -202,20 +230,36 @@ class HomeController extends Controller
                 ->withInput();
         }
         if ((isset($userInfo->pictureUrl) && $request->hasFile('image')) || $request->hasFile('image')) {
-            $picParts = explode("/", $userInfo->pictureUrl);
-            $pictureLink = end($picParts);
-            Storage::disk('s3')->delete('profilePictures/' . $pictureLink);
-            $image = $request->file('image')->store('profilePictures', 's3');
-            $imageUrl = Storage::cloud()->url($image);
-            $userInfo->pictureUrl = $imageUrl;
+            $validator = Validator::make($request->all(), [
+                'image' => 'required|mimes:jpeg,bmp,jpg,png|between:1,5000'
+            ], [
+                'between' => 'The :attribute value :input is not between :min - :max.',
+                'mimes' => 'The :attribute must be one of the following types: :values',
+            ]);
+            if ($validator->fails()) {
+                return redirect('users/me')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $image = $request->file('image')->getRealPath();
+            Cloudder::upload($image, null);
+            $userInfo->pictureUrl = Cloudder::show(Cloudder::getPublicId());
         }
         if ((isset($userInfo->cvUrl) && $request->hasFile('cv')) || $request->hasFile('cv')) {
-            $cvParts = explode("/", $userInfo->cvUrl);
-            $cvLink = end($cvParts);
-            Storage::disk('s3')->delete('cvs/' . $cvLink);
-            $cv = $request->file('cv')->store('cvs', 's3');
-            $cvUrl = Storage::cloud()->url($cv);
-            $userInfo->cvUrl = $cvUrl;
+            $validator = Validator::make($request->all(), [
+                'cv' => 'required|mimes:pdf,docx,doc,ppt|between:1,2000'
+            ], [
+                'between' => 'The :attribute value :input is not between :min - :max.',
+                'mimes' => 'The :attribute must be one of the following types: :values',
+            ]);
+            if ($validator->fails()) {
+                return redirect('users/me')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $cv = $request->file('cv')->getRealPath();
+            Cloudder::upload($cv, $request->file('cv')->getFilename());
+            $userInfo->cvUrl = Cloudder::getResult()['url'];
         }
 
         $userInfo->fill($request->all());

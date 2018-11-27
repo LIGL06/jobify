@@ -7,6 +7,7 @@ use App\Employer;
 use App\User;
 use App\Notifications\newNotification;
 use Illuminate\Support\Facades\Storage;
+use JD\Cloudder\Facades\Cloudder;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -89,15 +90,21 @@ class CompaniesController extends Controller
     {
         $company = Company::find($company->id);
         $company->approved = $request->approved ? $request->approved : false;
-        if (isset($company->bgPictureUrl) && $request->hasFile('image')) {
-            $picParts = explode("/", $company->bgPictureUrl);
-            $pictureLink = end($picParts);
-            Storage::disk('s3')->delete('profilePictures/' . $pictureLink);
-        }
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('profilePictures', 's3');
-            $imageUrl = Storage::cloud()->url($image);
-            $company->bgPictureUrl = $imageUrl;
+        if ((isset($company->bgPictureUrl) && $request->hasFile('image')) || ($request->hasFile('image'))) {
+            $validator = Validator::make($request->all(), [
+                'image' => 'required|mimes:jpeg,bmp,jpg,png|between:1,5000'
+            ], [
+                'between' => 'The :attribute value :input is not between :min - :max.',
+                'mimes' => 'The :attribute must be one of the following types: :values',
+            ]);
+            if ($validator->fails()) {
+                return redirect('users/me')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $image = $request->file('image')->getRealPath();
+            Cloudder::upload($image, null);
+            $company->bgPictureUrl = Cloudder::show(Cloudder::getPublicId());
         }
         $company->fill($request->all());
         $company->save();
