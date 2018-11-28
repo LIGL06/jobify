@@ -20,9 +20,10 @@
           href="{{env('APP_ICON_URL')}}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_editor.min.css" rel="stylesheet"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/spinkit/1.2.5/spinkit.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.9.1/css/froala_editor.min.css" rel="stylesheet"
           type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_style.min.css" rel="stylesheet"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.9.1/css/froala_style.min.css" rel="stylesheet"
           type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
@@ -30,7 +31,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<div id="app">
+<div id="app" v-cloak>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{env('APP_LOGO_URL')}}"
@@ -104,6 +105,13 @@
             </ul>
         </div>
     </nav>
+
+    <div class="sk-folding-cube" v-if="loading === true ">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+    </div>
 
     <main>
         @yield('content')

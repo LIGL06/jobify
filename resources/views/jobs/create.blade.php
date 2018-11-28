@@ -16,7 +16,9 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Profesión</label>
                         <div class="col-sm-10">
-                            <input class="typeahead form-control" type="text" placeholder="Profesión a buscar (sin acentos)" name="subTitle" autocomplete="off" id="jobsAutocomplete">
+                            <input class="typeahead form-control" type="text"
+                                   placeholder="Profesión a buscar (sin acentos)" name="subTitle" autocomplete="off"
+                                   id="jobsAutocomplete">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -36,7 +38,8 @@
                             <select name="employerId" class="form-control">
                                 <option selected disabled>Elegir Empleador</option>
                                 @foreach($employers as $employer)
-                                    <option value="{{$employer->id}}">{{$employer->user->name}} - {{$employer->company->name}}</option>
+                                    <option value="{{$employer->id}}">{{$employer->user->name}}
+                                        - {{$employer->company->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -75,6 +78,13 @@
                             </div>
                         </div>
                     </fieldset>
+                    <div class="form-group row">
+                        <h5>Descripción de vacante a detalle:</h5>
+                        <div class="col-12">
+                                <textarea name="skills" cols="30"
+                                          rows="10" required>Este campo es obligatorio ser modificado</textarea>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-sm-2">Requerido/Urgente</div>
                         <div class="col-sm-10">

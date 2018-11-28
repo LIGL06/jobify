@@ -157,6 +157,14 @@
                                     </div>
                                 </fieldset>
                                 <div class="form-group row">
+                                    <h5>Descripción de vacante a detalle:</h5>
+                                    <div class="col-12">
+                                            <textarea name="skills" cols="30"
+                                                      rows="10"
+                                                      required>Este campo es obligatorio ser modificado</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <div class="col-sm-2">Urgente</div>
                                     <div class="col-sm-10">
                                         <div class="form-check">
@@ -169,7 +177,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="submit" class="btn btn-sm btn-primary">Crear
+                                        </button>
                                     </div>
                                 </div>
                             </div>

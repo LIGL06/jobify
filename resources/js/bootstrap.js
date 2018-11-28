@@ -53,7 +53,7 @@ window.Echo = new Echo({
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     encrypted: true,
-    authEndpoint: "broadcasting/auth",
+    authEndpoint: process.env.MIX_APP_URL + "broadcasting/auth",
     auth: {
         headers: {
             Authorization: 'Bearer ' + window.Laravel.csrfToken
