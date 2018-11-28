@@ -22,7 +22,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h1>Editar empleo</h1>
-                            <div>
+                            <div >
                                 {!! Form::model($job, ['route'=> ['jobs.update', $job->id], 'method' => 'put']) !!}
                                 {{Form::hidden('approved', true)}}
                                 <div class="form-group row">
@@ -96,7 +96,8 @@
                                                       rows="10" required>{!!$job->info->skills!!}</textarea>
                                         @else
                                             <textarea name="skills" cols="30"
-                                                      rows="10" required>Este campo es obligatorio ser modificado</textarea>
+                                                      rows="10"
+                                                      required>Este campo es obligatorio ser modificado</textarea>
                                         @endif
                                     </div>
                                 </div>
@@ -113,17 +114,58 @@
                                 </div>
                                 <div class="row align-content-between">
                                     <div class="col">
-                                        <button href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</button>
+                                        <a href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</a>
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="btn btn-sm btn-dark">Editar</button>
-                                        {!! Form::close() !!}
                                     </div>
-                                    <div class="col">
-                                        {!! Form::model($job, ['route'=> ['jobs.destroy', $job->id], 'method' => 'delete']) !!}
-                                        {!! Form::submit('Eliminar',['class' => 'btn btn-sm btn-danger float-right']) !!}
-                                        {!! Form::close() !!}
-                                    </div>
+                                    @if(Auth::user()->isEmployer())
+                                        <div class="modal fade" id="jobModal{{$job->id}}" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"
+                                                            id="exampleModalLabel">¿Eliminar {{mb_convert_case($job->title,MB_CASE_TITLE, "UTF-8")}}?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container">
+                                                            <p class="mb-0">Profesión
+                                                                deseada:
+                                                                <b>{{mb_convert_case($job->subTitle,MB_CASE_TITLE, "UTF-8")}}</b>
+                                                            </p>
+                                                            <p class="mb-0">Empresa:
+                                                                <b>{{mb_convert_case($job->company->name,MB_CASE_TITLE, "UTF-8")}}</b>
+                                                            </p>
+                                                            @if($job->info)
+                                                                <span class="mb-0">Descipción de vacante:</span>
+                                                                {!!$job->info->skills!!}
+                                                            @endif
+                                                        </div>
+                                                        <small class="float-right">Publicado:
+                                                            <b>{{ \Carbon\Carbon::parse($job->created_at)->format('M d')}}</b>
+                                                        </small>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-dark btn-sm"
+                                                                data-dismiss="modal">
+                                                            Cancelar
+                                                        </button>
+                                                        {!! Form::model($job, ['route'=> ['jobs.destroy', $job->id], 'method' => 'delete']) !!}
+                                                        {!! Form::submit('Eliminar',['class' => 'btn btn-sm btn-danger']) !!}
+                                                        {!! Form::close() !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                                data-target="#jobModal{{$job->id}}">Eliminar
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>

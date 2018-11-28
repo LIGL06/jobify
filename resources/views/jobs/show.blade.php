@@ -5,7 +5,7 @@
         <div class="row pb-5">
             <div class="col-lg-12">
                 <div class="card mt-4">
-                    <div class="card-header m-0" style="background:#680e1b;">
+                    <div class="card-header m-0 bg-primary">
                         <h1 class="text-white text-center mb-0">Título: {{$job->title}}</h1>
                         <h5 class="text-white text-center mb-0">Profesión: {{$job->subTitle}}
                             en {{$job->company->name}}</h5>

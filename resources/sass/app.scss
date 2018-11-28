@@ -1,6 +1,8 @@
 // Variables
 @import 'variables';
-
+[v-cloak]{
+  display: none;
+}
 html {
   min-height: 100%;
   position: relative;

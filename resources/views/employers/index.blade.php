@@ -19,7 +19,7 @@
         </div>
         <div class="container">
             <div class="row" style="padding-bottom:100px">
-                <div class="col-md-2 col-6 mx-auto">
+                <div class="col-lg-1 col-6 col-md-4 mx-auto">
                     <div class="card">
                         @if(Auth::user()->employer->company->bgPictureUrl)
                             <img class="img-fluid img-thumbnail" src={{Auth::user()->employer->company->bgPictureUrl}}>
@@ -28,7 +28,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-md-4 col-12 mb-3">
+                <div class="col-md-8 col-12 mb-3 col-lg-5">
                     <div class="card">
                         <div class="card-body">
                             <h5>Tus empleos</h5>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-3 col-lg-6">
                     <div class="card">
                         <div class="card-body">
                             <h5>Tus aplicantes</h5>
@@ -157,6 +157,14 @@
                                     </div>
                                 </fieldset>
                                 <div class="form-group row">
+                                    <h5>Descripción de vacante a detalle:</h5>
+                                    <div class="col-12">
+                                            <textarea name="skills" cols="30"
+                                                      rows="10"
+                                                      required>Este campo es obligatorio ser modificado</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <div class="col-sm-2">Urgente</div>
                                     <div class="col-sm-10">
                                         <div class="form-check">
@@ -169,7 +177,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="submit" class="btn btn-sm btn-primary">Crear
+                                        </button>
                                     </div>
                                 </div>
                             </div>
