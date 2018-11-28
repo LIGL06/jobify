@@ -19,7 +19,7 @@
         </div>
         <div class="container">
             <div class="row" style="padding-bottom:100px">
-                <div class="col-md-2 col-6 mx-auto">
+                <div class="col-lg-1 col-6 col-md-4 mx-auto">
                     <div class="card">
                         @if(Auth::user()->employer->company->bgPictureUrl)
                             <img class="img-fluid img-thumbnail" src={{Auth::user()->employer->company->bgPictureUrl}}>
@@ -28,7 +28,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-md-4 col-12 mb-3">
+                <div class="col-md-8 col-12 mb-3 col-lg-5">
                     <div class="card">
                         <div class="card-body">
                             <h5>Tus empleos</h5>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-3 col-lg-6">
                     <div class="card">
                         <div class="card-body">
                             <h5>Tus aplicantes</h5>

@@ -114,11 +114,10 @@
                                 </div>
                                 <div class="row align-content-between">
                                     <div class="col">
-                                        <button href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</button>
+                                        <a href="{{route('home')}}" class="btn btn-sm btn-dark">Cancelar</a>
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="btn btn-sm btn-dark">Editar</button>
-                                        {!! Form::close() !!}
                                     </div>
                                     @if(Auth::user()->isEmployer())
                                         <div class="modal fade" id="jobModal{{$job->id}}" tabindex="-1" role="dialog"

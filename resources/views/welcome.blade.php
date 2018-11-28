@@ -26,7 +26,7 @@
                              src="https://res.cloudinary.com/hur6st2mn/image/upload/c_scale,h_800/v1542906292/samples/people/kitchen-bar.jpg">
                         <div class="container" style="max-height:500px">
                             <div class="carousel-caption">
-                                <h3 class="text-danger">Crea oportunidades</h3>
+                                <h3 class="text-white">Crea oportunidades</h3>
                                 <p><a class="btn btn-lg btn-primary"
                                       href={{url('employees')}} role="button">Aspirantes</a></p>
                             </div>

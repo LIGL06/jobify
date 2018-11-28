@@ -87,7 +87,8 @@ class JobsController extends Controller
      */
     public function show(Job $job)
     {
-        return redirect()->route('home');
+        $employees = Employee::where('jobId', $job->id)->get();
+        return view('jobs.show', ['employees' => $employees, 'job' => $job]);
     }
 
     /**
@@ -119,7 +120,7 @@ class JobsController extends Controller
 
     /**
      * @param Job $job
-     * @return Job
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy(Job $job)
@@ -129,7 +130,6 @@ class JobsController extends Controller
             \Notification::send($employee->user, new newNotification("El empleo '$job->title' se ha dado de baja, gracias por aplicar.", $employee->user, env('APP_URL') . '/employer'));
         }
         $job->delete();
-        return $job;
-
+        return redirect('home');
     }
 }

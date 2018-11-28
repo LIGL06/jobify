@@ -96,10 +96,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                    <div class="row align-content-between">
+                        <div class="col">
+                            <a href="{{route('home')}}" class="btn btn-dark">Cancelar</a>
                         </div>
+                        @if(Auth::user()->isEmployer() || Auth::user()->isAdmin())
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        @endif
                     </div>
                 </div>
             </div>
