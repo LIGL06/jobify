@@ -32,6 +32,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
 Route::middleware(['admin'])->group(function () {
     Route::get('admin', 'HomeController@adminDashboard')->name('admin');
+    Route::get('admin/export', 'HomeController@export');
 });
 
 

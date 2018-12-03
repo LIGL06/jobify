@@ -64,6 +64,7 @@
                                 </div>
                             </div>
                         </div>
+                        <a href="{{url('/admin/export')}}" class="btn btn-sm btn-danger">Descargar Reporte</a>
                     </div>
                     <!--/row-->
                     <hr>

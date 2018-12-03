@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AllExport;
 use App\Notifications\newNotification;
 use App\User;
 use App\UserInfo;
@@ -9,6 +10,7 @@ use Cloudinary\Uploader;
 use Illuminate\Http\Request;
 use DB;
 use JD\Cloudder\Facades\Cloudder;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -270,4 +272,11 @@ class HomeController extends Controller
         \Notification::send($user, new newNotification("Actualizaste tus datos.", $user, env('APP_URL') . '/users/me'));
         return redirect('home')->with('status', "¡Actualizaste tu perfil!");
     }
+     /**
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+     public function export()
+     {
+         return Excel::download(new AllExport(), "employers" . \Carbon\Carbon::now()->toDateString() . ".xlsx");
+     }
 }
